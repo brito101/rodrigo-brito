@@ -77,7 +77,8 @@ Good journey!
                 <div class="j_menu_mobile_tab">
                     <button class="j_menu_mobile_close icon-times icon-notext" title="Fechar Menu"></button>
                     <ul>
-                        <li><a class="link active" href="https://www.rodrigobrito.dev.br">Home</a></li>
+                        <li><a class="link {{ Route::current()->getName() == 'site.home' ? 'active' : '' }}"
+                                href="https://www.rodrigobrito.dev.br">Home</a></li>
                         <li data-dropdown><a class="link "
                                 href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
                             <ul class='dropdown-menu'>
@@ -99,14 +100,17 @@ Good journey!
                                 <li><a href='https://www.rodrigobrito.dev.br/blog/em/laravel'>Laravel</a></li>
                             </ul>
                         </li>
-                        <li><a class="link " href="https://www.rodrigobrito.dev.br/sobre">Sobre mim</a></li>
+                        <li><a class="link {{ Route::current()->getName() == 'site.about' ? 'active' : '' }}"
+                                href="{{ route('site.about') }}">Sobre mim</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
 
-    @yield('content')
+    <main class="main_content">
+        @yield('content')
+    </main>
 
     <footer class="main_footer">
         <div class="main_footer_container">
@@ -122,7 +126,7 @@ Good journey!
                     <a title="Home" href="{{ route('site.home') }}">Home</a>
                     <a title="Portfólio" href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
                     <a title="Blog" href="https://www.rodrigobrito.dev.br/blog">Blog</a>
-                    <a title="Sobre mim" href="https://www.rodrigobrito.dev.br/sobre">Sobre mim</a>
+                    <a title="Sobre mim" href="{{ route('site.about') }}">Sobre mim</a>
                 </article>
                 <article>
                     <h2>Contato:</h2>
@@ -159,7 +163,7 @@ Good journey!
 
     <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página"
         class="smoothscroll-top icon-chevron-circle-up icon-notext"></button>
-    <script src="https://www.rodrigobrito.dev.br/themes/web/assets/minify/scripts.js"></script>
+    <script src="{{ asset('js/site/script.js') }}"></script>
     @yield('custom_js')
 </body>
 

@@ -1,5 +1,5 @@
 const mix = require("laravel-mix");
-require('laravel-mix-purgecss');
+require("laravel-mix-purgecss");
 
 /*
  |--------------------------------------------------------------------------
@@ -22,6 +22,26 @@ mix.js("resources/js/app.js", "public/js")
     /** Site */
     .sass("resources/sass/site/style.scss", "public/css/site/style.css")
     .copy("resources/fonts", "public/site/fonts")
+    .scripts(
+        [
+            "resources/js/site/anime.js",
+            "resources/js/site/button-top.js",
+            "resources/js/site/cookie.js",
+            "resources/js/site/fade.js",
+            "resources/js/site/mobile.js",
+            "resources/js/site/pwa.js",
+        ],
+        "public/js/site/script.js"
+    )
+    .scripts(
+        [
+            "resources/js/site/home/goto.js",
+            "resources/js/site/home/snow.js",
+            "resources/js/site/home/typewrite.js",
+        ],
+        "public/js/site/home.js"
+    )
+    .scripts(["resources/js/site/about/slide.js"], "public/js/site/about.js")
     .options({
         processCssUrls: false,
     })

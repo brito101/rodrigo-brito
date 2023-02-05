@@ -17,5 +17,8 @@
     "/site/fonts/rodrigobrito.svg": "/site/fonts/rodrigobrito.svg",
     "/site/fonts/rodrigobrito.ttf": "/site/fonts/rodrigobrito.ttf",
     "/site/fonts/rodrigobrito.woff": "/site/fonts/rodrigobrito.woff",
-    "/site/fonts/styles.css": "/site/fonts/styles.css"
+    "/site/fonts/styles.css": "/site/fonts/styles.css",
+    "/js/site/script.js": "/js/site/script.js",
+    "/js/site/home.js": "/js/site/home.js",
+    "/js/site/about.js": "/js/site/about.js"
 }

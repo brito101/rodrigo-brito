@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Site\AboutController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\TermsController;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,7 @@ Route::name('site.')->group(function () {
     /** Home */
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/termos', [TermsController::class, 'index'])->name('terms');
+    Route::get('/sobre', [AboutController::class, 'index'])->name('about');
 });
 
 Auth::routes([
