@@ -1,0 +1,302 @@
+/*ABOUT PAGE*/
+.about_page {
+    .about_page_content {
+        @include container;
+    }
+
+    .about_header {
+        text-align: center;
+        width: 800px;
+        max-width: 100%;
+        margin: 0 auto 40px auto;
+        color: $color-default;
+
+        h2 {
+            font-size: $font-max;
+            font-weight: $weight-light;
+        }
+    }
+
+    .about_page_steps {
+        @include flex-wrap;
+        justify-content: center;
+        margin-top: -10px;
+
+        article {
+            flex-basis: calc(33.33% - 20px);
+            margin: 10px;
+            text-align: center;
+            padding: 30px;
+            color: $color-default;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid $color-theme-opposit;
+            @include border-radius($radius-normal);
+            @include transition($hover-duration);
+            cursor: move;
+            @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
+
+            @media (max-width: 1000px) {
+                flex-basis: calc(50% - 20px);
+            }
+
+            @media (max-width: 700px) {
+                flex-basis: calc(100%);
+                margin-right: 0;
+                margin-left: 0;
+            }
+
+            &:hover {
+                color: $color-font-theme;
+                background: $color-theme-hover-opposit;
+                border-bottom: 2px solid $color-theme;
+                animation: shake 0.25s linear;
+                animation-iteration-count: 2;
+            }
+
+            @keyframes shake {
+                0%,
+                50%,
+                100% {
+                    @include rotate(0deg);
+                }
+                25% {
+                    @include rotate(5deg);
+                }
+                75% {
+                    @include rotate(-5deg);
+                }
+            }
+
+            .icon {
+                display: inline-block;
+                padding: 15px 20px;
+                background: $color-theme;
+                font-size: $font-max;
+                color: $color-font-theme;
+                @include border-radius($radius-medium);
+                background-size: 200%;
+                @include icon-notext;
+            }
+
+            h2 {
+                margin: 20px 0 0 0;
+                font-size: $font-medium;
+                font-weight: $weight-normal;
+            }
+
+            p {
+                line-height: 1.4;
+                margin-top: 15px;
+            }
+        }
+    }
+
+    .page-about {
+        padding-top: 1rem;
+        max-width: 80%;
+        margin: 0 auto;
+        font-size: 1rem;
+        line-height: 2rem;
+    }
+
+    /*Courses List*/
+    .courses_header {
+        text-align: center;
+        margin-bottom: 60px;
+        color: $color-default;
+        position: relative;
+
+        h2 {
+            font-size: $font-max;
+            font-weight: $weight-normal;
+            color: $color-default;
+            text-transform: uppercase;
+            font-weight: $weight-strong;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100px;
+            left: calc(50% - 115px);
+            height: 4px;
+            width: 230px;
+            background: $color-theme;
+            @include border-radius($radius-medium);
+        }
+    }
+
+    .about_page_courses {
+        display: block;
+        width: 600px;
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0 0 60px 0;
+        padding-left: 1.3em;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 38.75rem;
+            top: 80px;
+            width: 50%;
+            height: 100%;
+            background: url("#{$imgPath}/bengal-tiger.svg") top right no-repeat;
+            background-size: contain;
+
+            @media (max-width: 1198px) {
+                display: none;
+            }
+        }
+    }
+
+    .about-courses-list {
+        counter-reset: li;
+        list-style: none;
+        padding: 0;
+
+        div {
+            position: relative;
+            display: block;
+            padding: 0.4em 2em 0.4em 2em;
+            margin: 0.5em 0;
+            color: $color-font-theme;
+            text-decoration: none;
+            @include flex-wrap;
+            justify-content: space-between;
+            align-content: center;
+
+            &:before {
+                content: counter(li);
+                counter-increment: li;
+                position: absolute;
+                left: -1.3rem;
+                top: 52%;
+                margin-top: -1.3rem;
+                background: $color-theme-hover-opposit;
+                height: 2rem;
+                width: 2rem;
+                line-height: 2rem;
+                border: 0.3em solid $color-theme-support;
+                text-align: center;
+                font-weight: bold;
+                @include border-radius(50%);
+                transition: all 0.3s ease-out;
+            }
+
+            &:hover:before {
+                @include rotate(360deg);
+            }
+        }
+
+        li {
+            margin-bottom: 20px;
+            cursor: move;
+            @include border-radius($radius-normal);
+            @include transition($hover-duration);
+            @include gradient;
+            @include gradient-theme;
+            @include gradient-hover;
+            @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
+
+            h3 {
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+            }
+        }
+    }
+
+    /* Certificates */
+    .certificates_header {
+        text-align: center;
+        margin-bottom: 60px;
+        color: $color-default;
+        position: relative;
+
+        h2 {
+            font-size: $font-max;
+            font-weight: $weight-normal;
+            color: $color-default;
+            text-transform: uppercase;
+            font-weight: $weight-strong;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100px;
+            left: calc(50% - 140px);
+            height: 4px;
+            width: 280px;
+            background: $color-theme;
+            @include border-radius($radius-medium);
+        }
+    }
+
+    .slide-wrapper {
+        overflow: hidden;
+
+        .slide {
+            display: flex;
+
+            &:hover {
+                will-change: transform;
+            }
+
+            li {
+                flex-shrink: 0;
+                width: 80vw;
+                max-width: 800px;
+                margin: 0 20px;
+                overflow: hidden;
+                opacity: 0.8;
+                @include transform(scale(0.8));
+                @include transition($hover-duration);
+                cursor: move;
+                @include border-radius($radius-medium);
+
+                img {
+                    width: 80vw;
+                    max-width: 800px;
+                    height: auto;
+                    @include border-radius($radius-medium);
+                    border: 1px solid $color-theme-opposit;
+                    border-bottom: 3px solid $color-theme-opposit;
+                    @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
+                }
+
+                &.active {
+                    opacity: 1;
+                    @include transform(scale(1));
+                }
+            }
+        }
+    }
+
+    .arrow-nav {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+
+        button {
+            cursor: pointer;
+            border: none;
+            @include border-radius(50%);
+            color: $color-font-theme;
+            width: 40px;
+            height: 40px;
+            @include gradient;
+            @include gradient-theme;
+            @include gradient-hover;
+            @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
+        }
+    }
+}

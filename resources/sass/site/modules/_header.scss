@@ -1,0 +1,160 @@
+/* MAIN HEADER */
+.main_header {
+    padding: 15px 0;
+    @include gradient-theme;
+
+    & > div {
+        @include container;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .main_header_logo {
+            a {
+                text-decoration: none;
+                display: flex;
+                margin: -10px auto;
+
+                h1 {
+                    font-weight: $weight-bold;
+                    color: $color-font-theme;
+                    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+                    align-self: center;
+
+                    @media (max-width: 360px) {
+                        font-size: $font-medium;
+                    }
+                }
+
+                img {
+                    @media (max-width: 432px) {
+                        width: 60px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        z-index: $index-modal;
+
+        @media (max-width: 992px) {
+            text-align: center;
+        }
+
+        .j_menu_mobile_open,
+        .j_menu_mobile_close {
+            display: none;
+        }
+
+        .j_menu_mobile_open,
+        .j_menu_mobile_close {
+            @media (max-width: 992px) {
+                display: block;
+                cursor: pointer;
+                @include transition($hover-duration);
+            }
+        }
+
+        .j_menu_mobile_open {
+            @media (max-width: 992px) {
+                font-size: $font-medium;
+                padding: 4px 8px;
+                color: $color-font-theme;
+                background: rgba(0, 0, 0, 0.3);
+                @include border-radius($radius-normal);
+
+                &:hover {
+                    background: rgba(0, 0, 0, 0.6);
+                }
+            }
+        }
+
+        .j_menu_mobile_close {
+            @media (max-width: 992px) {
+                padding: 10px;
+                color: $color-theme-opposit;
+                font-size: $font-max;
+                margin: 0 auto;
+
+                &:hover {
+                    color: $color-theme-hover-opposit;
+                }
+            }
+        }
+
+        div {
+            display: block !important;
+
+            &.j_menu_mobile_tab {
+                @media (max-width: 992px) {
+                    display: none;
+                    position: fixed;
+                    z-index: $index-menu;
+                    left: 100%;
+                    top: 0;
+                    background: $color-font-theme;
+                    width: 300px;
+                    height: 100%;
+                    max-width: 80%;
+                    padding: 20px;
+                    border-left: 1px solid $color-theme-support;
+                }
+            }
+
+            ul {
+                display: flex;
+                justify-content: space-between;
+
+                @media (max-width: 992px) {
+                    display: block;
+                }
+
+                li {
+                    @include transition($hover-duration);
+                }
+
+                .link {
+                    display: inline-block;
+                    padding: 6px 12px;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    color: $color-font-theme;
+                    font-weight: $weight-bold;
+                    font-size: $font-small;
+                    margin: 0 0.15rem;
+                    @include border-radius($radius-normal);
+
+                    @media (max-width: 992px) {
+                        background: none;
+                        display: block;
+                        color: $color-default;
+                        padding: 10px;
+                        @include transition(0s);
+                    }
+
+                    &.active {
+                        @include box-shadow(0 6px 1px -3px $color-theme-support);
+                        @media (max-width: 992px) {
+                            @include box-shadow(none);
+                        }
+                    }
+
+                    &:hover {
+                        background: rgba(0, 0, 0, 0.5);
+                        color: $color-theme;
+
+                        @media (max-width: 992px) {
+                            color: $color-font-theme;
+                            @include gradient-theme;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

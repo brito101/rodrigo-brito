@@ -1,0 +1,53 @@
+/** Colors */
+$color-default: #555;
+$color-dark: #18001f;
+$color-theme: #d4af37;
+$color-theme-hover: #876d16;
+$color-theme-opposit: #cb22d4;
+$color-theme-hover-opposit: #821c87;
+$color-theme-support: #4cd4b8;
+$color-font-theme: #f0f0f0;
+$background-theme-color: #f8f8ff;
+$text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+
+$color-green: #36ba9b;
+$color-blue: #39aed9;
+$color-yellow: #f5b946;
+$color-red: #d94352;
+
+$hover-color-green: #61ddbc;
+$hover-color-blue: #66d4f1;
+$hover-color-yellow: #fcd277;
+$hover-color-red: #f76c82;
+
+/** Fonts */
+//size
+$font-extra: 3rem;
+$font-max: 2rem;
+$font-large: 1.4rem;
+$font-medium: 1.2rem;
+$font-normal: 1rem;
+$font-small: 0.875rem;
+
+//weight
+$weight-black: 900;
+$weight-bold: 700;
+$weight-strong: 600;
+$weight-normal: 400;
+$weight-light: 300;
+
+/** Radius */
+$radius-large: 1.25rem;
+$radius-medium: 0.625rem;
+$radius-normal: 0.3125rem;
+
+/** Z-Index */
+$index-max: 999;
+$index-modal: 4;
+$index-menu: 3;
+$index-fold: 2;
+$index-patern: 1;
+$index-back: -1;
+
+/** Transitions */
+$hover-duration: 0.3s;

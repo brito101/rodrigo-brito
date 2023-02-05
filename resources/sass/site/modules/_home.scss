@@ -1,0 +1,199 @@
+/*home featured*/
+.home_featured {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6);
+    color: $color-font-theme;
+    position: relative;
+
+    &:after {
+        content: "";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: $index-back;
+        background: url("#{$imgPath}/theme.webp") top center no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    @media (max-width: 512px) {
+        &:after {
+            content: "";
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: $index-back;
+            background: url("#{$imgPath}/theme-mobile.webp") top center no-repeat;
+            background-size: cover;
+            background-attachment: local;
+        }
+    }
+
+    .home_featured_content {
+        @include container;
+        padding: 80px 0 0 0;
+
+        .snow {
+            top: 0;
+            left: 0;
+            position: absolute;
+            max-width: 100%;
+            max-height: 100%;
+            overflow-x: hidden;
+
+            &:first-of-type {
+                z-index: $index-patern;
+            }
+
+            &:last-of-type {
+                z-index: $index-fold;
+                @include transform(rotate(180deg));
+            }
+        }
+
+        header {
+            width: 760px;
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+
+            h2 {
+                font-size: $font-extra;
+                font-weight: $weight-bold;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+
+                @media (max-width: 366px) {
+                    font-size: $font-max;
+                }
+            }
+
+            p {
+                margin: 30px 0 40px 0;
+                font-weight: $weight-normal;
+                font-size: $font-medium;
+
+                &.headline {
+                    font-size: $font-small;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                }
+
+                button {
+                    font-size: $font-normal;
+                    margin-bottom: 10px;
+                    cursor: pointer;
+                    display: inline-block;
+                    padding: 20px 30px;
+                    color: $color-font-theme;
+                    z-index: $index-menu;
+                    position: relative;
+                    text-transform: uppercase;
+                    font-weight: $weight-black;
+                    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+                    @include gradient;
+                    @include gradient-theme;
+                    @include gradient-hover;
+                    @include transition($hover-duration);
+                    @include border-radius($radius-normal);
+                    @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
+
+                    &:hover {
+                        background-color: $color-theme-opposit !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .home_featured_app {
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        z-index: $index-fold;
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            background: $background-theme-color;
+            z-index: $index-back;
+        }
+
+        img {
+            max-width: 90%;
+            height: auto;
+            border: 20px solid rgba(0, 0, 0, 0);
+            @include box-shadow(0 0 0 5px $color-theme);
+            @include border-radius(50%);
+        }
+    }
+}
+
+.home_optin {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: -120px;
+        width: 50%;
+        height: 27.5%;
+        background: url("#{$imgPath}/jumping-tiger.svg") center center no-repeat;
+        background-size: contain;
+        z-index: $index-fold;
+
+        @media (max-width: 992px) {
+            width: 30%;
+            top: -200px;
+        }
+
+        @media (max-width: 512px) {
+            display: none;
+        }
+    }
+
+    &::before {
+        left: 20px;
+    }
+
+    &::after {
+        right: 20px;
+        @include transform(scaleX(-1));
+    }
+
+    .optin_link {
+        text-align: center;
+        padding-bottom: 60px;
+        margin-top: -60px;
+
+        a {
+            text-decoration: none;
+            font-size: $font-small;
+            cursor: pointer;
+            display: inline-block;
+            padding: 20px;
+            color: $color-font-theme;
+            z-index: $index-menu;
+            position: relative;
+            text-transform: uppercase;
+            font-weight: $weight-black;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            @include gradient;
+            @include gradient-theme;
+            @include gradient-hover;
+            @include transition($hover-duration);
+            @include border-radius($radius-normal);
+            max-width: 80%;
+            @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
+        }
+    }
+}
