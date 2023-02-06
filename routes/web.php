@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\AboutController;
 use App\Http\Controllers\Site\HomeController;
@@ -29,17 +30,17 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Users */
         Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
-        Route::get('/users/destroy/{id}', [UserController::class, 'destroy']);
         Route::resource('users', UserController::class);
+
+        /** Certificates */
+        Route::resource('certificates', CertificateController::class);
 
         /**
          * ACL
          * */
         /** Permissions */
-        Route::get('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
         Route::resource('permission', PermissionController::class);
         /** Roles */
-        Route::get('/role/destroy/{id}', [RoleController::class, 'destroy']);
         Route::get('role/{role}/permission', [RoleController::class, 'permissions'])->name('role.permissions');
         Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSync'])->name('role.permissionsSync');
         Route::resource('role', RoleController::class);

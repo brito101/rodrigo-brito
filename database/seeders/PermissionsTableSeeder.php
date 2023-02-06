@@ -105,6 +105,32 @@ class PermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'created_at' => new DateTime('now')
             ],
+            /** Users 18 to 22 */
+            [
+                'name' => 'Acessar Certificados',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Listar Certificados',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Criar Certificados',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Editar Certificados',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Excluir Certificados',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
 use Illuminate\Http\Request;
 use Meta;
 
@@ -23,6 +24,8 @@ class AboutController extends Controller
         # Canonical URL
         Meta::set('canonical', route('site.about'));
 
-        return \view('site.about.index');
+        $certificates = Certificate::select('title', 'cover', 'status')->where('status', 'post')->orderBy('title')->get();
+
+        return \view('site.about.index', \compact('certificates'));
     }
 }
