@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use DataTables;
+use Illuminate\Support\Facades\File;
 
 class CertificateController extends Controller
 {
@@ -135,7 +136,14 @@ class CertificateController extends Controller
      */
     public function edit($id)
     {
-        //
+        CheckPermission::checkAuth('Editar Certificados');
+
+        $certificate = Certificate::find($id);
+        if (!$certificate) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        return view('admin.certificates.edit', compact('certificate'));
     }
 
     /**
@@ -145,9 +153,67 @@ class CertificateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CertificateRequest $request, $id)
     {
-        //
+        CheckPermission::checkAuth('Editar Certificados');
+
+        $certificate = Certificate::find($id);
+
+        if (!$certificate) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $data = $request->all();
+
+        if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
+            $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
+            $imagePathCache = storage_path() . '/app/public/certificates/cache/' . $certificate->cover;
+
+            if (File::isFile($imagePath)) {
+                unlink($imagePath);
+            }
+
+            if (File::isFile($imagePathCache)) {
+                unlink($imagePathCache);
+            }
+
+            $extension = $request->cover->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $data['cover'] = $nameFile;
+
+            $destinationPath = storage_path() . '/app/public/certificates';
+            $destinationPathCache = storage_path() . '/app/public/certificates/cache';
+
+            $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+
+            $imgCache = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(200, 141)->save($destinationPathCache  . '/' .  $nameFile);
+
+            if (!$img && !$imgCache) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('error', 'Falha ao fazer o upload da imagem');
+            }
+        }
+
+        if ($certificate->update($data)) {
+            return redirect()
+                ->route('admin.certificates.index')
+                ->with('success', 'Atualização realizada!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao cadastrar!');
+        }
     }
 
     /**
@@ -158,6 +224,36 @@ class CertificateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CheckPermission::checkAuth('Excluir Certificados');
+
+        $certificate = Certificate::find($id);
+
+        if (!$certificate) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
+        $imagePathCache = storage_path() . '/app/public/certificates/cache/' . $certificate->cover;
+
+        if ($certificate->delete()) {
+            if (File::isFile($imagePath)) {
+                unlink($imagePath);
+            }
+
+            if (File::isFile($imagePathCache)) {
+                unlink($imagePathCache);
+            }
+
+            $certificate->cover = null;
+            $certificate->update();
+
+            return redirect()
+                ->route('admin.certificates.index')
+                ->with('success', 'Exclusão realizada!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Erro ao excluir!');
+        }
     }
 }

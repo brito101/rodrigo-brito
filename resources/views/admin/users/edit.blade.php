@@ -73,7 +73,7 @@
                                                 placeholder="Selecione uma imagem..." legend="Selecionar" />
                                         </div>
 
-                                        @if ($user->photo != null)
+                                        @if ($user->photo)
                                             <div
                                                 class='col-12 col-md-3 align-self-center mt-3 d-flex justify-content-center justify-content-md-end px-0'>
                                                 <img src="{{ url('storage/users/' . $user->photo) }}"
