@@ -89,7 +89,7 @@ class CertificateController extends Controller
                 $constraint->upsize();
             })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
 
-            $imgCache = Image::make($request->cover)->resize(null, 187, function ($constraint) {
+            $imgCache = Image::make($request->cover)->resize(null, 141, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })->crop(200, 141)->save($destinationPathCache  . '/' .  $nameFile);
