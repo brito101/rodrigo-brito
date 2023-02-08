@@ -40,15 +40,16 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 10], 'Título', 'Status', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
+                            $heads = [['label' => 'ID', 'width' => 10], ['label' => 'Imagem', 'no-export' => true], 'Título', 'Status', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
                             $config = [
                                 'ajax' => url('/admin/certificates'),
-                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'title', 'name' => 'title'], ['data' => 'status', 'name' => 'status'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
+                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'cover', 'name' => 'cover', 'searchable' => false], ['data' => 'title', 'name' => 'title'], ['data' => 'status', 'name' => 'status'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,
                                 'processing' => true,
                                 'serverSide' => true,
                                 'responsive' => true,
+                                'lengthMenu' => [[10, 50, 100, 500, 1000, -1], [10, 50, 100, 500, 1000, 'Tudo']],
                                 'dom' => '<"d-flex flex-wrap col-12 justify-content-between"Bf>rtip',
                                 'buttons' => [
                                     ['extend' => 'pageLength', 'className' => 'btn-default'],

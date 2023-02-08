@@ -31,7 +31,10 @@ class CertificateController extends Controller
                     $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="certificates/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="certificates/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste certificado?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('cover', function ($row) {
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/' . $row->cover) .  ' class="img-thumbnail d-block" width="291" height="206" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                })
+                ->rawColumns(['action', 'cover'])
                 ->make(true);
         }
 
