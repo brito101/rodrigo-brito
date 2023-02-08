@@ -34,7 +34,7 @@ class CertificateController extends Controller
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/cache/' . $row->cover) .  ' class="img-thumbnail d-block" width="333" height="187" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/cache/' . $row->cover) .  ' class="img-thumbnail d-block" width="200" height="141" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -87,12 +87,12 @@ class CertificateController extends Controller
             $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(800, 565)->encode('webp')->save($destinationPath . '/' . $nameFile);
+            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
 
             $imgCache = Image::make($request->cover)->resize(null, 187, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(333, 187)->encode('webp')->save($destinationPathCache  . '/' .  $nameFile);
+            })->crop(200, 141)->save($destinationPathCache  . '/' .  $nameFile);
 
             if (!$img && !$imgCache) {
                 return redirect()
