@@ -10,7 +10,7 @@ class Certificate extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'cover', 'uri', 'status'];
+    protected $fillable = ['title', 'cover', 'status'];
 
     /** Accessors */
     public function getStatusAttribute($value)

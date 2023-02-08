@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CertificateRequest;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Image;
 use DataTables;
 
@@ -32,7 +34,7 @@ class CertificateController extends Controller
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/' . $row->cover) .  ' class="img-thumbnail d-block" width="291" height="206" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/cache/' . $row->cover) .  ' class="img-thumbnail d-block" width="333" height="187" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -48,7 +50,8 @@ class CertificateController extends Controller
      */
     public function create()
     {
-        //
+        CheckPermission::checkAuth('Criar Certificados');
+        return view('admin.certificates.create');
     }
 
     /**
@@ -57,9 +60,60 @@ class CertificateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CertificateRequest $request)
     {
-        //
+        CheckPermission::checkAuth('Criar Certificados');
+
+        $data = $request->all();
+
+        if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
+            $extension = $request->cover->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $data['cover'] = $nameFile;
+
+            $destinationPath = storage_path() . '/app/public/certificates';
+            $destinationPathCache = storage_path() . '/app/public/certificates/cache';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 755, true);
+            }
+
+            if (!file_exists($destinationPathCache)) {
+                mkdir($destinationPathCache, 755, true);
+            }
+
+            $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+
+            $imgCache =  Image::make($request->cover)->resize(null, 187, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(333, 187)->save($destinationPathCache  . '/' .  $nameFile);
+
+            if (!$img && !$imgCache) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('error', 'Falha ao fazer o upload da imagem');
+            }
+        }
+
+        $certificate = Certificate::create($data);
+
+        if ($certificate->save()) {
+            return redirect()
+                ->route('admin.certificates.index')
+                ->with('success', 'Cadastro realizado!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao cadastrar!');
+        }
     }
 
     /**

@@ -276,7 +276,7 @@ return [
                     'can'  => 'Listar Certificados',
                 ],
                 [
-                    'text' => 'Cadastro de Certificados',
+                    'text' => 'Cadastro de Certificado',
                     'url'  => 'admin/certificates/create',
                     'icon' => 'fas fa-fw fa-chevron-right',
                     'can'  => 'Criar Certificados',

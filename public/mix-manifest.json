@@ -20,5 +20,6 @@
     "/site/fonts/styles.css": "/site/fonts/styles.css",
     "/js/site/script.js": "/js/site/script.js",
     "/js/site/home.js": "/js/site/home.js",
-    "/js/site/about.js": "/js/site/about.js"
+    "/js/site/about.js": "/js/site/about.js",
+    "/js/site/google-tag-manager.js": "/js/site/google-tag-manager.js"
 }

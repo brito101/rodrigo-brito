@@ -134,13 +134,12 @@ class UserController extends Controller
      */
     public function edit($id = null)
     {
-        CheckPermission::checkManyAuth(['sdasdas Glu', 'asdasdsad Gle']);
-        // if ($id) {
-        //     CheckPermission::checkAuth('Editar Usuários');
-        // } else {
-        //     CheckPermission::checkAuth('Editar Usuário');
-        //     $id = Auth::user()->id;
-        // }
+        if ($id) {
+            CheckPermission::checkAuth('Editar Usuários');
+        } else {
+            CheckPermission::checkAuth('Editar Usuário');
+            $id = Auth::user()->id;
+        }
 
         $user = User::find($id);
         if (!$user) {
@@ -169,11 +168,14 @@ class UserController extends Controller
 
         $data = $request->all();
 
-        if (!Auth::user()->hasPermissionTo('Editar Usuários') && Auth::user()->hasPermissionTo('Editar Usuário')) {
-            $user = User::where('id', Auth::user()->id)->first();
+        if ($id) {
+            CheckPermission::checkAuth('Editar Usuários');
         } else {
-            $user = User::find($id);
+            CheckPermission::checkAuth('Editar Usuário');
+            $id = Auth::user()->id;
         }
+
+        $user = User::find($id);
 
         if (!$user) {
             abort(403, 'Acesso não autorizado');
@@ -204,11 +206,11 @@ class UserController extends Controller
                 mkdir($destinationPath, 755, true);
             }
 
-            $img = Image::make($request->photo);
-            $img->resize(null, 100, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->crop(100, 100)->save($destinationPath . '/' . $nameFile);
+            $img = Image::make($request->photo)
+                ->resize(null, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->crop(100, 100)->save($destinationPath . '/' . $nameFile);
 
             if (!$img)
                 return redirect()
