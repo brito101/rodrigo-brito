@@ -87,12 +87,12 @@ class CertificateController extends Controller
             $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+            })->crop(800, 565)->encode('webp')->save($destinationPath . '/' . $nameFile);
 
-            $imgCache =  Image::make($request->cover)->resize(null, 187, function ($constraint) {
+            $imgCache = Image::make($request->cover)->resize(null, 187, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(333, 187)->save($destinationPathCache  . '/' .  $nameFile);
+            })->crop(333, 187)->encode('webp')->save($destinationPathCache  . '/' .  $nameFile);
 
             if (!$img && !$imgCache) {
                 return redirect()
