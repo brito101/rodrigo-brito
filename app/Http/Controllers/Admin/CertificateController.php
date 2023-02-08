@@ -35,7 +35,7 @@ class CertificateController extends Controller
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/cache/' . $row->cover) .  ' class="img-thumbnail d-block" width="200" height="141" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="200" height="141" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -75,14 +75,19 @@ class CertificateController extends Controller
             $data['cover'] = $nameFile;
 
             $destinationPath = storage_path() . '/app/public/certificates';
-            $destinationPathCache = storage_path() . '/app/public/certificates/cache';
+            $destinationPathMedium = storage_path() . '/app/public/certificates/medium';
+            $destinationPathMin = storage_path() . '/app/public/certificates/min';
 
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
-            if (!file_exists($destinationPathCache)) {
-                mkdir($destinationPathCache, 755, true);
+            if (!file_exists($destinationPathMedium)) {
+                mkdir($destinationPathMedium, 755, true);
+            }
+
+            if (!file_exists($destinationPathMin)) {
+                mkdir($destinationPathMin, 755, true);
             }
 
             $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
@@ -90,12 +95,17 @@ class CertificateController extends Controller
                 $constraint->upsize();
             })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
 
-            $imgCache = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+            $imgMedium = Image::make($request->cover)->resize(null, 282, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(200, 141)->save($destinationPathCache  . '/' .  $nameFile);
+            })->crop(400, 282)->save($destinationPathMin  . '/' .  $nameFile);
 
-            if (!$img && !$imgCache) {
+            $imgMin = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(200, 141)->save($destinationPathMin  . '/' .  $nameFile);
+
+            if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -168,14 +178,19 @@ class CertificateController extends Controller
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
             $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
-            $imagePathCache = storage_path() . '/app/public/certificates/cache/' . $certificate->cover;
+            $imagePathMedium = storage_path() . '/app/public/certificates/medium/' . $certificate->cover;
+            $imagePathMin = storage_path() . '/app/public/certificates/min/' . $certificate->cover;
 
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
             }
 
-            if (File::isFile($imagePathCache)) {
-                unlink($imagePathCache);
+            if (File::isFile($imagePathMedium)) {
+                unlink($imagePathMedium);
+            }
+
+            if (File::isFile($imagePathMin)) {
+                unlink($imagePathMin);
             }
 
             $extension = $request->cover->extension();
@@ -184,19 +199,37 @@ class CertificateController extends Controller
             $data['cover'] = $nameFile;
 
             $destinationPath = storage_path() . '/app/public/certificates';
-            $destinationPathCache = storage_path() . '/app/public/certificates/cache';
+            $destinationPathMedium = storage_path() . '/app/public/certificates/medium';
+            $destinationPathMin = storage_path() . '/app/public/certificates/min';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 755, true);
+            }
+
+            if (!file_exists($destinationPathMedium)) {
+                mkdir($destinationPathMedium, 755, true);
+            }
+
+            if (!file_exists($destinationPathMin)) {
+                mkdir($destinationPathMin, 755, true);
+            }
 
             $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
 
-            $imgCache = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+            $imgMedium = Image::make($request->cover)->resize(null, 282, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(200, 141)->save($destinationPathCache  . '/' .  $nameFile);
+            })->crop(400, 282)->save($destinationPathMedium  . '/' .  $nameFile);
 
-            if (!$img && !$imgCache) {
+            $imgMin = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->crop(200, 141)->save($destinationPathMin  . '/' .  $nameFile);
+
+            if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -233,15 +266,20 @@ class CertificateController extends Controller
         }
 
         $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
-        $imagePathCache = storage_path() . '/app/public/certificates/cache/' . $certificate->cover;
+        $imagePathMedium = storage_path() . '/app/public/certificates/medium/' . $certificate->cover;
+        $imagePathMin = storage_path() . '/app/public/certificates/min/' . $certificate->cover;
 
         if ($certificate->delete()) {
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
             }
 
-            if (File::isFile($imagePathCache)) {
-                unlink($imagePathCache);
+            if (File::isFile($imagePathMedium)) {
+                unlink($imagePathMedium);
+            }
+
+            if (File::isFile($imagePathMin)) {
+                unlink($imagePathMin);
             }
 
             $certificate->cover = null;

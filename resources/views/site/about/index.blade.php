@@ -66,8 +66,17 @@
         <div class="slide-wrapper">
             <ul class="slide">
                 @foreach ($certificates as $certificate)
-                    <li><img src="{{ url('storage/' . $certificate->cover) }}" alt="{{ $certificate->title }}"
-                            title="{{ $certificate->title }}" width="800" height="564" class="lazyload" />
+                    <li>
+                        <picture>
+                            <source media="(max-width: 512px)"
+                                srcset="{{ url('storage/certificates/min/' . $certificate->cover) }}" />
+                            <source media="(max-width: 762px)"
+                                srcset="{{ url('storage/certificates/medium/' . $certificate->cover) }}" />
+                            <source media="(min-width: 763px)"
+                                srcset="{{ url('storage/certificates/' . $certificate->cover) }}" />
+                            <img src="{{ url('storage/certificates/' . $certificate->cover) }} "title="{{ $certificate->title }}"
+                                width="800" height="564" class="lazyload" />
+                        </picture>
                     </li>
                 @endforeach
             </ul>
