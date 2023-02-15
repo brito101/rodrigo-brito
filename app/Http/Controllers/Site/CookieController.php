@@ -14,11 +14,9 @@ class CookieController extends Controller
 
         Cookie::set('cookieConsent', $cookie, (12 * 43200));  // 1 year
 
-        $body = '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBGXKNM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>';
-        $head = '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-KBGXKNM");</script>';
         if ($cookie == 'accept') {
-            $json['gtmHead'] = $head;
-            $json['gtmBody'] = $body;
+            $json['gtmHead'] = view('site._partials.gtm-head')->render();
+            $json['gtmBody'] = view('site._partials.gtm-body')->render();
         }
 
         $json['cookie'] = true;

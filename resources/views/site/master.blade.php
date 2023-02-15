@@ -10,7 +10,9 @@ Good journey!
 <html lang="pt-br" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
-
+    @if ($cookieConsent == 'accept')
+        @include('site._partials.gtm-head')
+    @endif
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     @metas
@@ -37,7 +39,9 @@ Good journey!
 </head>
 
 <body>
-
+    @if ($cookieConsent == 'accept')
+        @include('site._partials.gtm-body')
+    @endif
     <header class="main_header">
         <div>
             <div class="main_header_logo">
