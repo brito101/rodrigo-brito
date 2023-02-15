@@ -35,7 +35,7 @@ class CertificateController extends Controller
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="200" height="141" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="287" height="215" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -98,12 +98,12 @@ class CertificateController extends Controller
             $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(418, 410)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(574, 410)->save($destinationPathMedium  . '/' .  $nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(209, 205)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(287, 205)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
@@ -222,12 +222,12 @@ class CertificateController extends Controller
             $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(418, 410)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(574, 410)->save($destinationPathMedium  . '/' .  $nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(209, 205)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(287, 205)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
