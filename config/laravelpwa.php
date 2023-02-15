@@ -1,16 +1,16 @@
 <?php
 
 return [
-    'name' => 'LaravelPWA',
+    'name' => 'Rodrigo Brito',
     'manifest' => [
-        'name' => env('APP_NAME', 'My PWA App'),
-        'short_name' => 'PWA',
+        'name' => env('APP_NAME', 'Rodrigo Brito App'),
+        'short_name' => 'RB',
         'start_url' => '/',
-        'background_color' => '#ffffff',
-        'theme_color' => '#000000',
+        'background_color' => '#cb22d4',
+        'theme_color' => '#d4af37',
         'display' => 'standalone',
-        'orientation'=> 'any',
-        'status_bar'=> 'black',
+        'orientation' => 'any',
+        'status_bar' => 'black',
         'icons' => [
             '72x72' => [
                 'path' => '/images/icons/icon-72x72.png',

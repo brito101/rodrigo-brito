@@ -5,7 +5,7 @@ if (img) {
   });
 }
 
-const link = document.querySelectorAll(".htmlchars a");
+const link = document.querySelectorAll(".htmlChars a");
 if (link) {
   link.forEach((i) => {
     i.setAttribute("rel", "noreferrer");

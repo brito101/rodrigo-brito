@@ -77,12 +77,12 @@
         .j_menu_mobile_close {
             @media (max-width: 992px) {
                 padding: 10px;
-                color: $color-theme-opposit;
+                color: $color-theme-opposite;
                 font-size: $font-max;
                 margin: 0 auto;
 
                 &:hover {
-                    color: $color-theme-hover-opposit;
+                    color: $color-theme-hover-opposite;
                 }
             }
         }

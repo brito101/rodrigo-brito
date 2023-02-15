@@ -29,7 +29,6 @@ mix.js("resources/js/app.js", "public/js")
             "resources/js/site/cookie.js",
             "resources/js/site/fade.js",
             "resources/js/site/mobile.js",
-            "resources/js/site/pwa.js",
         ],
         "public/js/site/script.js"
     )

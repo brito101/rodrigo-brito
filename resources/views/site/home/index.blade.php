@@ -152,7 +152,7 @@
             </div>
         </section>
 
-        <article class="optin_link fadeInScrool">
+        <article class="opt_in_link fadeInScrool">
             <h4 class="hide">Conheça todo o portfólio</h4>
             <a href="https://www.rodrigobrito.dev.br/portfolio">Conheça todo o portfólio</a>
         </article>

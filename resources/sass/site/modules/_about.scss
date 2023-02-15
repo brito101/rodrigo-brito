@@ -29,7 +29,7 @@
             padding: 30px;
             color: $color-default;
             background-color: rgba(0, 0, 0, 0.1);
-            border-bottom: 2px solid $color-theme-opposit;
+            border-bottom: 2px solid $color-theme-opposite;
             @include border-radius($radius-normal);
             @include transition($hover-duration);
             cursor: move;
@@ -47,7 +47,7 @@
 
             &:hover {
                 color: $color-font-theme;
-                background: $color-theme-hover-opposit;
+                background: $color-theme-hover-opposite;
                 border-bottom: 2px solid $color-theme;
                 animation: shake 0.25s linear;
                 animation-iteration-count: 2;
@@ -75,7 +75,7 @@
                 color: $color-font-theme;
                 @include border-radius($radius-medium);
                 background-size: 200%;
-                @include icon-notext;
+                @include icon-no-text;
             }
 
             h2 {
@@ -178,7 +178,7 @@
                 left: -1.3rem;
                 top: 52%;
                 margin-top: -1.3rem;
-                background: $color-theme-hover-opposit;
+                background: $color-theme-hover-opposite;
                 height: 2rem;
                 width: 2rem;
                 line-height: 2rem;
@@ -268,8 +268,8 @@
                     max-width: 800px;
                     height: auto;
                     @include border-radius($radius-medium);
-                    border: 1px solid $color-theme-opposit;
-                    border-bottom: 3px solid $color-theme-opposit;
+                    border: 1px solid $color-theme-opposite;
+                    border-bottom: 3px solid $color-theme-opposite;
                     @include box-shadow(0 10px 6px -6px rgba(0, 0, 0, 0.5));
                 }
 

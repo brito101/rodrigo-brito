@@ -8,7 +8,7 @@
         </header>
 
         <div class="terms_page_content">
-            <div class="htmlchars">
+            <div class="htmlChars">
                 <p>Estes termos de serviço regulam o uso deste site. Ao acessá-lo você concorda com estes termos.</p>
                 <p><strong>Restrições ao uso</strong></p>
                 <p>Você só poderá usar este site propósitos permitidos por mim. Você não poderá usá-lo em qualquer outro

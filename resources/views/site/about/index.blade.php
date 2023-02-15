@@ -17,7 +17,7 @@
             <div class="about_page_steps fadeIUp" data-anime="1200">
                 <article>
                     <header>
-                        <span class="icon icon-graduation-cap icon-notext"></span>
+                        <span class="icon icon-graduation-cap icon-no-text"></span>
                         <h2>Formação Acadêmica</h2>
                         <p>Bacharelado em Sistemas de Informação com especialização em Engenharia de Software e em Segurança
                             da Informação.</p>
@@ -25,7 +25,7 @@
                 </article>
                 <article>
                     <header>
-                        <span class="icon icon-leanpub icon-notext"></span>
+                        <span class="icon icon-leanpub icon-no-text"></span>
                         <h2>Estudo Contínuo</h2>
                         <p>FullStack PHP, Web Design, com conhecimentos em HTML5, CSS3, JavaScript, Tipografia, jQuery,
                             Bootstrap,
@@ -35,7 +35,7 @@
                 </article>
                 <article>
                     <header>
-                        <span class=" icon icon-cogs icon-notext"></span>
+                        <span class=" icon icon-cogs icon-no-text"></span>
                         <h2>Padronização de Processos</h2>
                         <p>Desenvolvimento alinhado com os padrões de projeto para gerar produtos com organização,
                             qualidade,
@@ -82,8 +82,8 @@
             </ul>
         </div>
         <div class="arrow-nav">
-            <button class="prev icon-chevron-left icon-notext" title="Anterior"></button>
-            <button class="next icon-chevron-right icon-notext" title="Próximo"></button>
+            <button class="prev icon-chevron-left icon-no-text" title="Anterior"></button>
+            <button class="next icon-chevron-right icon-no-text" title="Próximo"></button>
         </div>
     </section>
 @endsection

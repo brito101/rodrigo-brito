@@ -1,4 +1,4 @@
-const button = document.querySelector(".smoothscroll-top");
+const button = document.querySelector(".smoothScroll-top");
 if (button) {
     document.addEventListener("scroll", () => {
         if (window.pageYOffset > 100) {

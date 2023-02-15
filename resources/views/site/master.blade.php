@@ -31,14 +31,8 @@ Good journey!
 
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/site/style.css') }}" />
-    <!--ANDROID-->
-    <link rel="manifest" href="{{ asset('manifest.json') }}" />
-    <meta name="theme-color" content="#821C87" />
-    <!--IOS-->
-    <meta name="apple-mobile-web-app-capable" content="true" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-512x512.png') }}" />
-    <link rel="apple-touch-startup-image" href="{{ asset('images/icons/icon-512x512.png') }}" />
+
+    @laravelPWA
 </head>
 
 <body>
@@ -56,9 +50,9 @@ Good journey!
             </div>
             <nav>
                 <h2 class="hide">Barra de Navegação</h2>
-                <button class="j_menu_mobile_open icon-bars icon-notext" title="Abrir Menu"></button>
+                <button class="j_menu_mobile_open icon-bars icon-no-text" title="Abrir Menu"></button>
                 <div class="j_menu_mobile_tab">
-                    <button class="j_menu_mobile_close icon-times icon-notext" title="Fechar Menu"></button>
+                    <button class="j_menu_mobile_close icon-times icon-no-text" title="Fechar Menu"></button>
                     <ul>
                         <li><a class="link {{ Route::current()->getName() == 'site.home' ? 'active' : '' }}"
                                 href="https://www.rodrigobrito.dev.br">Home</a></li>
@@ -145,7 +139,7 @@ Good journey!
     </footer>
 
     <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página"
-        class="smoothscroll-top icon-chevron-circle-up icon-notext"></button>
+        class="smoothScroll-top icon-chevron-circle-up icon-no-text"></button>
 
     <script src="{{ asset('js/site/script.js') }}"></script>
     @yield('custom_js')
