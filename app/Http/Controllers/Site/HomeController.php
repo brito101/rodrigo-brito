@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Helpers\Cookie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Meta;
@@ -23,6 +24,8 @@ class HomeController extends Controller
         # Canonical URL
         Meta::set('canonical', route('site.home'));
 
-        return \view('site.home.index');
+        $cookieConsent = Cookie::get('cookieConsent');
+
+        return \view('site.home.index', \compact('cookieConsent'));
     }
 }

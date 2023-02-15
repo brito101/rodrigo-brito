@@ -10,9 +10,7 @@ Good journey!
 <html lang="pt-br" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
-    <!-- Google Tag Manager -->
-    <script src="{{ asset('js/site/google-tag-manager.js') }}"></script>
-    <!-- End Google Tag Manager -->
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     @metas
@@ -32,15 +30,14 @@ Good journey!
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/site/style.css') }}" />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @laravelPWA
     @yield('title')
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBGXKNM" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+
     <header class="main_header">
         <div>
             <div class="main_header_logo">
@@ -138,6 +135,25 @@ Good journey!
             </section>
         </div>
     </footer>
+
+    @if (!$cookieConsent)
+        <div id="cookieConsent">
+            <p>Este website utiliza cookies próprios e de terceiros a fim de personalizar o conteúdo, melhorar a
+                experiência
+                do usuário, fornecer funções de mídias sociais e analisar o tráfego. Para continuar navegando você deve
+                concordar com nossa
+                <a href="{{ route('site.terms') }}">Política de Privacidade</a>
+            </p>
+            <a data-action="{{ route('site.cookie.consent') }}" data-cookie="accept" href="#"
+                class="footer_opt_out_btn icon-thumbs-up">
+                Sim, eu aceito.
+            </a>
+            <a data-action="{{ route('site.cookie.consent') }}" data-cookie="decline" href="#"
+                class="footer_opt_out_btn icon-thumbs-down">
+                Não, eu não aceito.
+            </a>
+        </div>
+    @endif
 
     <button aria-label="Voltar ao topo da página" title="Voltar ao topo da página"
         class="smoothScroll-top icon-chevron-circle-up icon-no-text"></button>

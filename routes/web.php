@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\AboutController;
+use App\Http\Controllers\Site\CookieController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\TermsController;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,9 @@ Route::name('site.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/termos', [TermsController::class, 'index'])->name('terms');
     Route::get('/sobre', [AboutController::class, 'index'])->name('about');
+
+    /** Cookie */
+    Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
 });
 
 Auth::routes([

@@ -18,6 +18,11 @@ if (cookieButton) {
         el.addEventListener("click", (e) => {
             e.preventDefault();
             fetch(el.dataset.action, {
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector(
+                        "meta[name=csrf-token]"
+                    ).content,
+                },
                 method: "POST",
                 body: new URLSearchParams({
                     cookie: el.dataset.cookie,
