@@ -33,6 +33,7 @@ Good journey!
     <link rel="stylesheet" href="{{ asset('css/site/style.css') }}" />
 
     @laravelPWA
+    @yield('title')
 </head>
 
 <body>
