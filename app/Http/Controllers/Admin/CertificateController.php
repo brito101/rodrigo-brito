@@ -95,15 +95,15 @@ class CertificateController extends Controller
                 $constraint->upsize();
             })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
 
-            $imgMedium = Image::make($request->cover)->resize(null, 282, function ($constraint) {
+            $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(400, 282)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(418, 410)->save($destinationPathMedium  . '/' .  $nameFile);
 
-            $imgMin = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+            $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(200, 141)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(209, 205)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
@@ -219,15 +219,15 @@ class CertificateController extends Controller
                 $constraint->upsize();
             })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
 
-            $imgMedium = Image::make($request->cover)->resize(null, 282, function ($constraint) {
+            $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(400, 282)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(418, 410)->save($destinationPathMedium  . '/' .  $nameFile);
 
-            $imgMin = Image::make($request->cover)->resize(null, 141, function ($constraint) {
+            $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(200, 141)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(209, 205)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
