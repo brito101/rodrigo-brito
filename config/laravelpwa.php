@@ -3,9 +3,9 @@
 return [
     'name' => 'Rodrigo Brito',
     'manifest' => [
-        'name' => env('APP_NAME', 'Rodrigo Brito App'),
-        'short_name' => 'RB',
-        'start_url' => '/',
+        'name' => env('APP_NAME', 'My PWA App'),
+        'short_name' => env('APP_SHORT_NAME'),
+        "start_url" => "/?utm_source=homescreen",
         'background_color' => '#cb22d4',
         'theme_color' => '#d4af37',
         'display' => 'standalone',
@@ -14,35 +14,35 @@ return [
         'icons' => [
             '72x72' => [
                 'path' => '/images/icons/icon-72x72.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '96x96' => [
                 'path' => '/images/icons/icon-96x96.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '128x128' => [
                 'path' => '/images/icons/icon-128x128.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '144x144' => [
                 'path' => '/images/icons/icon-144x144.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '152x152' => [
                 'path' => '/images/icons/icon-152x152.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '192x192' => [
                 'path' => '/images/icons/icon-192x192.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '384x384' => [
                 'path' => '/images/icons/icon-384x384.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '512x512' => [
                 'path' => '/images/icons/icon-512x512.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
         ],
         'splash' => [
@@ -64,7 +64,7 @@ return [
                 'url' => '/shortcutlink1',
                 'icons' => [
                     "src" => "/images/icons/icon-72x72.png",
-                    "purpose" => "any"
+                    'purpose' => 'any maskable'
                 ]
             ],
             [
@@ -73,6 +73,9 @@ return [
                 'url' => '/shortcutlink2'
             ]
         ],
-        'custom' => []
+        'custom' => [
+            'lang' => 'pt-BR',
+            "Scope" => "/",
+        ]
     ]
 ];
