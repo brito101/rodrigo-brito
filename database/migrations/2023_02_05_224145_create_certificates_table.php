@@ -17,7 +17,6 @@ class CreateCertificatesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('cover');
-            $table->string('uri');
             $table->string('status')->default('post');
             $table->timestamps();
             $table->softDeletes();
