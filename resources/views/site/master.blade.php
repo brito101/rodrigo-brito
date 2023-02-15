@@ -55,7 +55,7 @@ Good journey!
                     <button class="j_menu_mobile_close icon-times icon-no-text" title="Fechar Menu"></button>
                     <ul>
                         <li><a class="link {{ Route::current()->getName() == 'site.home' ? 'active' : '' }}"
-                                href="https://www.rodrigobrito.dev.br">Home</a></li>
+                                href="{{ route('site.home') }}">Home</a></li>
                         <li data-dropdown><a class="link "
                                 href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
                             <ul class='dropdown-menu'>
