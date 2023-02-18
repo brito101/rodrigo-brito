@@ -15,9 +15,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        @can('Listar Usuários')
-                            <li class="breadcrumb-item"><a href="{{ route('admin.certificates.index') }}">Certificados</a></li>
-                        @endcan
+                        <li class="breadcrumb-item"><a href="{{ route('admin.certificates.index') }}">Certificados</a></li>
                         <li class="breadcrumb-item active">Editar Certificado</li>
                     </ol>
                 </div>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Helpers\Cookie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Meta;
@@ -24,8 +23,6 @@ class TermsController extends Controller
         # Canonical URL
         Meta::set('canonical', route('site.terms'));
 
-        $cookieConsent = Cookie::get('cookieConsent');
-
-        return \view('site.terms.index', \compact('cookieConsent'));
+        return \view('site.terms.index');
     }
 }

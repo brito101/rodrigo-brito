@@ -73,10 +73,9 @@ Good journey!
                         </li>
                         <li data-dropdown><a class="link " href="https://www.rodrigobrito.dev.br/blog">Blog</a>
                             <ul class='dropdown-menu'>
-                                <li><a href='https://www.rodrigobrito.dev.br/blog/em/cyber-war'>Cyber War</a></li>
-                                <li><a href='https://www.rodrigobrito.dev.br/blog/em/javascript'>JavaScript</a></li>
-                                <li><a href='https://www.rodrigobrito.dev.br/blog/em/js-tricks'>JS Tricks</a></li>
-                                <li><a href='https://www.rodrigobrito.dev.br/blog/em/laravel'>Laravel</a></li>
+                                @foreach ($siteBlogCategories as $category)
+                                    <li><a href="#">{{ $category->title }}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <li><a class="link {{ Route::current()->getName() == 'site.about' ? 'active' : '' }}"

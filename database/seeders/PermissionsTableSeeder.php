@@ -105,7 +105,7 @@ class PermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'created_at' => new DateTime('now')
             ],
-            /** Users 18 to 22 */
+            /** Certificates 18 to 22 */
             [
                 'name' => 'Acessar Certificados',
                 'guard_name' => 'web',
@@ -128,6 +128,52 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'name' => 'Excluir Certificados',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            /** Blog 23 to 31 */
+            [
+                'name' => 'Acessar Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Listar Categorias do Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Criar Categorias do Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Editar Categorias do Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Excluir Categorias do Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Listar Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Criar Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Editar Blog',
+                'guard_name' => 'web',
+                'created_at' => new DateTime('now')
+            ],
+            [
+                'name' => 'Excluir Blog',
                 'guard_name' => 'web',
                 'created_at' => new DateTime('now')
             ],

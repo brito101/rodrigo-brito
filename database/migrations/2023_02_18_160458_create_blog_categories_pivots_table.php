@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCertificatesTable extends Migration
+class CreateBlogCategoriesPivotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('certificates', function (Blueprint $table) {
+        Schema::create('blog_categories_pivots', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('cover')->nullable();
-            $table->string('status')->default('post');
+            $table->foreignId('blog_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('blog_category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificates');
+        Schema::dropIfExists('blog_categories_pivots');
     }
 }

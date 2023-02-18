@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Helpers\Cookie;
 use App\Http\Controllers\Controller;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
@@ -27,8 +26,6 @@ class AboutController extends Controller
 
         $certificates = Certificate::select('title', 'cover', 'status')->where('status', 'post')->orderBy('title')->get();
 
-        $cookieConsent = Cookie::get('cookieConsent');
-
-        return \view('site.about.index', \compact('certificates', 'cookieConsent'));
+        return \view('site.about.index', \compact('certificates'));
     }
 }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\AboutController;
@@ -35,6 +37,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Certificates */
         Route::resource('certificates', CertificateController::class);
+
+        /** Blog */
+        Route::resource('blog', BlogController::class);
+        Route::resource('blog-categories', BlogCategoryController::class);
 
         /**
          * ACL

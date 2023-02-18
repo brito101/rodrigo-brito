@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CertificateRequest extends FormRequest
+class BlogCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CertificateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:1|max:191',
-            'status' => 'required|in:post,draft,trash',
+            'title' => "required|max:191|unique:blog_categories,title,{$this->id},id,deleted_at,NULL",
+            'description' => 'required|max:191',
             'cover' => 'required_if:cover,null|image|mimes:jpg,png,jpeg,gif,svg,webp|max:4096|dimensions:max_width=4000,max_height=4000',
         ];
     }

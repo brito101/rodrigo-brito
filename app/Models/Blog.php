@@ -6,13 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Certificate extends Model
+class Blog extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['title', 'cover', 'status'];
+    protected $fillable = ['title', 'subtitle', 'cover', 'content', 'views', 'status', 'uri'];
+
+    /** Relationships */
+    public function categories()
+    {
+        return $this->hasMany(BlogCategoriesPivot::class);
+    }
 
     /** Accessors */
     public function getStatusAttribute($value)

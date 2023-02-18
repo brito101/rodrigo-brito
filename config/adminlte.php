@@ -244,26 +244,6 @@ return [
             'icon'        => 'fa fa-fw fa-digital-tachograph',
         ],
         [
-            'text'        => 'Usuários',
-            'url'         => '#',
-            'icon'        => 'fas fa-fw fa-users',
-            'can'         => 'Acessar Usuários',
-            'submenu' => [
-                [
-                    'text' => 'Listagem de Usuários',
-                    'url'  => 'admin/users',
-                    'icon' => 'fas fa-fw fa-chevron-right',
-                    'can'  => 'Listar Usuários',
-                ],
-                [
-                    'text' => 'Cadastro de Usuários',
-                    'url'  => 'admin/users/create',
-                    'icon' => 'fas fa-fw fa-chevron-right',
-                    'can'  => 'Criar Usuários',
-                ],
-            ],
-        ],
-        [
             'text'        => 'Certificados',
             'url'         => '#',
             'icon'        => 'fas fa-fw fa-graduation-cap',
@@ -280,6 +260,58 @@ return [
                     'url'  => 'admin/certificates/create',
                     'icon' => 'fas fa-fw fa-chevron-right',
                     'can'  => 'Criar Certificados',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Blog',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-blog',
+            'can'         => 'Acessar Blog',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Postagens',
+                    'url'  => 'admin/blog',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Blog',
+                ],
+                [
+                    'text' => 'Cadastro de Postagem',
+                    'url'  => 'admin/blog/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Blog',
+                ],
+                [
+                    'text' => 'Listagem de Categorias',
+                    'url'  => 'admin/blog-categories',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Categorias do Blog',
+                ],
+                [
+                    'text' => 'Cadastro de Categoria',
+                    'url'  => 'admin/blog-categories/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Categorias do Blog',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Usuários',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-users',
+            'can'         => 'Acessar Usuários',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Usuários',
+                    'url'  => 'admin/users',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Usuários',
+                ],
+                [
+                    'text' => 'Cadastro de Usuários',
+                    'url'  => 'admin/users/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Usuários',
                 ],
             ],
         ],
@@ -504,6 +536,21 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
+                ],
+            ],
+        ],
+        'BootstrapSelect' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-select-1.13.14/dist/js/bootstrap-select.min.js',
                 ],
             ],
         ],
