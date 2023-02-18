@@ -72,11 +72,13 @@ Good journey!
                             </ul>
                         </li>
                         <li data-dropdown><a class="link " href="https://www.rodrigobrito.dev.br/blog">Blog</a>
-                            <ul class='dropdown-menu'>
-                                @foreach ($siteBlogCategories as $category)
-                                    <li><a href="#">{{ $category->title }}</a></li>
-                                @endforeach
-                            </ul>
+                            @if ($siteBlogCategories->count() > 0)
+                                <ul class='dropdown-menu'>
+                                    @foreach ($siteBlogCategories as $category)
+                                        <li><a href="#">{{ $category->title }}</a></li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </li>
                         <li><a class="link {{ Route::current()->getName() == 'site.about' ? 'active' : '' }}"
                                 href="{{ route('site.about') }}">Sobre mim</a></li>
