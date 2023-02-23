@@ -13,8 +13,8 @@ Good journey!
     @if ($cookieConsent == 'accept')
         @include('site._partials.gtm-head')
     @endif
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     @metas
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@RCBrito101" />
@@ -32,7 +32,7 @@ Good journey!
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/site/style.css') }}" />
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     @laravelPWA
     @yield('title')
