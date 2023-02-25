@@ -30,7 +30,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        Paginator::useBootstrap();
+        Paginator::defaultView('vendor.pagination.default');
+        Paginator::defaultSimpleView('vendor.pagination.default');
         View::share('siteBlogCategories', BlogCategory::orderBy('title')->get(['title', 'uri']));
         View::share('cookieConsent', Cookie::get('cookieConsent'));
     }

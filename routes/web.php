@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\AboutController;
+use App\Http\Controllers\Site\BlogController as SiteBlogController;
 use App\Http\Controllers\Site\CookieController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\TermsController;
@@ -58,8 +59,16 @@ Route::group(['middleware' => ['auth']], function () {
 Route::name('site.')->group(function () {
     /** Home */
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    /** Terms */
     Route::get('/termos', [TermsController::class, 'index'])->name('terms');
+    /** About */
     Route::get('/sobre', [AboutController::class, 'index'])->name('about');
+    /** Blog */
+    Route::post('/blog-search', [SiteBlogController::class, 'search'])->name('blog.search');
+    Route::get('/blog/buscar/{search}', [SiteBlogController::class, 'searchPage'])->name('blog.search.page');
+    Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
+
+
 
     /** Cookie */
     Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');

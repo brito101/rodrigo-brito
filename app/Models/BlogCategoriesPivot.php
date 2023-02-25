@@ -13,4 +13,10 @@ class BlogCategoriesPivot extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['blog_id', 'blog_category_id'];
+
+    /** Relationship */
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'blog_category_id');
+    }
 }

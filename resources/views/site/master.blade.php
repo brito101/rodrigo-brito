@@ -71,7 +71,9 @@ Good journey!
                                 <li><a href='https://www.rodrigobrito.dev.br/portfolio/em/sistemas'>Sistemas</a></li>
                             </ul>
                         </li>
-                        <li data-dropdown><a class="link " href="https://www.rodrigobrito.dev.br/blog">Blog</a>
+                        <li data-dropdown><a
+                                class="link {{ Route::current()->getName() == 'site.blog' ? 'active' : '' }}"
+                                href="{{ route('site.blog') }}">Blog</a>
                             @if ($siteBlogCategories->count() > 0)
                                 <ul class='dropdown-menu'>
                                     @foreach ($siteBlogCategories as $category)
@@ -105,7 +107,7 @@ Good journey!
                     <h2>Mais:</h2>
                     <a title="Home" href="{{ route('site.home') }}">Home</a>
                     <a title="Portfólio" href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
-                    <a title="Blog" href="https://www.rodrigobrito.dev.br/blog">Blog</a>
+                    <a title="Blog" href="{{ route('site.blog') }}">Blog</a>
                     <a title="Sobre mim" href="{{ route('site.about') }}">Sobre mim</a>
                 </article>
                 <article>
