@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\BlogCategoriesPivot;
 use Illuminate\Http\Request;
 use Meta;
 
@@ -77,5 +78,42 @@ class BlogController extends Controller
         })->orderBy('created_at', 'desc')->paginate(6);
 
         return \view('site.blog.index', \compact('title', 'search', 'posts'));
+    }
+
+    public function post($uri)
+    {
+        $uri = filter_var($uri, FILTER_SANITIZE_STRIPPED);
+        $post = Blog::where('uri', $uri)->where('status', 'post')->first();
+        if ($post) {
+            $title = env('APP_SHORT_NAME') . ' - ' . $post->title;
+            $route = route('site.blog.post', ['uri' => $uri]);
+            $description = $post->subtitle;
+            /** Meta */
+            Meta::title($title);
+            Meta::set('description', $description);
+            Meta::set('og:type', 'article');
+            Meta::set('og:site_name', $title);
+            Meta::set('og:locale', app()->getLocale());
+            Meta::set('og:url', $route);
+            Meta::set('twitter:url', $route);
+            Meta::set('robots', 'index,follow');
+            Meta::set('image', asset('img/share.png'));
+            Meta::set('canonical', $route);
+
+            $postsId = [];
+            foreach ($post->categories as $category) {
+                $postsId[] .= $category->post->id;
+            }
+
+            $related = Blog::inRandomOrder()
+                ->whereIn('id', $postsId)
+                ->where('id', '!=', $post->id)
+                ->where('status', 'post')
+                ->limit(3)->get();
+
+            return \view('site.blog.post', \compact('title', 'post', 'related'));
+        } else {
+            return view('errors.404');
+        }
     }
 }

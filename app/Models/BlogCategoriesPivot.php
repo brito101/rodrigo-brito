@@ -19,4 +19,9 @@ class BlogCategoriesPivot extends Model
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id');
     }
+
+    public function post()
+    {
+        return $this->belongsTo(Blog::class, 'blog_id');
+    }
 }

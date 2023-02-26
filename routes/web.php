@@ -64,9 +64,12 @@ Route::name('site.')->group(function () {
     /** About */
     Route::get('/sobre', [AboutController::class, 'index'])->name('about');
     /** Blog */
+    Route::get('/blog/{uri}', [SiteBlogController::class, 'post'])->name('blog.post');
     Route::post('/blog-search', [SiteBlogController::class, 'search'])->name('blog.search');
     Route::get('/blog/buscar/{search}', [SiteBlogController::class, 'searchPage'])->name('blog.search.page');
     Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
+
+
 
 
 

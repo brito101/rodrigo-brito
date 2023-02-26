@@ -1,0 +1,1 @@
+const img=document.querySelectorAll("img");img&&img.forEach((t=>{t.classList.add("lazyload")}));const link=document.querySelectorAll(".htmlChars a");link&&link.forEach((t=>{t.setAttribute("rel","noreferrer"),t.setAttribute("title",t.textContent)}));
