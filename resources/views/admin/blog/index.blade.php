@@ -40,7 +40,7 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 10], ['label' => 'Imagem', 'no-export' => true], 'Título', 'Headline', 'Visualizações', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
+                            $heads = [['label' => 'ID', 'width' => 10], ['label' => 'Imagem', 'no-export' => true], 'Título', 'Headline', 'Visualizações', ['label' => 'Ações', 'no-export' => true, 'width' => 15]];
                             $config = [
                                 'ajax' => url('/admin/blog'),
                                 'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'cover', 'name' => 'cover', 'searchable' => false], ['data' => 'title', 'name' => 'title'], ['data' => 'subtitle', 'name' => 'subtitle'], ['data' => 'views', 'name' => 'views'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
