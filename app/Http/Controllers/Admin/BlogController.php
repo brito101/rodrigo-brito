@@ -97,10 +97,10 @@ class BlogController extends Controller
                 mkdir($destinationPathContent, 755, true);
             }
 
-            $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
+            $img = Image::make($request->cover)->resize(null, 489, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+            })->crop(860, 489)->save($destinationPath . '/' . $nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
@@ -267,10 +267,10 @@ class BlogController extends Controller
                 mkdir($destinationPathContent, 755, true);
             }
 
-            $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
+            $img = Image::make($request->cover)->resize(null, 489, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+            })->crop(860, 489)->save($destinationPath . '/' . $nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
