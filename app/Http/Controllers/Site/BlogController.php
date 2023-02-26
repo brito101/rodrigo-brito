@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategoriesPivot;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Meta;
 
 class BlogController extends Controller
@@ -103,6 +104,11 @@ class BlogController extends Controller
             $postsId = [];
             foreach ($post->categories as $category) {
                 $postsId[] .= $category->post->id;
+            }
+
+            if (!Auth::user()) {
+                $post->views++;
+                $post->update();
             }
 
             $related = Blog::inRandomOrder()
