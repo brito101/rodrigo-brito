@@ -4,8 +4,8 @@
             <source media="(max-width: 512px)" srcset="{{ url('storage/blog/min/' . $post->cover) }}" />
             <source media="(max-width: 762px)" srcset="{{ url('storage/blog/medium/' . $post->cover) }}" />
             <source media="(min-width: 763px)" srcset="{{ url('storage/blog/' . $post->cover) }}" />
-            <img src="{{ url('storage/blog/' . $post->cover) }}" title="{{ $post->title }}" width="360"
-                height="207" />
+            <img src="{{ url('storage/blog/' . $post->cover) }}" title="{{ $post->title }}" width="860"
+                height="487" />
         </picture>
     </a>
     <header>
