@@ -270,17 +270,17 @@ class BlogController extends Controller
             $img = Image::make($request->cover)->resize(null, 489, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(860, 489)->save($destinationPath . '/' . $nameFile);
+            })->crop(null, 489)->save($destinationPath . '/' . $nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(null, 385)->save($destinationPathMedium  . '/' .  $nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(null, 207)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
