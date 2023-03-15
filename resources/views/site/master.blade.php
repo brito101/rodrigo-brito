@@ -72,7 +72,7 @@ Good journey!
                             </ul>
                         </li>
                         <li data-dropdown><a
-                                class="link {{ Route::current()->getName() == 'site.blog' ? 'active' : '' }}"
+                                class="link {{ Route::current()->getName() == ('site.blog' || 'blog.post') ? 'active' : '' }}"
                                 href="{{ route('site.blog') }}">Blog</a>
                             @if ($siteBlogCategories->count() > 0)
                                 <ul class='dropdown-menu'>
