@@ -25,7 +25,8 @@
             right: 0;
             position: absolute;
             z-index: $index-back;
-            background: url("#{$imgPath}/theme-mobile.webp") top center no-repeat;
+            background: url("#{$imgPath}/theme-mobile.webp") top center
+                no-repeat;
             background-size: cover;
             background-attachment: local;
         }
@@ -93,7 +94,7 @@
                 }
 
                 &:hover:before {
-                    background-position: right center;
+                    background-position: right center !important;
                 }
             }
 
@@ -113,7 +114,7 @@
                 a {
                     display: inline-block;
                     margin-bottom: 20px;
-                    font-size: 34px;
+                    font-size: 36px;
                 }
 
                 &:last-child {
