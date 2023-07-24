@@ -3,8 +3,8 @@
 return [
     'name' => 'Rodrigo Brito',
     'manifest' => [
-        'name' => env('APP_NAME', 'My PWA App'),
-        'short_name' => env('APP_SHORT_NAME'),
+        'name' => 'Rodrigo Brito - Desenvolvedor Web',
+        'short_name' => 'Rodrigo Brito',
         "start_url" => "/?utm_source=homescreen",
         'background_color' => '#cb22d4',
         'theme_color' => '#d4af37',

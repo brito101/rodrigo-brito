@@ -18,7 +18,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $title = env('APP_SHORT_NAME') . ' - Blog';
+        $title = 'Rodrigo Brito - Blog';
         $route = route('site.blog');
         $description = 'Confira dicas e sacadas sobre desenvolvimento web.';
         /** Meta */
@@ -53,7 +53,7 @@ class BlogController extends Controller
 
     public function searchPage($search = null)
     {
-        $title = env('APP_SHORT_NAME') . ' - Blog';
+        $title = 'Rodrigo Brito - Blog';
         $route = route('site.blog');
         $description = 'Confira dicas e sacadas sobre desenvolvimento web.';
         /** Meta */
@@ -86,7 +86,7 @@ class BlogController extends Controller
         $uri = filter_var($uri, FILTER_SANITIZE_STRIPPED);
         $post = Blog::where('uri', $uri)->where('status', 'post')->first();
         if ($post) {
-            $title = env('APP_SHORT_NAME') . ' - ' . $post->title;
+            $title = 'Rodrigo Brito - ' . $post->title;
             $route = route('site.blog.post', ['uri' => $uri]);
             $description = $post->subtitle;
             /** Meta */

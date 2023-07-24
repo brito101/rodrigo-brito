@@ -1,7 +1,7 @@
 @extends('site.master')
 
 @section('title')
-    <title>{{ env('APP_SHORT_NAME') }} - 419 | Ooops! Página Expirada!</title>
+    <title>Rodrigo Brito - 419 | Ooops! Página Expirada!</title>
 @endsection
 
 @section('content')

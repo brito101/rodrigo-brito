@@ -1,7 +1,7 @@
 @extends('site.master')
 
 @section('title')
-    <title>{{ env('APP_SHORT_NAME') }} - 503 | Ooops! Estamos em manutenção!</title>
+    <title>Rodrigo Brito - 503 | Ooops! Estamos em manutenção!</title>
 @endsection
 
 @section('content')

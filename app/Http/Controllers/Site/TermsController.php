@@ -10,7 +10,7 @@ class TermsController extends Controller
 {
     public function index()
     {
-        $title = env('APP_SHORT_NAME') . ' - Termos de uso';
+        $title = 'Rodrigo Brito - Termos de uso';
         $route = route('site.terms');
         $description = 'Ao utilizar esse site você concorda com os termos aqui descritos.';
         /** Meta */

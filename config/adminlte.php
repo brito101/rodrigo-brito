@@ -47,7 +47,7 @@ return [
     |
     */
 
-    'logo' => env('APP_SHORT_NAME'),
+    'logo' => 'Rodrigo Brito',
     'logo_img' => 'img/logo.svg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,

@@ -1,7 +1,7 @@
 @extends('site.master')
 
 @section('title')
-    <title>{{ env('APP_SHORT_NAME') }} - 429 | Ooops! Excesso de requisições!</title>
+    <title>Rodrigo Brito - 429 | Ooops! Excesso de requisições!</title>
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('site.master')
 
 @section('title')
-    <title>{{ env('APP_SHORT_NAME') }} - 404 | Ooops! Conteúdo indisponível!</title>
+    <title>Rodrigo Brito - 404 | Ooops! Conteúdo indisponível!</title>
 @endsection
 
 @section('content')

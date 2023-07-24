@@ -1,7 +1,7 @@
 @extends('site.master')
 
 @section('title')
-    <title>{{ env('APP_SHORT_NAME') }} - 403 | Ooops! Acesso não autorizado!</title>
+    <title>Rodrigo Brito - 403 | Ooops! Acesso não autorizado!</title>
 @endsection
 
 @section('content')

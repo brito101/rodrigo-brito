@@ -11,7 +11,7 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $title = 'Saiba mais sobre o ' . env('APP_SHORT_NAME');
+        $title = 'Saiba mais sobre o Rodrigo Brito';
         $route = route('site.about');
         $description = env('APP_DESCRIPTION');
         /** Meta */
