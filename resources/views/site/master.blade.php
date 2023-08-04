@@ -7,14 +7,15 @@ Good journey!
 @author Rodrigo Brito <contato@rodrigobrito.dev.br>
 -->
 <!DOCTYPE html>
-<html lang="pt-br" itemscope itemtype="http://schema.org/WebPage">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
     @if ($cookieConsent == 'accept')
         @include('site._partials.gtm-head')
     @endif
-    <meta charset=”utf-8″>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     @metas
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@RCBrito101" />
