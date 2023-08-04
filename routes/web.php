@@ -1,17 +1,22 @@
 <?php
 
-use App\Http\Controllers\Admin\ACL\PermissionController;
-use App\Http\Controllers\Admin\ACL\RoleController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\BlogCategoryController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\CertificateController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Site\AboutController;
-use App\Http\Controllers\Site\BlogController as SiteBlogController;
-use App\Http\Controllers\Site\CookieController;
-use App\Http\Controllers\Site\HomeController;
-use App\Http\Controllers\Site\TermsController;
+use App\Http\Controllers\Admin\{
+    AdminController,
+    UserController,
+    ACL\PermissionController,
+    ACL\RoleController,
+    BlogCategoryController,
+    BlogController,
+    CertificateController,
+    ChangelogController,
+};
+use App\Http\Controllers\Site\{
+    AboutController,
+    BlogController as SiteBlogController,
+    CookieController,
+    HomeController,
+    TermsController,
+};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
@@ -52,6 +57,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('role/{role}/permission', [RoleController::class, 'permissions'])->name('role.permissions');
         Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSync'])->name('role.permissionsSync');
         Route::resource('role', RoleController::class);
+
+        /** Changelog */
+        Route::get('/changelog', [ChangelogController::class, 'index'])->name('changelog');
     });
 });
 
@@ -68,10 +76,6 @@ Route::name('site.')->group(function () {
     Route::post('/blog-search', [SiteBlogController::class, 'search'])->name('blog.search');
     Route::get('/blog/buscar/{search}', [SiteBlogController::class, 'searchPage'])->name('blog.search.page');
     Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
-
-
-
-
 
     /** Cookie */
     Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');

@@ -241,24 +241,24 @@ return [
         [
             'text'        => 'Dashboard',
             'url'         => '/admin',
-            'icon'        => 'fa fa-fw fa-digital-tachograph',
+            'icon'        => 'fa fa-fw fa-digital-tachograph mr-2',
         ],
         [
             'text'        => 'Certificados',
             'url'         => '#',
-            'icon'        => 'fas fa-fw fa-graduation-cap',
+            'icon'        => 'fas fa-fw fa-graduation-cap mr-2',
             'can'         => 'Acessar Certificados',
             'submenu' => [
                 [
                     'text' => 'Listagem de Certificados',
                     'url'  => 'admin/certificates',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Listar Certificados',
                 ],
                 [
                     'text' => 'Cadastro de Certificado',
                     'url'  => 'admin/certificates/create',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Criar Certificados',
                 ],
             ],
@@ -266,30 +266,30 @@ return [
         [
             'text'        => 'Blog',
             'url'         => '#',
-            'icon'        => 'fas fa-fw fa-blog',
+            'icon'        => 'fas fa-fw fa-blog mr-2',
             'can'         => 'Acessar Blog',
             'submenu' => [
                 [
                     'text' => 'Listagem de Postagens',
                     'url'  => 'admin/blog',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Listar Blog',
                 ],
                 [
                     'text' => 'Cadastro de Postagem',
                     'url'  => 'admin/blog/create',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Criar Blog',
                 ],
                 [
                     'text' => 'Listagem de Categorias',
                     'url'  => 'admin/blog-categories',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Listar Categorias do Blog',
                 ],
                 [
                     'text' => 'Cadastro de Categoria',
-                    'url'  => 'admin/blog-categories/create',
+                    'url'  => 'admin/blog-categories/create mr-2',
                     'icon' => 'fas fa-fw fa-chevron-right',
                     'can'  => 'Criar Categorias do Blog',
                 ],
@@ -298,50 +298,50 @@ return [
         [
             'text'        => 'Usuários',
             'url'         => '#',
-            'icon'        => 'fas fa-fw fa-users',
+            'icon'        => 'fas fa-fw fa-users mr-2',
             'can'         => 'Acessar Usuários',
             'submenu' => [
                 [
                     'text' => 'Listagem de Usuários',
                     'url'  => 'admin/users',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Listar Usuários',
                 ],
                 [
                     'text' => 'Cadastro de Usuários',
                     'url'  => 'admin/users/create',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Criar Usuários',
                 ],
             ],
         ],
         [
             'text'    => 'ACL',
-            'icon'    => 'fas fa-fw fa-user-shield',
+            'icon'    => 'fas fa-fw fa-user-shield mr-2',
             'can'     => 'Acessar ACL',
             'submenu' => [
 
                 [
                     'text' => 'Listagem de Perfis',
                     'url'  => 'admin/role',
-                    'icon'    => 'fas fa-fw fa-chevron-right',
+                    'icon'    => 'fas fa-fw fa-chevron-right mr-2',
                     'can'     => 'Listar Perfis',
                 ],
                 [
                     'text' => 'Cadastro de Perfis',
                     'url'  => 'admin/role/create',
-                    'icon'    => 'fas fa-fw fa-chevron-right',
+                    'icon'    => 'fas fa-fw fa-chevron-right mr-2',
                     'can'     => 'Criar Perfis',
                 ],
                 [
                     'text' => 'Listagem de Permissões',
                     'url'  => 'admin/permission',
-                    'icon'    => 'fas fa-fw fa-chevron-right',
+                    'icon'    => 'fas fa-fw fa-chevron-right mr-2',
                 ],
                 [
                     'text' => 'Cadastro de Permissões',
                     'url'  => 'admin/permission/create',
-                    'icon'    => 'fas fa-fw fa-chevron-right',
+                    'icon'    => 'fas fa-fw fa-chevron-right mr-2',
                     'can'     => 'Criar Permissões',
                 ],
             ]
@@ -349,7 +349,7 @@ return [
         [
             'text'        => 'Site',
             'url'    => '/',
-            'icon'    => 'fas fa-fw fa-link',
+            'icon'    => 'fas fa-fw fa-link mr-2',
             'target' => '_blank',
         ]
     ],

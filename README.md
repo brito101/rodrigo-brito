@@ -1,24 +1,28 @@
-# Portfolio Page in Laravel 8
+# Portfolio Page in Laravel 10 + Docker + Telescope + Debugar + AdminLTE3 + DataTables server side + Spatie ACL
 
-<h5>Resources</h5>
-<p>Basic user controller</p>
-<p>Visitors log</p>
+## Resources
 
-<h5>Usage</h5>
-<p><code>cp .env.example .env</code></p>
-<p>Edit .env parameters</p>
+- User controller
+- Blog controller
+- Portfolio controller
+- Certificates controller
+- Visitors log
 
-<p><code>composer install</code></p>
-<p><code>php artisan key:generate</code></p>
-<p><code>php artisan storage:link</code></p>
-<p><code>php artisan migrate --seed</code></p>
-<p><code>npm install && npm run dev</code></p>
+## Usage
 
-<ul>Programmer login: 
-    <li>user: programador@base.com</li>
-    <li>pass: 12345678</li>
-</ul>
-<ul>Admin login: 
-    <li>user: admin@base.com</li>
-    <li>pass: 12345678</li>
-</ul>
+- `cp .env.example .env`
+- Edit .env parameters
+- `alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'`
+- `sail composer install`
+- `sail artisan key:generate`
+- `sail artisan storage:link`
+- `sail artisan migrate --seed`
+- `npm install && npm run dev`
+- `sail stop`
+
+- `docker-compose exec laravel.test bash`
+
+### Programmer login
+
+- user: <programador@base.com>
+- pass: 12345678

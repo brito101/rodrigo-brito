@@ -1,1 +1,131 @@
-const el=document.querySelector("[data-go]"),goto=document.querySelector(el.dataset.go).offsetTop;function snowCanvas(e){const t=e.el;t.style.backgroundColor="rgba(0,0,0,0)";const n=t.getContext("2d");let o,a;function r(){o=e.width||window.innerWidth,a=e.height||window.innerHeight,t.width=o,t.height=a}function l(){return{x:Math.random()*o-4,y:Math.random()*a-4,r:3*Math.random()+1,s:1*Math.random()+1,xChangeRate:1.6*Math.random()-.8}}r(),window.onresize=r;const i=[];let h;for(h=0;h<15;h++)i.push(l());let s=0;setInterval((function(){let e;n.clearRect(0,0,o,a),n.beginPath();for(let t=0;t<i.length;t++)e=i[t],n.fillStyle="#821C87",n.moveTo(e.x,e.y),n.arc(e.x,e.y,e.r,0,2*Math.PI);n.fill(),function(){let e;s+=.01;for(let t=0;t<i.length;t++)if(e=i[t],e.y+=e.s,e.x+=Math.sin(s+e.xChangeRate)*e.xChangeRate,e.x>o+e.r||e.y>a+e.r||e.x<-e.r)switch(i[t]=l(),Math.ceil(3*Math.random())){case 1:i[t].x=Math.random()*o,i[t].y=-4;break;case 2:i[t].x=-4,i[t].y=Math.random()*a;break;default:i[t].x=o+4,i[t].y=Math.random()*a}}()}),1e3/60)}el&&goto&&el.addEventListener("click",(e=>{e.preventDefault(),window.scroll({top:goto,behavior:"smooth"})}));const snow=document.querySelectorAll(".snow");function typeWrite(e){const t=e.innerHTML.split("");e.innerHTML=" ",t.forEach(((t,n)=>{setTimeout((()=>{e.innerHTML+=t}),80*n)}))}snow&&snow.forEach((e=>{snowCanvas({el:e})}));const phrase=document.querySelector(".headline");phrase&&typeWrite(phrase);
+const el = document.querySelector("[data-go]");
+const goto = document.querySelector(el.dataset.go).offsetTop;
+
+if (el && goto) {
+    el.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scroll({
+            top: goto,
+            behavior: "smooth",
+        });
+    });
+}
+
+function snowCanvas(obj) {
+    const canvas = obj.el;
+
+    canvas.style.backgroundColor = "rgba(0,0,0,0)";
+    const fillStyle = "#821C87";
+    const ctx = canvas.getContext("2d");
+
+    const maxSpeed = 2;
+    const minSpeed = 1;
+    const count = 15;
+    const rMax = 4;
+    const rMin = 1;
+    let W;
+    let H;
+
+    function setHeightWidth() {
+        W = obj.width || window.innerWidth;
+        H = obj.height || window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
+    }
+
+    setHeightWidth();
+
+    window.onresize = setHeightWidth;
+
+    function initialEverySnow() {
+        return {
+            x: Math.random() * W - rMax,
+            y: Math.random() * H - rMax,
+            r: Math.random() * (rMax - rMin) + rMin,
+            s: Math.random() * (maxSpeed - minSpeed) + minSpeed,
+            xChangeRate: Math.random() * 1.6 - 0.8,
+        };
+    }
+
+    const snowGroup = [];
+    let s;
+    for (s = 0; s < count; s++) {
+        snowGroup.push(initialEverySnow());
+    }
+
+    let delta = 0;
+    function update() {
+        delta += 0.01;
+        let p;
+        for (let i = 0; i < snowGroup.length; i++) {
+            p = snowGroup[i];
+            p.y += p.s;
+            p.x += Math.sin(delta + p.xChangeRate) * p.xChangeRate;
+            if (p.x > W + p.r || p.y > H + p.r || p.x < -p.r) {
+                snowGroup[i] = initialEverySnow();
+                const randomStartPostion = Math.ceil(Math.random() * 3);
+                switch (randomStartPostion) {
+                    case 1:
+                        snowGroup[i].x = Math.random() * W;
+                        snowGroup[i].y = -rMax;
+                        break;
+                    case 2:
+                        snowGroup[i].x = -rMax;
+                        snowGroup[i].y = Math.random() * H;
+                        break;
+                    case 3:
+                        snowGroup[i].x = W + rMax;
+                        snowGroup[i].y = Math.random() * H;
+                        break;
+                    default:
+                        snowGroup[i].x = W + rMax;
+                        snowGroup[i].y = Math.random() * H;
+                        break;
+                }
+            }
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.beginPath();
+
+        let p;
+        for (let ix = 0; ix < snowGroup.length; ix++) {
+            p = snowGroup[ix];
+            ctx.fillStyle = fillStyle;
+            ctx.moveTo(p.x, p.y);
+            ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+        }
+        ctx.fill();
+        update();
+    }
+
+    setInterval(draw, 1000 / 60);
+}
+
+const snow = document.querySelectorAll(".snow");
+
+if (snow) {
+    snow.forEach((el) => {
+        snowCanvas({
+            el,
+        });
+    });
+}
+
+function typeWrite(e) {
+    const textArray = e.innerHTML.split("");
+    e.innerHTML = " ";
+    textArray.forEach((l, i) => {
+        setTimeout(() => {
+            e.innerHTML += l;
+        }, 80 * i);
+    });
+}
+
+const phrase = document.querySelector(".headline");
+
+if (phrase) {
+    typeWrite(phrase);
+}
