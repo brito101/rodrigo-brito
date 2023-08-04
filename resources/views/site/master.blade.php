@@ -13,8 +13,9 @@ Good journey!
     @if ($cookieConsent == 'accept')
         @include('site._partials.gtm-head')
     @endif
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset=”utf-8″>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'none'">
     @metas
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@RCBrito101" />
