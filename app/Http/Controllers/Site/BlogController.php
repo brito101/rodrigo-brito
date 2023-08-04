@@ -38,7 +38,7 @@ class BlogController extends Controller
 
         $posts = Blog::where('status', 'post')->orderBy('created_at', 'desc')->paginate(6);
 
-        return \view('site.blog.index', \compact('title', 'search', 'posts', ' title'));
+        return \view('site.blog.index', \compact('title', 'search', 'posts', 'title'));
     }
 
     public function search(Request $request)
@@ -78,7 +78,7 @@ class BlogController extends Controller
             $query->orWhere('content', 'like', "%{$search}%");
         })->orderBy('created_at', 'desc')->paginate(6);
 
-        return \view('site.blog.index', \compact('title', 'search', 'posts', ' title'));
+        return \view('site.blog.index', \compact('title', 'search', 'posts', 'title'));
     }
 
     public function post($uri)
@@ -117,7 +117,7 @@ class BlogController extends Controller
                 ->where('status', 'post')
                 ->limit(3)->get();
 
-            return \view('site.blog.post', \compact('title', 'post', 'related', ' title'));
+            return \view('site.blog.post', \compact('title', 'post', 'related', 'title'));
         } else {
             return view('errors.404');
         }

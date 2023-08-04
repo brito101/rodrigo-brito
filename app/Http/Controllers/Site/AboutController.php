@@ -28,6 +28,6 @@ class AboutController extends Controller
 
         $certificates = Certificate::select('title', 'cover', 'status')->where('status', 'post')->orderBy('title')->get();
 
-        return \view('site.about.index', \compact('certificates', ' title'));
+        return \view('site.about.index', \compact('certificates', 'title'));
     }
 }
