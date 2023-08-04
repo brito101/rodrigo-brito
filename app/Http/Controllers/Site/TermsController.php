@@ -25,6 +25,6 @@ class TermsController extends Controller
         Meta::set('image', asset('img/share.png'));
         Meta::set('canonical', $route);
 
-        return \view('site.terms.index');
+        return \view('site.terms.index', compact('title'));
     }
 }

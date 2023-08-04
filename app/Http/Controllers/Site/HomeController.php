@@ -25,6 +25,6 @@ class HomeController extends Controller
         Meta::set('image', asset('img/share.png'));
         Meta::set('canonical', $route);
 
-        return \view('site.home.index');
+        return \view('site.home.index', compact('title'));
     }
 }

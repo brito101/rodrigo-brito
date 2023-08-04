@@ -36,7 +36,7 @@ Good journey!
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     @laravelPWA
-    @yield('title')
+    <title>{{ $title }}</title>
 </head>
 
 <body>
