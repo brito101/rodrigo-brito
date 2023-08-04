@@ -32,8 +32,7 @@ class BlogController extends Controller
         Meta::set('robots', 'index,follow');
         Meta::set('image', asset('img/share.png'));
         Meta::set('canonical', $route);
-
-        $title = null;
+,
         $search = null;
 
         $posts = Blog::where('status', 'post')->orderBy('created_at', 'desc')->paginate(6);
