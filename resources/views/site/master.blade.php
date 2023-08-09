@@ -5,7 +5,9 @@ Not everything is money in life, what matters most is knowledge!
 Good journey!
 @born October 7, 2020
 @author Rodrigo Brito <contato@rodrigobrito.dev.br>
+3R1t0
 -->
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" itemscope itemtype="http://schema.org/WebPage">
 
@@ -16,7 +18,6 @@ Good journey!
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @metas
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@RCBrito101" />
     <meta name="twitter:creator" content="@RCBrito101" />
@@ -28,15 +29,12 @@ Good journey!
     <meta itemprop="description" content="{{ env('APP_DESCRIPTION') }}" />
     <meta itemprop="url" content="{{ env('APP_URL') }}" />
     <meta itemprop="image" content="{{ asset('img/share.png') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    @laravelPWA
     <link rel="icon" type="image/png" href="{{ asset('img/logo.svg') }}" />
-
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/site/style.css') }}" />
-
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-    @laravelPWA
-    <title>{{ $title ?? env('APP_NAME') }}</title>
+    @metas
 </head>
 
 <body>
@@ -78,7 +76,9 @@ Good journey!
                             @if ($siteBlogCategories->count() > 0)
                                 <ul class='dropdown-menu'>
                                     @foreach ($siteBlogCategories as $category)
-                                        <li><a href="#">{{ $category->title }}</a></li>
+                                        <li><a
+                                                href="{{ route('site.blog.category', ['category' => $category->uri]) }}">{{ $category->title }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             @endif

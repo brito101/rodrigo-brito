@@ -289,8 +289,8 @@ return [
                 ],
                 [
                     'text' => 'Cadastro de Categoria',
-                    'url'  => 'admin/blog-categories/create mr-2',
-                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'url'  => 'admin/blog-categories/create',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
                     'can'  => 'Criar Categorias do Blog',
                 ],
             ],

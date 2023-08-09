@@ -1,9 +1,5 @@
 @extends('site.master')
-
-@section('title')
-    <title>Rodrigo Brito - 403 | Ooops! Acesso não autorizado!</title>
-@endsection
-
+<title>Rodrigo Brito - 403 | Ooops! Acesso não autorizado!</title>
 @section('content')
     <article class="not_found">
         <div>

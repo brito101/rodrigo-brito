@@ -1,9 +1,5 @@
 @extends('site.master')
-
-@section('title')
-    <title>Rodrigo Brito - 503 | Ooops! Estamos em manutenção!</title>
-@endsection
-
+<title>Rodrigo Brito - 503 | Ooops! Estamos em manutenção!</title>
 @section('content')
     <article class="not_found">
         <div>

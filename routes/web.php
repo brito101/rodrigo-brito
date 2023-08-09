@@ -71,11 +71,12 @@ Route::name('site.')->group(function () {
     Route::get('/termos', [TermsController::class, 'index'])->name('terms');
     /** About */
     Route::get('/sobre', [AboutController::class, 'index'])->name('about');
-    /** Blog */
+
+    // /** Blog */
+    Route::get('/blog/buscar/{s?}', [SiteBlogController::class, 'search'])->name('blog.search');
     Route::get('/blog/{uri}', [SiteBlogController::class, 'post'])->name('blog.post');
-    Route::post('/blog-search', [SiteBlogController::class, 'search'])->name('blog.search');
-    Route::get('/blog/buscar/{search}', [SiteBlogController::class, 'searchPage'])->name('blog.search.page');
     Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
+    Route::get('/blog/em/{category}', [SiteBlogController::class, 'category'])->name('blog.category');
 
     /** Cookie */
     Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');

@@ -1,4 +1,5 @@
 <article class="portfolio_article">
+
     <a title="{{ $post->title }}" href="{{ route('site.blog.post', ['uri' => $post->uri]) }}">
         <picture>
             <source media="(max-width: 512px)" srcset="{{ url('storage/blog/min/' . $post->cover) }}" />
@@ -10,11 +11,13 @@
     </a>
     <header>
         <p class="meta">
-            @foreach ($post->categories as $item)
-                <a title="Artigos em {{ $item->category->title }}" href=""> Categoria:
-                    {{ $item->category->title }}</a>
+            Categorias:
+            @foreach ($post->categories as $cat)
+                <a title="Artigos em {{ $cat->category->title }}"
+                    href="{{ route('site.blog.category', ['category' => $cat->category->uri]) }}">
+                    {{ $cat->category->title }} &bull;</a>
             @endforeach
-            &bull; {{ date('d/m/y', strtotime($post->created_at)) }}
+            {{ date('d/m/y', strtotime($post->created_at)) }}
         </p>
         <h2><a title="{{ $post->title }}"
                 href="{{ route('site.blog.post', ['uri' => $post->uri]) }}">{{ $post->title }}</a>

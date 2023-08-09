@@ -1,9 +1,5 @@
 @extends('site.master')
-
-@section('title')
-    <title>Rodrigo Brito - 404 | Ooops! Conteúdo indisponível!</title>
-@endsection
-
+<title>Rodrigo Brito - 404 | Ooops! Conteúdo indisponível!</title>
 @section('content')
     <article class="not_found">
         <div>

@@ -35,8 +35,8 @@
                     </header>
 
                     <div class="portfolio_articles">
-                        @foreach ($related as $post)
-                            @include('site.blog._article')
+                        @foreach ($related as $item)
+                            @include('site.blog._article', ['post' => $item->post])
                         @endforeach
                     </div>
                 </section>

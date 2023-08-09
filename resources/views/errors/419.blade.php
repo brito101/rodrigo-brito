@@ -1,9 +1,5 @@
 @extends('site.master')
-
-@section('title')
-    <title>Rodrigo Brito - 419 | Ooops! Página Expirada!</title>
-@endsection
-
+<title>Rodrigo Brito - 419 | Ooops! Página Expirada!</title>
 @section('content')
     <article class="not_found">
         <div>

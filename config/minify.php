@@ -70,7 +70,7 @@ return [
     | Default: true
     |
     */
-    'remove_comments' => env('MINIFY_REMOVE_COMMENTS', true),
+    'remove_comments' => env('MINIFY_REMOVE_COMMENTS', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     | Default: false
     |
     */
-    'obfuscate' => env('MINIFY_OBFUSCATE', true),
+    'obfuscate' => env('MINIFY_OBFUSCATE', false),
 
     /*
     |--------------------------------------------------------------------------
