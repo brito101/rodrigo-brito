@@ -76,6 +76,7 @@ class BlogController extends Controller
 
             $related = BlogCategoriesPivot::inRandomOrder()
                 ->whereIn('blog_category_id', $categories)
+                ->where('id', '!=', $post->id)
                 ->with('post')
                 ->limit(3)->get();
 
