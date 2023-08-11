@@ -107,7 +107,7 @@ Good journey!
                 <article>
                     <h2>Mais:</h2>
                     <a title="Home" href="{{ route('site.home') }}">Home</a>
-                    <a title="Portfólio" href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
+                    <a title="Portfólio" href="{{ route('site.portfolio') }}">Portfólio</a>
                     <a title="Blog" href="{{ route('site.blog') }}">Blog</a>
                     <a title="Sobre mim" href="{{ route('site.about') }}">Sobre mim</a>
                 </article>
