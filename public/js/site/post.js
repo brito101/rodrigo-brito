@@ -1,14 +1,1 @@
-const img = document.querySelectorAll("img");
-if (img) {
-  img.forEach((i) => {
-    i.classList.add("lazyload");
-  });
-}
-
-const link = document.querySelectorAll(".htmlChars a");
-if (link) {
-  link.forEach((i) => {
-    i.setAttribute("rel", "noreferrer");
-    i.setAttribute("title", i.textContent);
-  })
-}
+const img=document.querySelectorAll("img");img&&img.forEach((t=>{t.classList.add("lazyload")}));const link=document.querySelectorAll(".htmlChars a");link&&link.forEach((t=>{t.setAttribute("rel","noreferrer"),t.setAttribute("title",t.textContent)}));

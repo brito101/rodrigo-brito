@@ -147,6 +147,7 @@
         top: -120px;
         width: 50%;
         height: 27.5%;
+        min-height: 294px;
         background: url("#{$imgPath}/jumping-tiger.svg") center center no-repeat;
         background-size: contain;
         z-index: $index-fold;

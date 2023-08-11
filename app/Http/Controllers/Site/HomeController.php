@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use Meta;
 
@@ -25,6 +26,9 @@ class HomeController extends Controller
         Meta::set('image', asset('img/share.png'));
         Meta::set('canonical', $route);
 
-        return \view('site.home.index', compact('title'));
+        $posts = Portfolio::where('status', 'post')
+            ->orderBy('created_at', 'desc')->limit(6)->get();
+
+        return \view('site.home.index', compact('title', 'posts'));
     }
 }
