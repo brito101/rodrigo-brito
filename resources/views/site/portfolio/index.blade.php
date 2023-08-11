@@ -1,0 +1,45 @@
+@extends('site.master')
+
+@section('content')
+    <section class="blog_page">
+        <header class="blog_page_header">
+            <h2 data-anime="400" class="fadeInDown">Portfólio</h2>
+            <p data-anime="800" class="fadeInDown">
+                @isset($description)
+                    {{ $description }}
+                @else
+                    Confira meu portfólio.
+                @endisset
+            </p>
+            <form data-anime="1200" class="fadeInDown" action="{{ route('site.portfolio.search') }}" method="get">
+                <div>
+                    <input type="text" name="s" placeholder="Encontre um artigo:" required />
+                    <button class="icon-search icon-notext" aria-label="Botão de Pesquisa"></button>
+                </div>
+            </form>
+        </header>
+
+        @if ($posts->count() == 0 && isset($search))
+            <div class="empty_content fadeInUp" data-anime="1600">
+                <h3>Sua pesquisa não retornou resultados :/</h3>
+                <p>Você pesquisou por <b>{{ $search }}</b>. Tente outros termos.</p>
+                <a href="{{ route('site.portfolio') }}" title="Portfólio">...ou volte ao Portfólio</a>
+            </div>
+        @elseif (!$posts || $posts->count() == 0)
+            <div class="empty_content fadeInUp" data-anime="1600">
+                <h3>Ainda estou trabalhando aqui!</h3>
+                <p>Estou preparando um conteúdo de primeira para você.</p>
+            </div>
+        @else
+            <div class="portfolio_content fadeInUp" data-anime="1600">
+                <div class="portfolio_articles">
+                    @foreach ($posts as $post)
+                        @include('site.portfolio._article')
+                    @endforeach
+                </div>
+
+                {{ $posts->links() }}
+            </div>
+        @endif
+    </section>
+@endsection

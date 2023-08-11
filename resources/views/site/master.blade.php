@@ -5,7 +5,7 @@ Not everything is money in life, what matters most is knowledge!
 Good journey!
 @born October 7, 2020
 @author Rodrigo Brito <contato@rodrigobrito.dev.br>
-3R1t0
+3R1t0 - Cyber warrior 438
 -->
 
 <!DOCTYPE html>
@@ -57,18 +57,18 @@ Good journey!
                     <ul>
                         <li><a class="link {{ Route::current()->getName() == 'site.home' ? 'active' : '' }}"
                                 href="{{ route('site.home') }}">Home</a></li>
-                        <li data-dropdown><a class="link "
-                                href="https://www.rodrigobrito.dev.br/portfolio">Portfólio</a>
-                            <ul class='dropdown-menu'>
-                                <li><a href='https://www.rodrigobrito.dev.br/portfolio/em/e-commerce'>E-commerce</a>
-                                </li>
-                                <li><a
-                                        href='https://www.rodrigobrito.dev.br/portfolio/em/institucional'>Institucional</a>
-                                </li>
-                                <li><a href='https://www.rodrigobrito.dev.br/portfolio/em/landing-page'>Landing Page</a>
-                                </li>
-                                <li><a href='https://www.rodrigobrito.dev.br/portfolio/em/sistemas'>Sistemas</a></li>
-                            </ul>
+                        <li data-dropdown><a
+                                class="link {{ Route::current()->getName() == 'site.portfolio' || Route::current()->getName() == 'site.portfolio.post' ? 'active' : '' }}"
+                                href="{{ route('site.portfolio') }}">Portfólio</a>
+                            @if ($sitePortfolioCategories->count() > 0)
+                                <ul class='dropdown-menu'>
+                                    @foreach ($sitePortfolioCategories as $category)
+                                        <li><a
+                                                href="{{ route('site.portfolio.category', ['category' => $category->uri]) }}">{{ $category->title }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </li>
                         <li data-dropdown><a
                                 class="link {{ Route::current()->getName() == 'site.blog' || Route::current()->getName() == 'site.blog.post' ? 'active' : '' }}"
@@ -138,6 +138,9 @@ Good journey!
                             title="Rodrigo Brito no Stackoverflow"></a>
                         <a target="_blank" rel="noreferrer" class="icon-instagram"
                             href="https://www.instagram.com/rodrigobrito101" title="Rodrigo Brito no Instagram"></a>
+                        <a target="_blank" rel="noreferrer" class="icon-linkedin"
+                            href="www.linkedin.com/in/rodrigo-carvalho-de-brito-43a130286"
+                            title="Rodrigo Brito no Linedin"></a>
                     </div>
                 </article>
             </section>

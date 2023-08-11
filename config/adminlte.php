@@ -296,6 +296,38 @@ return [
             ],
         ],
         [
+            'text'        => 'Portfolio',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-file mr-2',
+            'can'         => 'Acessar Portfolio',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Projetos',
+                    'url'  => 'admin/portfolio',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
+                    'can'  => 'Listar Blog',
+                ],
+                [
+                    'text' => 'Cadastro de Projeto',
+                    'url'  => 'admin/portfolio/create',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
+                    'can'  => 'Criar Blog',
+                ],
+                [
+                    'text' => 'Listagem de Categorias',
+                    'url'  => 'admin/portfolio-categories',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
+                    'can'  => 'Listar Categorias do Portfolio',
+                ],
+                [
+                    'text' => 'Cadastro de Categoria',
+                    'url'  => 'admin/portfolio-categories/create',
+                    'icon' => 'fas fa-fw fa-chevron-right mr-2',
+                    'can'  => 'Criar Categorias do Portfolio',
+                ],
+            ],
+        ],
+        [
             'text'        => 'Usuários',
             'url'         => '#',
             'icon'        => 'fas fa-fw fa-users mr-2',

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Helpers\Cookie;
 use App\Models\BlogCategory;
+use App\Models\PortfolioCategory;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::defaultView('vendor.pagination.default');
         Paginator::defaultSimpleView('vendor.pagination.default');
         View::share('siteBlogCategories', BlogCategory::orderBy('title')->get(['title', 'uri']));
+        View::share('sitePortfolioCategories', PortfolioCategory::orderBy('title')->get(['title', 'uri']));
         View::share('cookieConsent', Cookie::get('cookieConsent'));
     }
 }

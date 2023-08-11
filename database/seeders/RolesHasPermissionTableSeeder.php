@@ -137,7 +137,7 @@ class RolesHasPermissionTableSeeder extends Seeder
                 'permission_id' => 22,
                 'role_id' => 1
             ],
-            /** Blog Categories 23 to 27 */
+            /** Blog 23 to 31 */
             [
                 'permission_id' => 23,
                 'role_id' => 1
@@ -172,6 +172,43 @@ class RolesHasPermissionTableSeeder extends Seeder
             ],
             [
                 'permission_id' => 31,
+                'role_id' => 1
+            ],
+            /** Portfolio 32 to 40 */
+            [
+                'permission_id' => 32,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 33,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 34,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 35,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 36,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 37,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 38,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 39,
+                'role_id' => 1
+            ],
+            [
+                'permission_id' => 40,
                 'role_id' => 1
             ],
         ]);

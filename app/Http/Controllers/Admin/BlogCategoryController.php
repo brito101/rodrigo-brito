@@ -133,17 +133,6 @@ class BlogCategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -289,7 +278,7 @@ class BlogCategoryController extends Controller
                 unlink($imagePathMin);
             }
 
-            BlogCategoriesPivot::where('category_id', $category->id)->delete();
+            BlogCategoriesPivot::where('blog_category_id', $category->id)->delete();
             $category->cover = null;
             $category->update();
 

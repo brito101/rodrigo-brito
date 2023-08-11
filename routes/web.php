@@ -9,12 +9,15 @@ use App\Http\Controllers\Admin\{
     BlogController,
     CertificateController,
     ChangelogController,
+    PortfolioCategoryController,
+    PortfolioController,
 };
 use App\Http\Controllers\Site\{
     AboutController,
     BlogController as SiteBlogController,
     CookieController,
     HomeController,
+    PortfolioController as SitePortfolioController,
     TermsController,
 };
 use Illuminate\Support\Facades\Auth;
@@ -39,24 +42,29 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Users */
         Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class)->except('show');
 
         /** Certificates */
-        Route::resource('certificates', CertificateController::class);
+        Route::resource('certificates', CertificateController::class)->except('show');        ;
 
         /** Blog */
-        Route::resource('blog', BlogController::class);
-        Route::resource('blog-categories', BlogCategoryController::class);
+        Route::resource('blog', BlogController::class)->except('show');
+        Route::resource('blog-categories', BlogCategoryController::class)->except('show');
+
+        /** Portfolio */
+        Route::resource('portfolio', PortfolioController::class)->except('show');
+        Route::resource('portfolio-categories', PortfolioCategoryController::class)->except('show');
 
         /**
          * ACL
          * */
         /** Permissions */
-        Route::resource('permission', PermissionController::class);
+        Route::resource('permission', PermissionController::class)->except('show');
+
         /** Roles */
         Route::get('role/{role}/permission', [RoleController::class, 'permissions'])->name('role.permissions');
         Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSync'])->name('role.permissionsSync');
-        Route::resource('role', RoleController::class);
+        Route::resource('role', RoleController::class)->except('show');
 
         /** Changelog */
         Route::get('/changelog', [ChangelogController::class, 'index'])->name('changelog');
@@ -72,11 +80,17 @@ Route::name('site.')->group(function () {
     /** About */
     Route::get('/sobre', [AboutController::class, 'index'])->name('about');
 
-    // /** Blog */
+    /** Blog */
     Route::get('/blog/buscar/{s?}', [SiteBlogController::class, 'search'])->name('blog.search');
     Route::get('/blog/{uri}', [SiteBlogController::class, 'post'])->name('blog.post');
     Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
     Route::get('/blog/em/{category}', [SiteBlogController::class, 'category'])->name('blog.category');
+
+    /** Portfolio */
+    Route::get('/portfolio/buscar/{s?}', [SitePortfolioController::class, 'search'])->name('portfolio.search');
+    Route::get('/portfolio/{uri}', [SitePortfolioController::class, 'post'])->name('portfolio.post');
+    Route::get('/portfolio', [SitePortfolioController::class, 'index'])->name('portfolio');
+    Route::get('/portfolio/em/{category}', [SitePortfolioController::class, 'category'])->name('portfolio.category');
 
     /** Cookie */
     Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');

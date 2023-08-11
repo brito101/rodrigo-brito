@@ -4,44 +4,46 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CertificateRequest;
-use App\Models\Certificate;
+use App\Http\Requests\Admin\PortfolioCategoryRequest;
+use App\Models\PortfolioCategoriesPivot;
+use App\Models\PortfolioCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use DataTables;
 use Illuminate\Support\Facades\File;
 
-class CertificateController extends Controller
+class PortfolioCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Listar Certificados');
+        CheckPermission::checkAuth('Listar Categorias do Portfolio');
 
-        $certificates = Certificate::all();
+        $categories = PortfolioCategory::all();
 
         if ($request->ajax()) {
             $token = csrf_token();
 
-            return Datatables::of($certificates)
+            return Datatables::of($categories)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="certificates/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="certificates/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste certificado?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="portfolio-categories/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="portfolio-categories/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta categoria?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="287" height="215" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/portfolio-categories/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
                 })
-                ->rawColumns(['action', 'cover'])
+                ->addColumn('portfolios', function ($row) {
+                    return $row->portfolios->count();
+                })
+                ->rawColumns(['action', 'cover', 'portfolios'])
                 ->make(true);
         }
 
-        return view('admin.certificates.index');
+        return view('admin.portfolio.categories.index');
     }
 
     /**
@@ -51,8 +53,8 @@ class CertificateController extends Controller
      */
     public function create()
     {
-        CheckPermission::checkAuth('Criar Certificados');
-        return view('admin.certificates.create');
+        CheckPermission::checkAuth('Criar Categorias do Portfolio');
+        return view('admin.portfolio.categories.create');
     }
 
     /**
@@ -61,9 +63,9 @@ class CertificateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CertificateRequest $request)
+    public function store(PortfolioCategoryRequest $request)
     {
-        CheckPermission::checkAuth('Criar Certificados');
+        CheckPermission::checkAuth('Criar Categorias do Portfolio');
 
         $data = $request->all();
 
@@ -74,9 +76,9 @@ class CertificateController extends Controller
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/certificates';
-            $destinationPathMedium = storage_path() . '/app/public/certificates/medium';
-            $destinationPathMin = storage_path() . '/app/public/certificates/min';
+            $destinationPath = storage_path() . '/app/public/portfolio-categories';
+            $destinationPathMedium = storage_path() . '/app/public/portfolio-categories/medium';
+            $destinationPathMin = storage_path() . '/app/public/portfolio-categories/min';
 
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
@@ -90,20 +92,20 @@ class CertificateController extends Controller
                 mkdir($destinationPathMin, 755, true);
             }
 
-            $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
+            $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
 
-            $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
+            $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(574, 410)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
 
-            $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
+            $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(287, 205)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
@@ -113,11 +115,12 @@ class CertificateController extends Controller
             }
         }
 
-        $certificate = Certificate::create($data);
+        $data['uri'] = Str::slug($request->title);
+        $category = PortfolioCategory::create($data);
 
-        if ($certificate->save()) {
+        if ($category->save()) {
             return redirect()
-                ->route('admin.certificates.index')
+                ->route('admin.portfolio-categories.index')
                 ->with('success', 'Cadastro realizado!');
         } else {
             return redirect()
@@ -135,14 +138,14 @@ class CertificateController extends Controller
      */
     public function edit($id)
     {
-        CheckPermission::checkAuth('Editar Certificados');
+        CheckPermission::checkAuth('Editar Categorias do Portfolio');
 
-        $certificate = Certificate::find($id);
-        if (!$certificate) {
+        $category = PortfolioCategory::find($id);
+        if (!$category) {
             abort(403, 'Acesso não autorizado');
         }
 
-        return view('admin.certificates.edit', compact('certificate'));
+        return view('admin.portfolio.categories.edit', compact('category'));
     }
 
     /**
@@ -152,13 +155,13 @@ class CertificateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CertificateRequest $request, $id)
+    public function update(PortfolioCategoryRequest $request, $id)
     {
-        CheckPermission::checkAuth('Editar Certificados');
+        CheckPermission::checkAuth('Editar Categorias do Portfolio');
 
-        $certificate = Certificate::find($id);
+        $category = PortfolioCategory::find($id);
 
-        if (!$certificate) {
+        if (!$category) {
             abort(403, 'Acesso não autorizado');
         }
 
@@ -166,9 +169,9 @@ class CertificateController extends Controller
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
-            $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
-            $imagePathMedium = storage_path() . '/app/public/certificates/medium/' . $certificate->cover;
-            $imagePathMin = storage_path() . '/app/public/certificates/min/' . $certificate->cover;
+            $imagePath = storage_path() . '/app/public/portfolio-categories/' . $category->cover;
+            $imagePathMedium = storage_path() . '/app/public/portfolio-categories/medium/' . $category->cover;
+            $imagePathMin = storage_path() . '/app/public/portfolio-categories/min/' . $category->cover;
 
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
@@ -187,9 +190,9 @@ class CertificateController extends Controller
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/certificates';
-            $destinationPathMedium = storage_path() . '/app/public/certificates/medium';
-            $destinationPathMin = storage_path() . '/app/public/certificates/min';
+            $destinationPath = storage_path() . '/app/public/portfolio-categories';
+            $destinationPathMedium = storage_path() . '/app/public/portfolio-categories/medium';
+            $destinationPathMin = storage_path() . '/app/public/portfolio-categories/min';
 
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
@@ -203,20 +206,20 @@ class CertificateController extends Controller
                 mkdir($destinationPathMin, 755, true);
             }
 
-            $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
+            $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
 
-            $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
+            $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(574, 410)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
 
-            $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
+            $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(287, 205)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
 
             if (!$img && !$imgMedium && !$imgMin) {
                 return redirect()
@@ -226,9 +229,11 @@ class CertificateController extends Controller
             }
         }
 
-        if ($certificate->update($data)) {
+        $data['uri'] = Str::slug($request->title);
+
+        if ($category->update($data)) {
             return redirect()
-                ->route('admin.certificates.index')
+                ->route('admin.portfolio-categories.index')
                 ->with('success', 'Atualização realizada!');
         } else {
             return redirect()
@@ -246,19 +251,19 @@ class CertificateController extends Controller
      */
     public function destroy($id)
     {
-        CheckPermission::checkAuth('Excluir Certificados');
+        CheckPermission::checkAuth('Excluir Categorias do Portfolio');
 
-        $certificate = Certificate::find($id);
+        $category = PortfolioCategory::find($id);
 
-        if (!$certificate) {
+        if (!$category) {
             abort(403, 'Acesso não autorizado');
         }
 
-        $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
-        $imagePathMedium = storage_path() . '/app/public/certificates/medium/' . $certificate->cover;
-        $imagePathMin = storage_path() . '/app/public/certificates/min/' . $certificate->cover;
+        $imagePath = storage_path() . '/app/public/portfolio-categories/' . $category->cover;
+        $imagePathMedium = storage_path() . '/app/public/portfolio-categories/medium/' . $category->cover;
+        $imagePathMin = storage_path() . '/app/public/portfolio-categories/min/' . $category->cover;
 
-        if ($certificate->delete()) {
+        if ($category->delete()) {
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
             }
@@ -271,11 +276,12 @@ class CertificateController extends Controller
                 unlink($imagePathMin);
             }
 
-            $certificate->cover = null;
-            $certificate->update();
+            PortfolioCategoriesPivot::where('portfolio_category_id', $category->id)->delete();
+            $category->cover = null;
+            $category->update();
 
             return redirect()
-                ->route('admin.certificates.index')
+                ->route('admin.portfolio-categories.index')
                 ->with('success', 'Exclusão realizada!');
         } else {
             return redirect()

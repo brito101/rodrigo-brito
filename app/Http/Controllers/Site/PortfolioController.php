@@ -3,25 +3,20 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
-use App\Models\BlogCategoriesPivot;
-use App\Models\BlogCategory;
+use App\Models\Portfolio;
+use App\Models\PortfolioCategoriesPivot;
+use App\Models\PortfolioCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Meta;
 
-class BlogController extends Controller
+class PortfolioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $title = 'Rodrigo Brito - Blog';
-        $route = route('site.blog');
-        $description = 'Confira dicas e sacadas sobre desenvolvimento web.';
+        $title = 'Rodrigo Brito - Portfolio';
+        $route = route('site.portfolio');
+        $description = 'Confira meu portfólio.';
         /** Meta */
         Meta::title($title);
         Meta::set('description', $description);
@@ -34,22 +29,22 @@ class BlogController extends Controller
         Meta::set('image', asset('img/share.png'));
         Meta::set('canonical', $route);
 
-        $posts = Blog::where('status', 'post')
+        $posts = Portfolio::where('status', 'post')
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        return \view('site.blog.index', \compact('title', 'posts'));
+        return \view('site.portfolio.index', \compact('title', 'posts'));
     }
 
     public function post($uri)
     {
         $uri = filter_var($uri, 513);
-        $post = Blog::where('uri', $uri)->where('status', '!=', 'trash')->first();
+        $post = Portfolio::where('uri', $uri)->where('status', '!=', 'trash')->first();
 
         if ($post) {
 
             $title = 'Rodrigo Brito - ' . $post->title;
-            $route = route('site.blog.post', ['uri' => $uri]);
+            $route = route('site.portfolio.post', ['uri' => $uri]);
             $description = $post->subtitle;
 
             /** Meta */
@@ -61,12 +56,12 @@ class BlogController extends Controller
             Meta::set('og:url', $route);
             Meta::set('twitter:url', $route);
             Meta::set('robots', 'index,follow');
-            Meta::set('image', url('storage/blog/min/' . $post->cover));
+            Meta::set('image', url('storage/portfolio/min/' . $post->cover));
             Meta::set('canonical', $route);
 
             $categories = [];
             foreach ($post->categories as $category) {
-                $categories[] .= $category->post->id;
+                $categories[] .= $category->portfolio->id;
             }
 
             if (!Auth::user()) {
@@ -74,13 +69,13 @@ class BlogController extends Controller
                 $post->update();
             }
 
-            $related = BlogCategoriesPivot::inRandomOrder()
-                ->whereIn('blog_category_id', $categories)
+            $related = PortfolioCategoriesPivot::inRandomOrder()
+                ->whereIn('portfolio_category_id', $categories)
                 ->where('id', '!=', $post->id)
                 ->with('post')
                 ->limit(3)->get();
 
-            return \view('site.blog.post', \compact('title', 'post', 'related', 'title'));
+            return \view('site.portfolio.post', \compact('title', 'post', 'related', 'title'));
         } else {
             return view('errors.404');
         }
@@ -90,8 +85,8 @@ class BlogController extends Controller
     {
         $search = filter_var($request->s, 513);
 
-        $title = 'Rodrigo Brito - Blog';
-        $route = route('site.blog.search', ['s' => $search]);
+        $title = 'Rodrigo Brito - Portfolio';
+        $route = route('site.portfolio.search', ['s' => $search]);
         $description = 'Pesquisa por: ' . $search;
         /** Meta */
         Meta::title($title);
@@ -105,12 +100,12 @@ class BlogController extends Controller
         Meta::set('image', asset('img/share.png'));
         Meta::set('canonical', $route);
 
-        $posts = Blog::where('status', 'post')
+        $posts = Portfolio::where('status', 'post')
             ->where('title', 'LIKE', "%{$search}%")
             ->orderBy('created_at', 'desc')
             ->paginate(6)->withQueryString();
 
-        return \view('site.blog.index', \compact('title', 'posts', 'search', 'description'));
+        return \view('site.portfolio.index', \compact('title', 'posts', 'search', 'description'));
     }
 
 
@@ -118,13 +113,13 @@ class BlogController extends Controller
     {
         $category = filter_var($request->category, 513);
 
-        $category = BlogCategory::where('uri', $category)->first();
+        $category = PortfolioCategory::where('uri', $category)->first();
 
         if ($category) {
 
-            $title = 'Rodrigo Brito - Artigos em: ' . $category->title;
-            $route = route('site.blog.category', ['category' => $category->uri]);
-            $description = 'Artigos em: ' . $category->title;
+            $title = 'Rodrigo Brito - Projetos em: ' . $category->title;
+            $route = route('site.portfolio.category', ['category' => $category->uri]);
+            $description = 'Projetos em: ' . $category->title;
             /** Meta */
             Meta::title($title);
             Meta::set('description', $description);
@@ -134,18 +129,18 @@ class BlogController extends Controller
             Meta::set('og:url', $route);
             Meta::set('twitter:url', $route);
             Meta::set('robots', 'index,follow');
-            Meta::set('image', url('storage/blog-categories/min/' . $category->cover));
+            Meta::set('image', url('storage/portfolio-categories/min/' . $category->cover));
             Meta::set('canonical', $route);
 
-            $blogCategories = BlogCategoriesPivot::where('blog_category_id', $category->id)->pluck('blog_id');
+            $portfolioCategories = PortfolioCategoriesPivot::where('portfolio_category_id', $category->id)->pluck('portfolio_id');
 
-            $posts = Blog::where('status', 'post')
-                ->whereIn('id', $blogCategories)
+            $posts = Portfolio::where('status', 'post')
+                ->whereIn('id', $portfolioCategories)
                 ->with('categories')
                 ->orderBy('created_at', 'desc')
                 ->paginate(6);
 
-            return \view('site.blog.index', \compact('title', 'posts', 'description'));
+            return \view('site.portfolio.index', \compact('title', 'posts', 'description'));
         } else {
             return view('errors.404');
         }

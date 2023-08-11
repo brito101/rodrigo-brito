@@ -4,46 +4,44 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\BlogRequest;
-use App\Models\Blog;
-use App\Models\BlogCategoriesPivot;
-use App\Models\BlogCategory;
+use App\Http\Requests\Admin\PortfolioRequest;
+use App\Models\Portfolio;
+use App\Models\PortfolioCategoriesPivot;
+use App\Models\PortfolioCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 use DataTables;
 use Illuminate\Support\Facades\File;
 
-class BlogController extends Controller
+class PortfolioController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Listar Blog');
+        CheckPermission::checkAuth('Listar Portfolio');
 
-        $posts = Blog::all();
+        $portfolios = Portfolio::all();
 
         if ($request->ajax()) {
             $token = csrf_token();
 
-            return Datatables::of($posts)
+            return Datatables::of($portfolios)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" target="_blank" href="' . route('site.blog.post', ['uri' => $row->uri])  . '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' . '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="blog/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="blog/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta postagem?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                    $btn = '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" target="_blank" href="' . route('site.portfolio.post', ['uri' => $row->uri])  . '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' . '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="portfolio/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="portfolio/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste projeto?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/blog/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/portfolio/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
         }
 
-        return view('admin.blog.index');
+        return view('admin.portfolio.index');
     }
 
     /**
@@ -53,9 +51,9 @@ class BlogController extends Controller
      */
     public function create()
     {
-        CheckPermission::checkAuth('Criar Blog');
-        $categories = BlogCategory::orderBy('title')->get();
-        return view('admin.blog.create', \compact('categories'));
+        CheckPermission::checkAuth('Criar Portfolio');
+        $categories = PortfolioCategory::orderBy('title')->get();
+        return view('admin.portfolio.create', \compact('categories'));
     }
 
     /**
@@ -64,9 +62,9 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlogRequest $request)
+    public function store(PortfolioRequest $request)
     {
-        CheckPermission::checkAuth('Criar Blog');
+        CheckPermission::checkAuth('Criar Portfolio');
 
         $data = $request->all();
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
@@ -76,10 +74,10 @@ class BlogController extends Controller
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/blog';
-            $destinationPathMedium = storage_path() . '/app/public/blog/medium';
-            $destinationPathMin = storage_path() . '/app/public/blog/min';
-            $destinationPathContent = storage_path() . '/app/public/blog/content';
+            $destinationPath = storage_path() . '/app/public/portfolio';
+            $destinationPathMedium = storage_path() . '/app/public/portfolio/medium';
+            $destinationPathMin = storage_path() . '/app/public/portfolio/min';
+            $destinationPathContent = storage_path() . '/app/public/portfolio/content';
 
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
@@ -134,12 +132,12 @@ class BlogController extends Controller
                     list(, $img) = explode(',', $img);
                     $imageData = base64_decode($img);
                     $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
-                    $path = storage_path() . '/app/public/blog/content/' . $image_name;
+                    $path = storage_path() . '/app/public/portfolio/content/' . $image_name;
                     file_put_contents($path, $imageData);
                     $image->removeAttribute('src');
                     $image->removeAttribute('data-filename');
                     $image->setAttribute('alt', $request->title);
-                    $image->setAttribute('src', url('storage/blog/content/' . $image_name));
+                    $image->setAttribute('src', url('storage/portfolio/content/' . $image_name));
                 }
             }
 
@@ -148,24 +146,24 @@ class BlogController extends Controller
         }
 
         $data['uri'] = Str::slug($request->title);
-        $post = Blog::create($data);
+        $portfolio = Portfolio::create($data);
 
-        if ($post->save()) {
+        if ($portfolio->save()) {
 
             $categories = $request->categories;
             if ($categories && count($categories) > 0) {
-                $categories = BlogCategory::whereIn('id', $categories)->pluck('id');
+                $categories = PortfolioCategory::whereIn('id', $categories)->pluck('id');
                 foreach ($categories as $category) {
-                    $pivot = new BlogCategoriesPivot();
+                    $pivot = new PortfolioCategoriesPivot();
                     $pivot->create([
-                        'blog_id' => $post->id,
-                        'blog_category_id' => $category
+                        'portfolio_id' => $portfolio->id,
+                        'portfolio_category_id' => $category
                     ]);
                 }
             }
 
             return redirect()
-                ->route('admin.blog.index')
+                ->route('admin.portfolio.index')
                 ->with('success', 'Cadastro realizado!');
         } else {
             return redirect()
@@ -183,15 +181,15 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        CheckPermission::checkAuth('Editar Blog');
+        CheckPermission::checkAuth('Editar Portfolio');
 
-        $post = Blog::find($id);
-        if (!$post) {
+        $portfolio = Portfolio::find($id);
+        if (!$portfolio) {
             abort(403, 'Acesso não autorizado');
         }
 
-        $categories = BlogCategory::orderBy('title')->get();
-        return view('admin.blog.edit', compact('post', 'categories'));
+        $categories = PortfolioCategory::orderBy('title')->get();
+        return view('admin.portfolio.edit', compact('portfolio', 'categories'));
     }
 
     /**
@@ -201,13 +199,13 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlogRequest $request, $id)
+    public function update(PortfolioRequest $request, $id)
     {
-        CheckPermission::checkAuth('Editar Blog');
+        CheckPermission::checkAuth('Editar Portfolio');
 
-        $post = Blog::find($id);
+        $portfolio = Portfolio::find($id);
 
-        if (!$post) {
+        if (!$portfolio) {
             abort(403, 'Acesso não autorizado');
         }
 
@@ -215,9 +213,9 @@ class BlogController extends Controller
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
-            $imagePath = storage_path() . '/app/public/blog/' . $post->cover;
-            $imagePathMedium = storage_path() . '/app/public/blog/medium/' . $post->cover;
-            $imagePathMin = storage_path() . '/app/public/blog/min/' . $post->cover;
+            $imagePath = storage_path() . '/app/public/portfolio/' . $portfolio->cover;
+            $imagePathMedium = storage_path() . '/app/public/portfolio/medium/' . $portfolio->cover;
+            $imagePathMin = storage_path() . '/app/public/portfolio/min/' . $portfolio->cover;
 
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
@@ -236,10 +234,10 @@ class BlogController extends Controller
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/blog';
-            $destinationPathMedium = storage_path() . '/app/public/blog/medium';
-            $destinationPathMin = storage_path() . '/app/public/blog/min';
-            $destinationPathContent = storage_path() . '/app/public/blog/content';
+            $destinationPath = storage_path() . '/app/public/portfolio';
+            $destinationPathMedium = storage_path() . '/app/public/portfolio/medium';
+            $destinationPathMin = storage_path() . '/app/public/portfolio/min';
+            $destinationPathContent = storage_path() . '/app/public/portfolio/content';
 
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
@@ -294,12 +292,12 @@ class BlogController extends Controller
                     list(, $img) = explode(',', $img);
                     $imageData = base64_decode($img);
                     $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
-                    $path = storage_path() . '/app/public/blog/content/' . $image_name;
+                    $path = storage_path() . '/app/public/portfolio/content/' . $image_name;
                     file_put_contents($path, $imageData);
                     $image->removeAttribute('src');
                     $image->removeAttribute('data-filename');
                     $image->setAttribute('alt', $request->title);
-                    $image->setAttribute('src', url('storage/blog/content/' . $image_name));
+                    $image->setAttribute('src', url('storage/portfolio/content/' . $image_name));
                 }
             }
 
@@ -307,26 +305,26 @@ class BlogController extends Controller
             $data['content'] = $content;
         }
 
-        $post['uri'] = Str::slug($request->title);
+        $portfolio['uri'] = Str::slug($request->title);
 
-        if ($post->update($data)) {
+        if ($portfolio->update($data)) {
 
             $categories = $request->categories;
             if ($categories && count($categories) > 0) {
-                $categories = BlogCategory::whereIn('id', $categories)->pluck('id');
+                $categories = PortfolioCategory::whereIn('id', $categories)->pluck('id');
                 foreach ($categories as $category) {
-                    $pivot = new BlogCategoriesPivot();
+                    $pivot = new PortfolioCategoriesPivot();
                     $pivot->firstOrCreate([
-                        'blog_id' => $post->id,
-                        'blog_category_id' => $category
+                        'portfolio_id' => $portfolio->id,
+                        'portfolio_category_id' => $category
                     ]);
                 }
             } else {
-                BlogCategoriesPivot::where('blog_id', $post->id)->delete();
+                PortfolioCategoriesPivot::where('portfolio_id', $portfolio->id)->delete();
             }
 
             return redirect()
-                ->route('admin.blog.index')
+                ->route('admin.portfolio.index')
                 ->with('success', 'Atualização realizada!');
         } else {
             return redirect()
@@ -344,19 +342,19 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        CheckPermission::checkAuth('Excluir Blog');
+        CheckPermission::checkAuth('Excluir Portfolio');
 
-        $post = Blog::find($id);
+        $portfolio = Portfolio::find($id);
 
-        if (!$post) {
+        if (!$portfolio) {
             abort(403, 'Acesso não autorizado');
         }
 
-        $imagePath = storage_path() . '/app/public/blog/' . $post->cover;
-        $imagePathMedium = storage_path() . '/app/public/blog/medium/' . $post->cover;
-        $imagePathMin = storage_path() . '/app/public/blog/min/' . $post->cover;
+        $imagePath = storage_path() . '/app/public/portfolio/' . $portfolio->cover;
+        $imagePathMedium = storage_path() . '/app/public/portfolio/medium/' . $portfolio->cover;
+        $imagePathMin = storage_path() . '/app/public/portfolio/min/' . $portfolio->cover;
 
-        if ($post->delete()) {
+        if ($portfolio->delete()) {
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
             }
@@ -369,12 +367,12 @@ class BlogController extends Controller
                 unlink($imagePathMin);
             }
 
-            BlogCategoriesPivot::where('blog_id', $post->id)->delete();
-            $post->cover = null;
-            $post->update();
+            PortfolioCategoriesPivot::where('portfolio_id', $portfolio->id)->delete();
+            $portfolio->cover = null;
+            $portfolio->update();
 
             return redirect()
-                ->route('admin.blog.index')
+                ->route('admin.portfolio.index')
                 ->with('success', 'Exclusão realizada!');
         } else {
             return redirect()
