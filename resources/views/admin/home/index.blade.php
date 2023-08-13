@@ -3,6 +3,20 @@
 @section('title', '- Dashboard')
 @section('plugins.Chartjs', true)
 
+@section('adminlte_css')
+    <style>
+        .callout-purple {
+            border-left-color: #6f42c1
+        }
+
+        .border-purple {
+            border-color: #6f42c1 !important;
+            border-width: 5px!important;
+        }
+    </style>
+
+@endsection
+
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -21,19 +35,34 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                @if (Auth::user()->hasRole('Programador|Administrador'))
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-shield"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Administradores</span>
-                                <span class="info-box-number">{{ $administrators }}</span>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4">
+                    <x-adminlte-callout theme="purple" class="bg-gradient-dark"
+                        title-class="pb-2 border-bottom border-purple" icon="fas fa-lg fa-blog text-white" title="Blog">
+                        <p class="my-0">Publicados: {{ $posts->where('status', 'Postado')->count() }}</p>
+                        <p class="my-1">Rascunhos: {{ $posts->where('status', 'Rascunho')->count() }}</p>
+                        <p class="my-0">Lixeira: {{ $posts->where('status', 'Lixeira')->count() }}</p>
+                    </x-adminlte-callout>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <x-adminlte-callout theme="purple" class="bg-gradient-dark"
+                        title-class="pb-2 border-bottom border-purple" icon="fas fa-lg fa-file text-white"
+                        title="Portifólio">
+                        <p class="my-0">Publicados: {{ $projects->where('status', 'Postado')->count() }}</p>
+                        <p class="my-1">Rascunhos: {{ $projects->where('status', 'Rascunho')->count() }}</p>
+                        <p class="my-0">Lixeira: {{ $projects->where('status', 'Lixeira')->count() }}</p>
+                    </x-adminlte-callout>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <x-adminlte-callout theme="purple" class="bg-gradient-dark"
+                        title-class="pb-2 border-bottom border-purple" icon="fas fa-lg fa-graduation-cap text-white"
+                        title="Certificados">
+                        <p class="my-0">Publicados: {{ $certificates->where('status', 'Postado')->count() }}</p>
+                        <p class="my-1">Rascunhos: {{ $certificates->where('status', 'Rascunho')->count() }}</p>
+                        <p class="my-0">Lixeira: {{ $certificates->where('status', 'Lixeira')->count() }}</p>
+                    </x-adminlte-callout>
+                </div>
             </div>
 
             @if (Auth::user()->hasRole('Programador|Administrador'))
@@ -54,7 +83,8 @@
                                         <span>Acessos Diários</span>
                                     </p>
                                     <p class="ml-auto d-flex flex-column text-right">
-                                        <span id="percentclass" class="{{ $percent > 0 ? 'text-success' : 'text-danger' }}">
+                                        <span id="percentclass"
+                                            class="{{ $percent > 0 ? 'text-success' : 'text-danger' }}">
                                             <i id="percenticon"
                                                 class="fas {{ $percent > 0 ? 'fa-arrow-up' : 'fa-arrow-down' }}  mr-1"></i><span
                                                 id="percentvalue">{{ $percent }}</span>%

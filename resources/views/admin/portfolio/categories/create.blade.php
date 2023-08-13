@@ -14,9 +14,9 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.portfolio.index') }}">Portfolio</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.portfolio.index') }}">Portfólio</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.portfolio-categories.index') }}">Categorias do
-                            Portfolio</a></li>
+                            Portfólio</a></li>
                         <li class="breadcrumb-item active">Nova Categoria</li>
                     </ol>
                 </div>

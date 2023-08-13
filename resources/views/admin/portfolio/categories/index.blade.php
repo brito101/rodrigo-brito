@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '- Categorias do Portfolio')
+@section('title', '- Categorias do Portfólio')
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
@@ -10,13 +10,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="fas fa-fw fa-tags"></i> Categorias do Portfolio</h1>
+                    <h1><i class="fas fa-fw fa-tags"></i> Categorias do Portfólio</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.portfolio.index') }}">Portfolio</a></li>
-                        <li class="breadcrumb-item active">Categorias do Portfolio</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.portfolio.index') }}">Portfólio</a></li>
+                        <li class="breadcrumb-item active">Categorias do Portfólio</li>
                     </ol>
                 </div>
             </div>

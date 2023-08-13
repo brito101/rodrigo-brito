@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\Certificate;
+use App\Models\Portfolio;
 use App\Models\User;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
@@ -14,6 +17,10 @@ class AdminController extends Controller
     {
         $administrators = ViewsUser::where('type', 'Administrador')->count();
 
+        $posts = Blog::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
+        $projects = Portfolio::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
+        $certificates = Certificate::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
+
         /** Statistics */
         $statistics = $this->accessStatistics();
         $onlineUsers = $statistics['onlineUsers'];
@@ -23,6 +30,9 @@ class AdminController extends Controller
 
         return view('admin.home.index', compact(
             'administrators',
+            'posts',
+            'projects',
+            'certificates',
             'onlineUsers',
             'percent',
             'access',

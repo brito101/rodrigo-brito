@@ -21,7 +21,7 @@ class PortfolioController extends Controller
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Listar Portfolio');
+        CheckPermission::checkAuth('Listar Portfólio');
 
         $portfolios = Portfolio::all();
 
@@ -51,7 +51,7 @@ class PortfolioController extends Controller
      */
     public function create()
     {
-        CheckPermission::checkAuth('Criar Portfolio');
+        CheckPermission::checkAuth('Criar Portfólio');
         $categories = PortfolioCategory::orderBy('title')->get();
         return view('admin.portfolio.create', \compact('categories'));
     }
@@ -64,7 +64,7 @@ class PortfolioController extends Controller
      */
     public function store(PortfolioRequest $request)
     {
-        CheckPermission::checkAuth('Criar Portfolio');
+        CheckPermission::checkAuth('Criar Portfólio');
 
         $data = $request->all();
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
@@ -181,7 +181,7 @@ class PortfolioController extends Controller
      */
     public function edit($id)
     {
-        CheckPermission::checkAuth('Editar Portfolio');
+        CheckPermission::checkAuth('Editar Portfólio');
 
         $portfolio = Portfolio::find($id);
         if (!$portfolio) {
@@ -201,7 +201,7 @@ class PortfolioController extends Controller
      */
     public function update(PortfolioRequest $request, $id)
     {
-        CheckPermission::checkAuth('Editar Portfolio');
+        CheckPermission::checkAuth('Editar Portfólio');
 
         $portfolio = Portfolio::find($id);
 
@@ -342,7 +342,7 @@ class PortfolioController extends Controller
      */
     public function destroy($id)
     {
-        CheckPermission::checkAuth('Excluir Portfolio');
+        CheckPermission::checkAuth('Excluir Portfólio');
 
         $portfolio = Portfolio::find($id);
 

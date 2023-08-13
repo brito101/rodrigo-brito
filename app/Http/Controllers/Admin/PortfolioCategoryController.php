@@ -20,7 +20,7 @@ class PortfolioCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Listar Categorias do Portfolio');
+        CheckPermission::checkAuth('Listar Categorias do Portfólio');
 
         $categories = PortfolioCategory::all();
 
@@ -53,7 +53,7 @@ class PortfolioCategoryController extends Controller
      */
     public function create()
     {
-        CheckPermission::checkAuth('Criar Categorias do Portfolio');
+        CheckPermission::checkAuth('Criar Categorias do Portfólio');
         return view('admin.portfolio.categories.create');
     }
 
@@ -65,7 +65,7 @@ class PortfolioCategoryController extends Controller
      */
     public function store(PortfolioCategoryRequest $request)
     {
-        CheckPermission::checkAuth('Criar Categorias do Portfolio');
+        CheckPermission::checkAuth('Criar Categorias do Portfólio');
 
         $data = $request->all();
 
@@ -138,7 +138,7 @@ class PortfolioCategoryController extends Controller
      */
     public function edit($id)
     {
-        CheckPermission::checkAuth('Editar Categorias do Portfolio');
+        CheckPermission::checkAuth('Editar Categorias do Portfólio');
 
         $category = PortfolioCategory::find($id);
         if (!$category) {
@@ -157,7 +157,7 @@ class PortfolioCategoryController extends Controller
      */
     public function update(PortfolioCategoryRequest $request, $id)
     {
-        CheckPermission::checkAuth('Editar Categorias do Portfolio');
+        CheckPermission::checkAuth('Editar Categorias do Portfólio');
 
         $category = PortfolioCategory::find($id);
 
@@ -251,7 +251,7 @@ class PortfolioCategoryController extends Controller
      */
     public function destroy($id)
     {
-        CheckPermission::checkAuth('Excluir Categorias do Portfolio');
+        CheckPermission::checkAuth('Excluir Categorias do Portfólio');
 
         $category = PortfolioCategory::find($id);
 

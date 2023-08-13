@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '- Edição de Categoria do Portfolio')
+@section('title', '- Edição de Categoria do Portfólio')
 @section('plugins.BsCustomFileInput', true)
 
 @section('content')
@@ -16,7 +16,7 @@
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.portfolio.index') }}">Potfolio</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.portfolio-categories.index') }}">Categorias do
-                                Portfolio</a></li>
+                            Portfólio</a></li>
                         <li class="breadcrumb-item active">Editar Categoria</li>
                     </ol>
                 </div>
