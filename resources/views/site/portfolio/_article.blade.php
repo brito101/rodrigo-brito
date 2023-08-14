@@ -19,7 +19,7 @@
                 @endif
             @endif
             @foreach ($post->categories as $cat)
-                <a title="Artigos em {{ $cat->portfolio->title }}"
+                <a title="Artigos em {{ $cat->category->title }}"
                     href="{{ route('site.portfolio.category', ['category' => $cat->category->uri]) }}">
                     {{ $cat->category->title }} &bull;</a>
             @endforeach
