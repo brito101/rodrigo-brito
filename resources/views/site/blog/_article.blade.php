@@ -11,7 +11,13 @@
     </a>
     <header>
         <p class="meta">
-            Categorias:
+            @if ($post->categories->count() > 0)
+                @if ($post->categories->count() == 1)
+                    Categoria:
+                @else
+                    Categorias:
+                @endif
+            @endif
             @foreach ($post->categories as $cat)
                 <a title="Artigos em {{ $cat->category->title }}"
                     href="{{ route('site.blog.category', ['category' => $cat->category->uri]) }}">

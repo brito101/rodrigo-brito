@@ -13,17 +13,15 @@
                         height="207" />
                 </picture>
                 <div class="post_page_meta">
-                    <div>Publicado em {{ date('d/m/y', strtotime($post->created_at)) }}</div>
+                    <div>Publicado em {{ date('d/m/y h:m', strtotime($post->created_at)) }}</div>
                     <div class="icon-bar-chart">Visualizações: {{ $post->views }}</div>
                 </div>
             </div>
         </header>
 
-        <div class="post_page_content fadeInScrool">
-            <div class="htmlChars fadeInScrool">
-                <h3>{{ $post->subtitle }}</h3>
-                {!! $post->content !!}
-            </div>
+        <div class="htmlChars fadeInScrool">
+            <h3 class="htmlChars_subtitle">{{ $post->subtitle }}</h3>
+            {!! $post->content !!}
         </div>
 
         @if ($related->count() > 0)

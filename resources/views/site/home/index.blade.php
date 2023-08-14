@@ -9,7 +9,7 @@
                 <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Desenvolvedor Web</h2>
                 <p class="headline">FullStack PHP | Web Designer</p>
                 <p data-anime="1200" class="fadeInDown">
-                    <button data-go=".home_optin">
+                    <button data-go=".home_opt_in">
                         Conheça meu Portfólio</button>
                 </p>
             </header>
@@ -21,7 +21,7 @@
         </div>
     </article>
 
-    <article class="home_optin">
+    <article class="home_opt_in">
         <h3 class="hide">Conteúdo Principal</h3>
         <!--PORTFOLIO-->
         @if (!$posts || $posts->count() == 0)
@@ -45,7 +45,7 @@
                 </div>
             </section>
 
-            <article class="optin_link fadeInScrool">
+            <article class="opt_in_link fadeInScrool">
                 <h4 class="hide">Conheça todo o portfólio</h4>
                 <a href="{{ route('site.portfolio') }}">Conheça todo o portfólio</a>
             </article>

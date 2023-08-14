@@ -11,11 +11,17 @@
     </a>
     <header>
         <p class="meta">
-            Categorias:
+            @if ($post->categories->count() > 0)
+                @if ($post->categories->count() == 1)
+                    Categoria:
+                @else
+                    Categorias:
+                @endif
+            @endif
             @foreach ($post->categories as $cat)
                 <a title="Artigos em {{ $cat->portfolio->title }}"
                     href="{{ route('site.portfolio.category', ['category' => $cat->category->uri]) }}">
-                    {{ $cat->portfolio->title }} &bull;</a>
+                    {{ $cat->category->title }} &bull;</a>
             @endforeach
             {{ date('d/m/y', strtotime($post->created_at)) }}
         </p>
