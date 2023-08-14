@@ -19,9 +19,11 @@
             </div>
         </header>
 
-        <div class="htmlChars fadeInScrool">
-            <h3 class="htmlChars_subtitle">{{ $post->subtitle }}</h3>
-            {!! $post->content !!}
+        <div class="post_page_content fadeInScrool">
+            <div class="htmlChars fadeInScrool">
+                <h3>{{ $post->subtitle }}</h3>
+                {!! $post->content !!}
+            </div>
         </div>
 
         @if ($related->count() > 0)
