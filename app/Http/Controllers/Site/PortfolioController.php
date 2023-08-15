@@ -72,7 +72,7 @@ class PortfolioController extends Controller
             $related = PortfolioCategoriesPivot::inRandomOrder()
                 ->whereIn('portfolio_category_id', $categories)
                 ->where('id', '!=', $post->id)
-                ->with('post')
+                ->with('portfolio')
                 ->limit(3)->get();
 
             return \view('site.portfolio.post', \compact('title', 'post', 'related', 'title'));
