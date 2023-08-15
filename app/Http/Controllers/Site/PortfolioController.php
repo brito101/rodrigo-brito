@@ -69,11 +69,18 @@ class PortfolioController extends Controller
                 $post->update();
             }
 
-            $related = PortfolioCategoriesPivot::inRandomOrder()
-                ->whereIn('portfolio_category_id', $categories)
-                ->where('portfolio_id', '!=', $post->id)
-                ->with('portfolio')
-                ->limit(3)->get();
+            // $related = PortfolioCategory::whereIn('id', $categories)->with('portfolios')->get();
+
+
+            $related = Portfolio::whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('portfolio_category_id', $categories);
+            })->where('id', '!=', $post->id)->inRandomOrder()->limit(3)->get();
+
+            // $related = PortfolioCategoriesPivot::inRandomOrder()
+            //     ->whereIn('portfolio_category_id', $categories)
+            //     ->where('portfolio_id', '!=', $post->id)
+            //     ->with('portfolio')
+            //     ->limit(3)->get();
 
             return \view('site.portfolio.post', \compact('title', 'post', 'related', 'title'));
         } else {
