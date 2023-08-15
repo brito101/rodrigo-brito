@@ -13,7 +13,7 @@
                         height="207" />
                 </picture>
                 <div class="post_page_meta">
-                    <div>Publicado em {{ date('d/m/y h:m', strtotime($post->created_at)) }}</div>
+                    <div>Publicado em {{ date('d/m/y H:m', strtotime($post->created_at)) }}</div>
                     <div class="icon-bar-chart">Visualizações: {{ $post->views }}</div>
                 </div>
             </div>
