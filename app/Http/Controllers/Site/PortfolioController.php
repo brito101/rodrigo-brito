@@ -61,7 +61,7 @@ class PortfolioController extends Controller
 
             $categories = [];
             foreach ($post->categories as $category) {
-                $categories[] .= $category->portfolio->id;
+                $categories[] .= $category->portfolio_category_id;
             }
 
             if (!Auth::user()) {

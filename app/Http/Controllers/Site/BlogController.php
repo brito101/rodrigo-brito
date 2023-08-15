@@ -66,7 +66,7 @@ class BlogController extends Controller
 
             $categories = [];
             foreach ($post->categories as $category) {
-                $categories[] .= $category->post->id;
+                $categories[] .= $category->blog_category_id;
             }
 
             if (!Auth::user()) {
