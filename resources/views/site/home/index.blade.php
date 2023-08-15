@@ -39,7 +39,7 @@
 
                     <div class="portfolio_articles fadeInScrool">
                         @foreach ($posts as $post)
-                            @include('site._partials.article', ['base' => 'portfolio', 'item' => $item])
+                            @include('site._partials.article', ['base' => 'portfolio', 'item' => $post])
                         @endforeach
                     </div>
                 </div>

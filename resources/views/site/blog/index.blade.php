@@ -34,7 +34,7 @@
             <div class="portfolio_content fadeInUp" data-anime="1600">
                 <div class="portfolio_articles">
                     @foreach ($posts as $post)
-                        @include('site._partials.article', ['base' => 'blog'])
+                        @include('site._partials.article', ['base' => 'blog', 'item' => $post])
                     @endforeach
                 </div>
 
