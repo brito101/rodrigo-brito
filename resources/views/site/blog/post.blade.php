@@ -36,7 +36,7 @@
 
                     <div class="portfolio_articles">
                         @foreach ($related as $item)
-                            @include('site._partials.article', ['base' => 'blog'])
+                            @include('site._partials.article', ['base' => 'blog', 'item' => $item])
                         @endforeach
                     </div>
                 </section>

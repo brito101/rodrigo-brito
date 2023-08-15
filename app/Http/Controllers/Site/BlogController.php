@@ -74,11 +74,9 @@ class BlogController extends Controller
                 $post->update();
             }
 
-            $related = BlogCategoriesPivot::inRandomOrder()
-                ->whereIn('blog_category_id', $categories)
-                ->where('blog_id', '!=', $post->id)
-                ->with('post')
-                ->limit(3)->get();
+            $related = Blog::whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('blog_category_id', $categories);
+            })->where('id', '!=', $post->id)->inRandomOrder()->limit(3)->get();
 
             return \view('site.blog.post', \compact('title', 'post', 'related', 'title'));
         } else {
