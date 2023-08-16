@@ -9,17 +9,38 @@ use App\Models\Portfolio;
 use App\Models\User;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
+use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
+use DataTables;
+use Illuminate\Support\Facades\Route;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $administrators = ViewsUser::where('type', 'Administrador')->count();
 
         $posts = Blog::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
         $projects = Portfolio::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
         $certificates = Certificate::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
+
+        $visits = Visit::where('url', '!=', route('admin.home.chart'))
+            ->where('url', 'NOT LIKE', '%columns%')
+            ->where('url', 'NOT LIKE', '%storage%')
+            ->where('url', 'NOT LIKE', '%admin%')
+            ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->get();
+
+        if ($request->ajax()) {
+            return Datatables::of($visits)
+                ->addColumn('time', function ($row) {
+                    return date(('H:i:s'), strtotime($row->created_at));
+                })
+                ->addIndexColumn()
+                ->rawColumns(['time'])
+                ->make(true);
+        }
 
         /** Statistics */
         $statistics = $this->accessStatistics();
@@ -61,15 +82,24 @@ class AdminController extends Controller
     {
         $onlineUsers = User::online()->count();
 
-        $access = Visit::where('created_at', '>=', date("Y-m-d"))
-            ->where('url', '!=', route('admin.home.chart'))
+        $accessToday = Visit::where('url', '!=', route('admin.home.chart'))
+            ->where('url', 'NOT LIKE', '%columns%')
+            ->where('url', 'NOT LIKE', '%storage%')
+            ->where('url', 'NOT LIKE', '%admin%')
+            ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->where('method', 'GET')
             ->get();
-        $accessYesterday = Visit::where('created_at', '>=', date("Y-m-d", strtotime('-1 day')))
-            ->where('created_at', '<', date("Y-m-d"))
-            ->where('url', '!=', route('admin.home.chart'))
+        $accessYesterday = VisitYesterday::where('url', '!=', route('admin.home.chart'))
+            ->where('url', 'NOT LIKE', '%columns%')
+            ->where('url', 'NOT LIKE', '%storage%')
+            ->where('url', 'NOT LIKE', '%admin%')
+            ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->where('method', 'GET')
             ->count();
 
-        $totalDaily = $access->count();
+        $totalDaily = $accessToday->count();
 
         $percent = 0;
         if ($accessYesterday > 0) {
@@ -77,7 +107,7 @@ class AdminController extends Controller
         }
 
         /** Visitor Chart */
-        $data = $access->groupBy(function ($reg) {
+        $data = $accessToday->groupBy(function ($reg) {
             return date('H', strtotime($reg->created_at));
         });
 
