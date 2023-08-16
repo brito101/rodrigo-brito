@@ -1,6 +1,7 @@
 @extends('site.master')
-<title>Rodrigo Brito - 429 | Ooops! Excesso de requisições!</title>
+
 @section('content')
+    <title>Rodrigo Brito - 429 | Ooops! Excesso de requisições!</title>
     <article class="not_found">
         <div>
             <header>

@@ -1,6 +1,7 @@
 @extends('site.master')
-<title>Rodrigo Brito - 419 | Ooops! Página Expirada!</title>
+
 @section('content')
+    <title>Rodrigo Brito - 419 | Ooops! Página Expirada!</title>
     <article class="not_found">
         <div>
             <header>
