@@ -70,7 +70,7 @@
             </div>
 
             @if (Auth::user()->hasRole('Programador|Administrador'))
-                <div class="card">
+                <div class="card text-center">
                     <div class="card-header border-transparent">
                         <h3 class="card-title">Acessos nos últimos 10 dias</h3>
                         <div class="card-tools">
@@ -88,7 +88,7 @@
                             <table class="table m-0">
                                 <thead>
                                     <tr>
-                                        <th>Dia</th>
+                                        <th class="text-left">Dia</th>
                                         <th>Total de Acessos</th>
                                         <th>Usuários</th>
                                         <th>Páginas</th>
@@ -97,7 +97,7 @@
                                 <tbody>
                                     @foreach ($visitors->reverse() as $visit)
                                         <tr>
-                                            <td>{{ date('d/m/Y', strtotime($visit[0]->created_at)) }}</td>
+                                            <td class="text-left">{{ date('d/m/Y', strtotime($visit[0]->created_at)) }}</td>
                                             <td>{{ $visit->count() }}</td>
                                             <td> {{ $visit->groupBy('ip')->count() }}</td>
                                             <td>{{ $visit->groupBy('url')->count() }}</td>
