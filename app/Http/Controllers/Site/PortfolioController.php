@@ -31,7 +31,7 @@ class PortfolioController extends Controller
 
         $posts = Portfolio::where('status', 'post')
             ->orderBy('created_at', 'desc')
-            ->paginate(6);
+            ->paginate(9);
 
         return \view('site.portfolio.index', \compact('title', 'posts'));
     }
@@ -101,7 +101,7 @@ class PortfolioController extends Controller
         $posts = Portfolio::where('status', 'post')
             ->where('title', 'LIKE', "%{$search}%")
             ->orderBy('created_at', 'desc')
-            ->paginate(6)->withQueryString();
+            ->paginate(9)->withQueryString();
 
         return \view('site.portfolio.index', \compact('title', 'posts', 'search', 'description'));
     }
@@ -136,7 +136,7 @@ class PortfolioController extends Controller
                 ->whereIn('id', $portfolioCategories)
                 ->with('categories')
                 ->orderBy('created_at', 'desc')
-                ->paginate(6);
+                ->paginate(9);
 
             return \view('site.portfolio.index', \compact('title', 'posts', 'description'));
         } else {
