@@ -28,6 +28,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%storage%')
             ->where('url', 'NOT LIKE', '%admin%')
             ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
             ->get();
 
@@ -86,6 +87,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%storage%')
             ->where('url', 'NOT LIKE', '%admin%')
             ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
             ->where('method', 'GET')
             ->get();
@@ -94,6 +96,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%storage%')
             ->where('url', 'NOT LIKE', '%admin%')
             ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
             ->where('method', 'GET')
             ->count();
