@@ -12,6 +12,8 @@ use App\Models\Views\Visit;
 use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
+use Shetabit\Visitor\Models\Visit as ModelsVisit;
 
 class AdminController extends Controller
 {
@@ -22,6 +24,19 @@ class AdminController extends Controller
         $posts = Blog::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
         $projects = Portfolio::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
         $certificates = Certificate::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
+
+        $visitors = ModelsVisit::select('url', 'created_at', 'ip')->where('url', '!=', route('admin.home.chart'))
+            ->where('url', 'NOT LIKE', '%columns%')
+            ->where('url', 'NOT LIKE', '%storage%')
+            ->where('url', 'NOT LIKE', '%admin%')
+            ->where('url', 'NOT LIKE', '%offline%')
+            ->where('url', 'NOT LIKE', '%logout%')
+            ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->whereRaw('created_at >= DATE_SUB(CURDATE(), INTERVAL 10 DAY)')
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->created_at->day;
+            });
 
         $visits = Visit::where('url', '!=', route('admin.home.chart'))
             ->where('url', 'NOT LIKE', '%columns%')
@@ -50,6 +65,7 @@ class AdminController extends Controller
         $chart = $statistics['chart'];
 
         return view('admin.home.index', compact(
+            'visitors',
             'administrators',
             'posts',
             'projects',

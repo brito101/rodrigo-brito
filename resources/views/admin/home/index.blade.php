@@ -71,6 +71,45 @@
 
             @if (Auth::user()->hasRole('Programador|Administrador'))
                 <div class="card">
+                    <div class="card-header border-transparent">
+                        <h3 class="card-title">Acessos nos últimos 10 dias</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Dia</th>
+                                        <th>Total de Acessos</th>
+                                        <th>Usuários</th>
+                                        <th>Páginas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($visitors->reverse() as $visit)
+                                        <tr>
+                                            <td>{{ date('d/m/Y', strtotime($visit[0]->created_at)) }}</td>
+                                            <td>{{ $visit->count() }}</td>
+                                            <td> {{ $visit->groupBy('ip')->count() }}</td>
+                                            <td>{{ $visit->groupBy('url')->count() }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
                     <div class="card-header">
                         <div class="d-flex flex-wrap justify-content-between col-12 align-content-center">
                             <h3 class="card-title align-self-center">Acessos Diário</h3>
