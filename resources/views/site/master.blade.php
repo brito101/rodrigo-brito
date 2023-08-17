@@ -139,7 +139,7 @@ Good journey!
                         <a target="_blank" rel="noreferrer" class="icon-instagram"
                             href="https://www.instagram.com/rodrigobrito101" title="Rodrigo Brito no Instagram"></a>
                         <a target="_blank" rel="noreferrer" class="icon-linkedin"
-                            href="www.linkedin.com/in/rodrigo-carvalho-de-brito-43a130286"
+                            href="https:/www.linkedin.com/in/rodrigo-carvalho-de-brito-43a130286"
                             title="Rodrigo Brito no Linedin"></a>
                     </div>
                 </article>
