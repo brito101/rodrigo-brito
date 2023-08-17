@@ -12,7 +12,6 @@ use App\Models\Views\Visit;
 use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
 use DataTables;
-use Illuminate\Support\Facades\Route;
 
 class AdminController extends Controller
 {
@@ -102,7 +101,7 @@ class AdminController extends Controller
         $totalDaily = $accessToday->count();
 
         $percent = 0;
-        if ($accessYesterday > 0) {
+        if ($accessYesterday > 0 && $totalDaily > 0) {
             $percent = number_format((($totalDaily - $accessYesterday) / $totalDaily * 100), 2, ",", ".");
         }
 
