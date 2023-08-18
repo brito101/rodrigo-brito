@@ -208,7 +208,7 @@
                     data: {
                         labels: ({!! json_encode($chart->labels) !!}),
                         datasets: [{
-                            label: 'Acessos por horário',
+                            label: 'Acessos por hora',
                             data: {!! json_encode($chart->dataset) !!},
                             borderWidth: 1,
                             borderColor: '#007bff',
