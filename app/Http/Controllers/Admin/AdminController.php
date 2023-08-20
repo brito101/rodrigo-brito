@@ -31,7 +31,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
-            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
+            ->where('url', 'NOT LIKE', '%.png%')
             ->whereRaw('created_at >= DATE_SUB(CURDATE(), INTERVAL 10 DAY)')
             ->get()
             ->groupBy(function ($item) {
@@ -45,7 +45,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
-            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
+            ->where('url', 'NOT LIKE', '%.png%')
             ->get();
 
         if ($request->ajax()) {
@@ -106,7 +106,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
-            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
+            ->where('url', 'NOT LIKE', '%.png%')
             ->where('method', 'GET')
             ->get();
         $accessYesterday = VisitYesterday::where('url', '!=', route('admin.home.chart'))
@@ -116,7 +116,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
-            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
+            ->where('url', 'NOT LIKE', '%.png%')
             ->where('method', 'GET')
             ->count();
 
