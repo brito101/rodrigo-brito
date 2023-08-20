@@ -12,7 +12,6 @@ use App\Models\Views\Visit;
 use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
 use DataTables;
-use Illuminate\Support\Facades\DB;
 use Shetabit\Visitor\Models\Visit as ModelsVisit;
 
 class AdminController extends Controller
@@ -32,6 +31,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
             ->whereRaw('created_at >= DATE_SUB(CURDATE(), INTERVAL 10 DAY)')
             ->get()
             ->groupBy(function ($item) {
@@ -45,6 +45,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
             ->get();
 
         if ($request->ajax()) {
@@ -105,6 +106,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
             ->where('method', 'GET')
             ->get();
         $accessYesterday = VisitYesterday::where('url', '!=', route('admin.home.chart'))
@@ -114,6 +116,7 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%offline%')
             ->where('url', 'NOT LIKE', '%logout%')
             ->where('url', 'NOT LIKE', '%manifest.json%')
+            ->where('url', 'NOT LIKE', '%apple-touch-icon.png%')
             ->where('method', 'GET')
             ->count();
 
