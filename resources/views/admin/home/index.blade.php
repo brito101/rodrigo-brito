@@ -297,8 +297,10 @@
                         responsive: true,
                         legend: {
                             position: 'left',
-                            fontColor: "#f8f9fa",
-                            fontSize: 12
+                            labels: {
+                                fontColor: "#f8f9fa",
+                                fontSize: 12
+                            }
                         },
                     },
                 });
@@ -349,8 +351,10 @@
                         responsive: true,
                         legend: {
                             position: 'left',
-                            fontColor: "#f8f9fa",
-                            fontSize: 12
+                            labels: {
+                                fontColor: "#f8f9fa",
+                                fontSize: 12
+                            }
                         },
                     },
                 });
