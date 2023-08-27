@@ -130,8 +130,7 @@
                                                     <div class=""></div>
                                                 </div>
                                             </div>
-                                            <canvas id="posts-chart"
-                                                style="display: block; width: 203px; height: 100px;"
+                                            <canvas id="posts-chart" style="display: block; width: 203px; height: 100px;"
                                                 class="chartjs-render-monitor" width="203" height="100"></canvas>
                                         </div>
                                     </div>
@@ -152,8 +151,7 @@
                                                     <div class=""></div>
                                                 </div>
                                             </div>
-                                            <canvas id="projects-chart"
-                                                style="display: block; width: 203px; height: 100px;"
+                                            <canvas id="projects-chart" style="display: block; width: 203px; height: 100px;"
                                                 class="chartjs-render-monitor" width="203" height="100"></canvas>
                                         </div>
                                     </div>
@@ -273,7 +271,11 @@
                                 'rgba(212, 80, 135, 0.5)',
                                 'rgba(249, 93, 106, 0.5)',
                                 'rgba(255, 124, 67, 0.5)',
-                                'rgba(255, 166, 0, 0.5)'
+                                'rgba(255, 166, 0, 0.5)',
+                                'rgba(188, 245, 28, 0.5)',
+                                'rgba(28, 245, 154, 0.5)',
+                                'rgba(28, 167, 245, 0.5)',
+                                'rgba(123, 28, 245, 0.5)',
                             ],
                             borderColor: [
                                 'rgba(0, 63, 92)',
@@ -283,7 +285,11 @@
                                 'rgb(212, 80, 135)',
                                 'rgb(249, 93, 106)',
                                 'rgb(255, 124, 67)',
-                                'rgb(255, 166, 0)'
+                                'rgb(255, 166, 0)',
+                                'rgb(188, 245, 28)',
+                                'rgb(28, 245, 154)',
+                                'rgb(28, 167, 245)',
+                                'rgb(123, 28, 245)',
                             ],
                         }]
                     },
@@ -304,7 +310,7 @@
                     data: {
                         labels: {!! json_encode($projectsChart['label']) !!},
                         datasets: [{
-                            label: 'Clientes',
+                            label: 'Projetos',
                             data: {!! json_encode($projectsChart['data']) !!},
                             borderWidth: 1,
                             backgroundColor: [
