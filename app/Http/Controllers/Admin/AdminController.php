@@ -13,6 +13,7 @@ use App\Models\Views\VisitYesterday;
 use Illuminate\Http\Request;
 use DataTables;
 use Shetabit\Visitor\Models\Visit as ModelsVisit;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -52,7 +53,7 @@ class AdminController extends Controller
         // $postsList = $posts->orderBy('views', 'desc')->limit(25);
         $postsChart = [];
         foreach ($posts->sortBy('views')->reverse()->take(10) as $p) {
-            $postsChart['label'][] = $p->title;
+            $postsChart['label'][] = Str::limit($p->title, 15);
             $postsChart['data'][] = (int)$p->views;
         }
 
@@ -61,7 +62,7 @@ class AdminController extends Controller
         // dd($projectsList);
         $projectsChart = [];
         foreach ($projects->sortBy('views')->reverse()->take(10) as $p) {
-            $projectsChart['label'][] = $p->title;
+            $projectsChart['label'][] = Str::limit($p->title, 15);
             $projectsChart['data'][] = (int)$p->views;
         }
 
