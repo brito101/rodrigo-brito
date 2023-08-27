@@ -53,7 +53,7 @@ class AdminController extends Controller
         // $postsList = $posts->orderBy('views', 'desc')->limit(25);
         $postsChart = [];
         foreach ($posts->sortBy('views')->reverse()->take(10) as $p) {
-            $postsChart['label'][] = Str::limit($p->title, 15);
+            $postsChart['label'][] = Str::limit($p->title, 25);
             $postsChart['data'][] = (int)$p->views;
         }
 
@@ -62,7 +62,7 @@ class AdminController extends Controller
         // dd($projectsList);
         $projectsChart = [];
         foreach ($projects->sortBy('views')->reverse()->take(10) as $p) {
-            $projectsChart['label'][] = Str::limit($p->title, 15);
+            $projectsChart['label'][] = Str::limit($p->title, 25);
             $projectsChart['data'][] = (int)$p->views;
         }
 
