@@ -90,7 +90,7 @@ return [
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => true,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -104,12 +104,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
-    'classes_auth_header' => '',
-    'classes_auth_body' => '',
+    'classes_auth_card' => 'card-outline card-cyan',
+    'classes_auth_header' => 'bg-gradient-purple',
+    'classes_auth_body' => 'bg-gradient-dark',
     'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_icon' => 'fa-fw text-cyan',
+    'classes_auth_btn' => 'btn-flat bg-gradient-purple',
 
     /*
     |--------------------------------------------------------------------------
@@ -129,9 +129,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-purple elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -194,9 +194,9 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => false, //'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'password_reset_url' => false,
+    'password_email_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------

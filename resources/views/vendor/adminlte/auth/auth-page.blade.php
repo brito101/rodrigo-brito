@@ -9,8 +9,21 @@
 @endif
 
 @section('adminlte_css')
+
     @stack('css')
     @yield('css')
+
+    <style>
+        body {
+            background-color: #18001f !important;
+        }
+
+        .icheck-primary>input:first-child:checked+input[type=hidden]+label::before,
+        .icheck-primary>input:first-child:checked+label::before {
+            background-color: #6f42c1 !important;
+            border-color: #6f42c1 !important;
+        }
+    </style>
 @stop
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
@@ -22,7 +35,7 @@
         <div class="{{ $auth_type ?? 'login' }}-logo">
             <a href="{{ $dashboard_url }}">
                 <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
-                {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+                <span class="text-light">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</span>
             </a>
         </div>
 

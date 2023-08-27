@@ -109,6 +109,60 @@
                     </div>
                 </div>
 
+                <div class="row px-2">
+                    <div class="card col-12">
+                        <div class="card-header">
+                            Top 10 Acessados
+                        </div>
+                        <div class="card-body px-0 pb-0 d-flex flex-wrap justify-content-center">
+                            <div class="col-12 col-md-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <p class="mb-0">Posts</p>
+                                    </div>
+                                    <div class="cardy-body py-2">
+                                        <div class="chart-responsive">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div class=""></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                            <canvas id="posts-chart"
+                                                style="display: block; width: 203px; height: 100px;"
+                                                class="chartjs-render-monitor" width="203" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <p class="mb-0">Projetos</p>
+                                    </div>
+                                    <div class="cardy-body py-2">
+                                        <div class="chart-responsive">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div class=""></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div class=""></div>
+                                                </div>
+                                            </div>
+                                            <canvas id="projects-chart"
+                                                style="display: block; width: 203px; height: 100px;"
+                                                class="chartjs-render-monitor" width="203" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex flex-wrap justify-content-between col-12 align-content-center">
@@ -199,6 +253,100 @@
 
 @section('custom_js')
     @if (Auth::user()->hasRole('Programador|Administrador'))
+        <script>
+            const posts = document.getElementById('posts-chart');
+            if (posts) {
+                posts.getContext('2d');
+                const postsChart = new Chart(posts, {
+                    type: 'doughnut',
+                    data: {
+                        labels: {!! json_encode($postsChart['label']) !!},
+                        datasets: [{
+                            label: 'Posts',
+                            data: {!! json_encode($postsChart['data']) !!},
+                            borderWidth: 1,
+                            backgroundColor: [
+                                'rgba(0, 63, 92, 0.5)',
+                                'rgba(47, 75, 124, 0.5)',
+                                'rgba(102, 81, 145, 0.5)',
+                                'rgba(160, 81, 149, 0.5)',
+                                'rgba(212, 80, 135, 0.5)',
+                                'rgba(249, 93, 106, 0.5)',
+                                'rgba(255, 124, 67, 0.5)',
+                                'rgba(255, 166, 0, 0.5)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 63, 92)',
+                                'rgb(47, 75, 124)',
+                                'rgb(102, 81, 145)',
+                                'rgb(160, 81, 149)',
+                                'rgb(212, 80, 135)',
+                                'rgb(249, 93, 106)',
+                                'rgb(255, 124, 67)',
+                                'rgb(255, 166, 0)'
+                            ],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: 'left',
+                        },
+                    },
+                });
+            }
+
+            const projects = document.getElementById('projects-chart');
+            if (projects) {
+                projects.getContext('2d');
+                const projectsChart = new Chart(projects, {
+                    type: 'doughnut',
+                    data: {
+                        labels: {!! json_encode($projectsChart['label']) !!},
+                        datasets: [{
+                            label: 'Clientes',
+                            data: {!! json_encode($projectsChart['data']) !!},
+                            borderWidth: 1,
+                            backgroundColor: [
+                                'rgba(0, 63, 92, 0.5)',
+                                'rgba(47, 75, 124, 0.5)',
+                                'rgba(102, 81, 145, 0.5)',
+                                'rgba(160, 81, 149, 0.5)',
+                                'rgba(212, 80, 135, 0.5)',
+                                'rgba(249, 93, 106, 0.5)',
+                                'rgba(255, 124, 67, 0.5)',
+                                'rgba(255, 166, 0, 0.5)',
+                                'rgba(188, 245, 28, 0.5)',
+                                'rgba(28, 245, 154, 0.5)',
+                                'rgba(28, 167, 245, 0.5)',
+                                'rgba(123, 28, 245, 0.5)',
+                            ],
+                            borderColor: [
+                                'rgba(0, 63, 92)',
+                                'rgb(47, 75, 124)',
+                                'rgb(102, 81, 145)',
+                                'rgb(160, 81, 149)',
+                                'rgb(212, 80, 135)',
+                                'rgb(249, 93, 106)',
+                                'rgb(255, 124, 67)',
+                                'rgb(255, 166, 0)',
+                                'rgb(188, 245, 28)',
+                                'rgb(28, 245, 154)',
+                                'rgb(28, 167, 245)',
+                                'rgb(123, 28, 245)',
+                            ],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: 'left',
+                        },
+                    },
+                });
+            }
+        </script>
+
         <script>
             const ctx = document.getElementById('visitors-chart');
             if (ctx) {

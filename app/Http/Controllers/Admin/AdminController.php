@@ -20,8 +20,8 @@ class AdminController extends Controller
     {
         $administrators = ViewsUser::where('type', 'Administrador')->count();
 
-        $posts = Blog::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
-        $projects = Portfolio::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
+        $posts = Blog::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
+        $projects = Portfolio::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
         $certificates = Certificate::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
 
         $visitors = ModelsVisit::select('url', 'created_at', 'ip')->where('url', '!=', route('admin.home.chart'))
@@ -47,6 +47,23 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%manifest.json%')
             ->where('url', 'NOT LIKE', '%.png%')
             ->get();
+
+
+        // $postsList = $posts->orderBy('views', 'desc')->limit(25);
+        $postsChart = [];
+        foreach ($posts->sortBy('views')->reverse()->take(10) as $p) {
+            $postsChart['label'][] = $p->title;
+            $postsChart['data'][] = (int)$p->views;
+        }
+
+        // $projectsList = $projects->orderBy('views', 'desc')->limit(25);
+
+        // dd($projectsList);
+        $projectsChart = [];
+        foreach ($projects->sortBy('views')->reverse()->take(10) as $p) {
+            $projectsChart['label'][] = $p->title;
+            $projectsChart['data'][] = (int)$p->views;
+        }
 
         if ($request->ajax()) {
             return Datatables::of($visits)
@@ -75,6 +92,8 @@ class AdminController extends Controller
             'percent',
             'access',
             'chart',
+            'projectsChart',
+            'postsChart'
         ));
     }
 
