@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('users', UserController::class)->except('show');
 
         /** Certificates */
-        Route::resource('certificates', CertificateController::class)->except('show');        ;
+        Route::resource('certificates', CertificateController::class)->except('show');;
 
         /** Blog */
         Route::resource('blog', BlogController::class)->except('show');
@@ -72,28 +72,30 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 /** Site */
-Route::name('site.')->group(function () {
-    /** Home */
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    /** Terms */
-    Route::get('/termos', [TermsController::class, 'index'])->name('terms');
-    /** About */
-    Route::get('/sobre', [AboutController::class, 'index'])->name('about');
+Route::group(['middleware' => ['log']], function () {
+    Route::name('site.')->group(function () {
+        /** Home */
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+        /** Terms */
+        Route::get('/termos', [TermsController::class, 'index'])->name('terms');
+        /** About */
+        Route::get('/sobre', [AboutController::class, 'index'])->name('about');
 
-    /** Blog */
-    Route::get('/blog/buscar/{s?}', [SiteBlogController::class, 'search'])->name('blog.search');
-    Route::get('/blog/{uri}', [SiteBlogController::class, 'post'])->name('blog.post');
-    Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
-    Route::get('/blog/em/{category}', [SiteBlogController::class, 'category'])->name('blog.category');
+        /** Blog */
+        Route::get('/blog/buscar/{s?}', [SiteBlogController::class, 'search'])->name('blog.search');
+        Route::get('/blog/{uri}', [SiteBlogController::class, 'post'])->name('blog.post');
+        Route::get('/blog', [SiteBlogController::class, 'index'])->name('blog');
+        Route::get('/blog/em/{category}', [SiteBlogController::class, 'category'])->name('blog.category');
 
-    /** Portfolio */
-    Route::get('/portfolio/buscar/{s?}', [SitePortfolioController::class, 'search'])->name('portfolio.search');
-    Route::get('/portfolio/{uri}', [SitePortfolioController::class, 'post'])->name('portfolio.post');
-    Route::get('/portfolio', [SitePortfolioController::class, 'index'])->name('portfolio');
-    Route::get('/portfolio/em/{category}', [SitePortfolioController::class, 'category'])->name('portfolio.category');
+        /** Portfolio */
+        Route::get('/portfolio/buscar/{s?}', [SitePortfolioController::class, 'search'])->name('portfolio.search');
+        Route::get('/portfolio/{uri}', [SitePortfolioController::class, 'post'])->name('portfolio.post');
+        Route::get('/portfolio', [SitePortfolioController::class, 'index'])->name('portfolio');
+        Route::get('/portfolio/em/{category}', [SitePortfolioController::class, 'category'])->name('portfolio.category');
 
-    /** Cookie */
-    Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
+        /** Cookie */
+        Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
+    });
 });
 
 Auth::routes([
