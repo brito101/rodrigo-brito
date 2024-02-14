@@ -1,7 +1,7 @@
 const button = document.querySelector(".smoothScroll-top");
 if (button) {
     document.addEventListener("scroll", () => {
-        if (window.pageYOffset > 100) {
+        if (window.scrollY > 100) {
             button.classList.add("show");
         } else {
             button.classList.remove("show");

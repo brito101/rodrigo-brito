@@ -1,8 +1,9 @@
 $(document).ready(function () {
-    $("#zipcode").inputmask("99.999-999");
+    const zipcode = $("#zipcode");
+    zipcode.inputmask("99.999-999");
     $("#state").inputmask("AA");
 
-    $("#zipcode").blur(function () {
+    zipcode.blur(function () {
         function emptyForm() {
             $("#street").val("");
             $("#neighborhood").val("");
@@ -10,10 +11,10 @@ $(document).ready(function () {
             $("#state").val("");
         }
 
-        var zip_code = $(this).val().replace(/\D/g, "");
-        var validate_zip_code = /^[0-9]{8}$/;
+        const zip_code = $(this).val().replace(/\D/g, "");
+        const validate_zip_code = /^[0-9]{8}$/;
 
-        if (zip_code != "" && validate_zip_code.test(zip_code)) {
+        if (zip_code !== "" && validate_zip_code.test(zip_code)) {
             $("#street").val("");
             $("#neighborhood").val("");
             $("#city").val("");

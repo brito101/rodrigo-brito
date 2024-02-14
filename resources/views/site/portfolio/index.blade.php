@@ -13,7 +13,7 @@
             </p>
             <form data-anime="1200" class="fadeInDown" action="{{ route('site.portfolio.search') }}" method="get">
                 <div>
-                    <input type="text" name="s" placeholder="Encontre um artigo:" required />
+                    <input type="text" name="s" placeholder="Encontre um artigo:" required/>
                     <button class="icon-search icon-notext" aria-label="Botão de Pesquisa"></button>
                 </div>
             </form>
@@ -25,7 +25,7 @@
                 <p>Você pesquisou por <b>{{ $search }}</b>. Tente outros termos.</p>
                 <a href="{{ route('site.portfolio') }}" title="Portfólio">...ou volte ao Portfólio</a>
             </div>
-        @elseif (!$posts || $posts->count() == 0)
+        @elseif ($posts->count() == 0)
             <div class="empty_content fadeInUp" data-anime="1600">
                 <h3>Ainda estou trabalhando aqui!</h3>
                 <p>Estou preparando um conteúdo de primeira para você.</p>
@@ -34,7 +34,7 @@
             <div class="portfolio_content fadeInUp" data-anime="1600">
                 <div class="portfolio_articles">
                     @foreach ($posts as $post)
-                    @include('site._partials.article', ['base' => 'portfolio', 'item' => $post])
+                        @include('site._partials.article', ['base' => 'portfolio', 'item' => $post])
                     @endforeach
                 </div>
 
