@@ -310,7 +310,8 @@ class BlogController extends Controller
         $post['uri'] = Str::slug($request->title);
 
         if ($post->update($data)) {
-
+            BlogCategoriesPivot::where('blog_id', $post->id)->delete();
+            
             $categories = $request->categories;
             if ($categories && count($categories) > 0) {
                 $categories = BlogCategory::whereIn('id', $categories)->pluck('id');
@@ -321,8 +322,6 @@ class BlogController extends Controller
                         'blog_category_id' => $category
                     ]);
                 }
-            } else {
-                BlogCategoriesPivot::where('blog_id', $post->id)->delete();
             }
 
             return redirect()

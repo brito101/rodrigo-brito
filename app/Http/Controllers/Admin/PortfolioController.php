@@ -308,7 +308,8 @@ class PortfolioController extends Controller
         $portfolio['uri'] = Str::slug($request->title);
 
         if ($portfolio->update($data)) {
-
+            PortfolioCategoriesPivot::where('portfolio_id', $portfolio->id)->delete();
+            
             $categories = $request->categories;
             if ($categories && count($categories) > 0) {
                 $categories = PortfolioCategory::whereIn('id', $categories)->pluck('id');
@@ -319,9 +320,7 @@ class PortfolioController extends Controller
                         'portfolio_category_id' => $category
                     ]);
                 }
-            } else {
-                PortfolioCategoriesPivot::where('portfolio_id', $portfolio->id)->delete();
-            }
+            } 
 
             return redirect()
                 ->route('admin.portfolio.index')
