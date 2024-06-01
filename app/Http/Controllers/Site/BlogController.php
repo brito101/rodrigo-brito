@@ -36,7 +36,7 @@ class BlogController extends Controller
 
         $posts = Blog::where('status', 'post')
             ->orderBy('created_at', 'desc')
-            ->onEachSide(3)->paginate(9);
+            ->paginate(9);
 
         return \view('site.blog.index', \compact('title', 'posts'));
     }
