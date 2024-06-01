@@ -200,7 +200,7 @@
 
                 <div class="row px-0">
 
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="d-flex justify-content-between">
