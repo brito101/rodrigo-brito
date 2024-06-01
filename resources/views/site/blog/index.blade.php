@@ -38,7 +38,7 @@
                     @endforeach
                 </div>
 
-                {{ $posts->onEachSide(1)->links() }}
+                {{ $posts->onEachSide(2)->links() }}
             </div>
         @endif
     </section>
