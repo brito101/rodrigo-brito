@@ -168,10 +168,10 @@
                     </div>
 
                     @php
-                        $heads = [['label' => 'Hora', 'width' => 10], 'Página', 'IP', 'User-Agent', 'Plataforma', 'Navegador', 'Usuário', 'Método', 'Requisição'];
+                        $heads = [['label' => 'Hora', 'width' => 10], 'Página', 'IP', 'User-Agent', 'Plataforma', 'Navegador', 'Método', 'Requisição'];
                         $config = [
                             'ajax' => url('/admin'),
-                            'columns' => [['data' => 'time', 'name' => 'time'], ['data' => 'url', 'name' => 'url'], ['data' => 'ip', 'name' => 'ip'], ['data' => 'useragent', 'name' => 'useragent'], ['data' => 'platform', 'name' => 'platform'], ['data' => 'browser', 'name' => 'browser'], ['data' => 'name', 'name' => 'name'], ['data' => 'method', 'name' => 'method'], ['data' => 'request', 'name' => 'request']],
+                            'columns' => [['data' => 'time', 'name' => 'time'], ['data' => 'url', 'name' => 'url'], ['data' => 'ip', 'name' => 'ip'], ['data' => 'useragent', 'name' => 'useragent'], ['data' => 'platform', 'name' => 'platform'], ['data' => 'browser', 'name' => 'browser'], ['data' => 'method', 'name' => 'method'], ['data' => 'request', 'name' => 'request']],
                             'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                             'order' => [0, 'desc'],
                             'destroy' => true,
