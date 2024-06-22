@@ -21,13 +21,6 @@ class AdminController extends Controller
     {
         $administrators = ViewsUser::where('type', 'Administrador')->count();
 
-        $posts = Blog::all();
-
-        foreach ($posts as $post) {
-            $post->content = str_replace("https://www.dev.rodrigobrito.dev.br" , "https://www.rodrigobrito.dev.br" , $post->content);
-        }
-
-
         $posts = Blog::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
         $projects = Portfolio::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
         $certificates = Certificate::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
