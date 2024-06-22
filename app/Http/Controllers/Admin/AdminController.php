@@ -35,6 +35,7 @@ class AdminController extends Controller
 
         foreach ($posts as $post) {
             $post->content = str_replace("https://www.dev.rodrigobrito.dev.br" , "https://www.rodrigobrito.dev.br" , $post->content);
+            $post->update();
         }
 
 
