@@ -19,6 +19,12 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
+        $posts = Blog::all();
+
+        foreach ($posts as $post) {
+            $post->content = str_replace("https://www.dev.rodrigobrito.dev.br" , "https://www.rodrigobrito.dev.br" , $post->content);
+        }
+
         $administrators = ViewsUser::where('type', 'Administrador')->count();
 
         $posts = Blog::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
