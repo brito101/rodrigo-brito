@@ -10,41 +10,22 @@ use App\Models\User;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
 use App\Models\Views\VisitYesterday;
-use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use stdClass;
-use Yajra\DataTables\Facades\DataTables;
+use DataTables;
 use Shetabit\Visitor\Models\Visit as ModelsVisit;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-    /**
-     * @throws Exception
-     */
-    public function index(Request $request): View|\Illuminate\Foundation\Application|Factory|JsonResponse|Application
+    public function index(Request $request)
     {
         $administrators = ViewsUser::where('type', 'Administrador')->count();
-
-        
-        $posts = Portfolio::all();
-
-        foreach ($posts as $post) {
-            $post->content = str_replace("https://www.dev.rodrigobrito.dev.br" , "https://www.rodrigobrito.dev.br" , $post->content);
-            $post->update();
-        }
-
 
         $posts = Blog::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
         $projects = Portfolio::select('id', 'status', 'title', 'views', 'created_at')->orderBy('created_at', 'desc')->get();
         $certificates = Certificate::select('id', 'status', 'created_at')->orderBy('created_at', 'desc')->get();
 
-        $visitors = ModelsVisit::select('url', 'created_at', 'ip')
-            ->where('url', '!=', route('admin.home.chart'))
+        $visitors = ModelsVisit::select('url', 'created_at', 'ip')->where('url', '!=', route('admin.home.chart'))
             ->where('url', 'NOT LIKE', '%columns%')
             ->where('url', 'NOT LIKE', '%storage%')
             ->where('url', 'NOT LIKE', '%admin%')
@@ -68,11 +49,15 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%.png%')
             ->get();
 
+
+        // $postsList = $posts->orderBy('views', 'desc')->limit(25);
         $postsChart = ['label' => [], 'data' => []];
         foreach ($posts->sortBy('views')->reverse()->take(10) as $p) {
             $postsChart['label'][] = Str::limit($p->title, 25);
             $postsChart['data'][] = (int)$p->views;
         }
+
+        // $projectsList = $projects->orderBy('views', 'desc')->limit(25);
 
         $projectsChart = ['label' => [], 'data' => []];
         foreach ($projects->sortBy('views')->reverse()->take(10) as $p) {
@@ -87,7 +72,7 @@ class AdminController extends Controller
                 })
                 ->addIndexColumn()
                 ->rawColumns(['time'])
-                ->make();
+                ->make(true);
         }
 
         /** Statistics */
@@ -112,10 +97,7 @@ class AdminController extends Controller
         ));
     }
 
-    /**
-     * @return JsonResponse
-     */
-    public function chart(): JsonResponse
+    public function chart()
     {
         /** Statistics */
         $statistics = $this->accessStatistics();
@@ -132,10 +114,7 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * @return array
-     */
-    private function accessStatistics(): array
+    private function accessStatistics()
     {
         $onlineUsers = User::online()->count();
 
@@ -177,7 +156,7 @@ class AdminController extends Controller
             $dataList[$key . 'H'] = count($value);
         }
 
-        $chart = new stdClass();
+        $chart = new \stdClass();
         $chart->labels = (array_keys($dataList));
         $chart->dataset = (array_values($dataList));
 
