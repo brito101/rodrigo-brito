@@ -16,7 +16,7 @@ class Cookie
      * @param bool $encrypt
      * @return bool
      */
-    public static function set(string $name, $value, int $minutes, ?string $path = null, bool $encrypt = true): bool
+    public static function set(string $name, mixed $value, int $minutes, ?string $path = null, bool $encrypt = true): bool
     {
         // check if the cookie value is an array to save in json
         if (is_array($value)) {
@@ -62,10 +62,9 @@ class Cookie
 
     /**
      * @param string $name
-     * @param bool $decrypt
      * @return mixed|string|null
      */
-    public static function get(string $name)
+    public static function get(string $name): mixed
     {
         if (self::has($name)) {
             $cookie = self::decrypt(self::getCookie($name));
@@ -76,25 +75,6 @@ class Cookie
                 return $cookie;
             }
             return null;
-        }
-        return null;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     * @param int $minutes
-     * @param string|null $path
-     * @param bool $removeHas
-     * @return bool|null
-     */
-    public static function setDoesNotHave(string $name, $value, int $minutes, ?string $path = null, bool $removeHas = false)
-    {
-        if (!self::has($name)) {
-            return self::set($name, $value, $minutes, $path);
-        }
-        if ($removeHas) {
-            return self::destroy($name);
         }
         return null;
     }
@@ -115,9 +95,9 @@ class Cookie
      * @param string $name
      * @return mixed
      */
-    private static function getCookie(string $name)
+    private static function getCookie(string $name): mixed
     {
-        return filter_input(INPUT_COOKIE, $name, FILTER_DEFAULT);
+        return filter_input(INPUT_COOKIE, $name);
     }
 
     /**

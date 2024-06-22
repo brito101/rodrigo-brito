@@ -75,7 +75,7 @@
                             <source media="(min-width: 763px)"
                                 srcset="{{ url('storage/certificates/' . $certificate->cover) }}" />
                             <img src="{{ url('storage/certificates/' . $certificate->cover) }}"
-                                title="{{ $certificate->title }}" width="800" height="564" class="lazyload" />
+                                title="{{ $certificate->title }}" width="800" height="564" class="lazyload" alt="{{ $certificate->title }}"/>
                         </picture>
                     </li>
                 @endforeach

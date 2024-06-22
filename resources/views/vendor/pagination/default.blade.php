@@ -4,12 +4,12 @@
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
-                    <span aria-hidden="true" title="Primeira página">&lt;&lt;</span>
+                    <span aria-hidden="true" title="Primeira página">&lt;</span>
                 </li>
             @else
                 <li>
                     <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')"
-                        title="Primeira página">&lt;&lt;</a>
+                        title="Primeira página">&lt;</a>
                 </li>
             @endif
 
@@ -17,7 +17,7 @@
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
-                    <li class="disabled" aria-disabled="true"><span>{{ $element }}</span></li>
+                    <li class="disabled" aria-disabled="true"><span class="dots">{{ $element }}</span></li>
                 @endif
 
                 {{-- Array Of Links --}}
@@ -38,11 +38,11 @@
             @if ($paginator->hasMorePages())
                 <li>
                     <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')"
-                        title="Última página">&gt;&gt;</a>
+                        title="Última página">&gt;</a>
                 </li>
             @else
                 <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-                    <span aria-hidden="true" title="Última página">&gt;&gt;</span>
+                    <span aria-hidden="true" title="Última página">&gt;</span>
                 </li>
             @endif
         </ul>

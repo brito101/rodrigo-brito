@@ -6,11 +6,11 @@
             <div class="post_page_hero">
                 <h2 data-anime="400" class="fadeInRight">{{ $post->title }}</h2>
                 <picture>
-                    <source media="(max-width: 512px)" srcset="{{ url('storage/blog/min/' . $post->cover) }}" />
-                    <source media="(max-width: 762px)" srcset="{{ url('storage/blog/medium/' . $post->cover) }}" />
-                    <source media="(min-width: 763px)" srcset="{{ url('storage/blog/' . $post->cover) }}" />
+                    <source media="(max-width: 512px)" srcset="{{ url('storage/blog/min/' . $post->cover) }}"/>
+                    <source media="(max-width: 762px)" srcset="{{ url('storage/blog/medium/' . $post->cover) }}"/>
+                    <source media="(min-width: 763px)" srcset="{{ url('storage/blog/' . $post->cover) }}"/>
                     <img src="{{ url('storage/blog/' . $post->cover) }}" title="{{ $post->title }}" width="360"
-                        height="207" />
+                         height="207" alt="{{ $post->title }}"/>
                 </picture>
                 <div class="post_page_meta">
                     <div>Publicado em {{ date('d/m/y H:m', strtotime($post->created_at)) }}</div>
@@ -44,7 +44,6 @@
         @endif
     </article>
 
-    </article>
 @endsection
 
 @section('custom_js')

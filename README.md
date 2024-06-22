@@ -1,4 +1,4 @@
-# Portfolio Page in Laravel 10 + Docker + Telescope + Debugar + AdminLTE3 + DataTables server side + Spatie ACL
+# Portfolio Page in Laravel 11 + Docker + Telescope + Debugar + AdminLTE3 + DataTables server side + Spatie ACL
 
 ## Resources
 

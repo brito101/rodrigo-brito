@@ -45,7 +45,7 @@ Good journey!
         <div>
             <div class="main_header_logo">
                 <a title="Home" href="{{ route('site.home') }}">
-                    <img src="{{ asset('img/logo.svg') }}" alt="Rodrigo Brito" width="75" height="76" />
+                    <img src="{{ asset('img/logo.svg') }}" alt="Logotipo - Rodrigo Brito" width="75" height="76" />
                     <h1>Rodrigo Brito</h1>
                 </a>
             </div>

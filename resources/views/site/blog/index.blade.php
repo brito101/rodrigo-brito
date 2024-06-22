@@ -25,7 +25,7 @@
                 <p>Você pesquisou por <b>{{ $search }}</b>. Tente outros termos.</p>
                 <a href="{{ route('site.blog') }}" title="Blog">...ou volte ao Blog</a>
             </div>
-        @elseif (!$posts || $posts->count() == 0)
+        @elseif ($posts->count() == 0)
             <div class="empty_content fadeInUp" data-anime="1600">
                 <h3>Ainda estou trabalhando aqui!</h3>
                 <p>Estou preparando um conteúdo de primeira para você.</p>
@@ -38,7 +38,7 @@
                     @endforeach
                 </div>
 
-                {{ $posts->links() }}
+                {{ $posts->onEachSide(0)->links() }}
             </div>
         @endif
     </section>

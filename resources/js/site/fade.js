@@ -12,7 +12,7 @@ function fadeIn(el) {
 
 function checkFades(element) {
     element.forEach((el) => {
-        const wHeight = parseInt(0.75 * window.innerHeight, 10);
+        const wHeight = parseInt(String(0.75 * window.innerHeight), 10);
         if (wHeight >= el.getBoundingClientRect().top) {
             if (el.style.opacity === "0") {
                 fadeIn(el);

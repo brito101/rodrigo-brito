@@ -49,6 +49,7 @@
                                 'processing' => true,
                                 'serverSide' => true,
                                 'responsive' => true,
+                                'order' => [0, 'desc'],
                                 'lengthMenu' => [[10, 50, 100, 500, 1000, -1], [10, 50, 100, 500, 1000, 'Tudo']],
                                 'dom' => '<"d-flex flex-wrap col-12 justify-content-between"Bf>rtip',
                                 'buttons' => [
