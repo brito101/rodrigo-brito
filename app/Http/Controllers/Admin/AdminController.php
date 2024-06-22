@@ -31,7 +31,7 @@ class AdminController extends Controller
         $administrators = ViewsUser::where('type', 'Administrador')->count();
 
         
-        $posts = Blog::all();
+        $posts = Portfolio::all();
 
         foreach ($posts as $post) {
             $post->content = str_replace("https://www.dev.rodrigobrito.dev.br" , "https://www.rodrigobrito.dev.br" , $post->content);
