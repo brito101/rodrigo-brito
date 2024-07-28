@@ -57,7 +57,7 @@
 
     <section class="home_certifications">
         <header>
-            <h2>Ceritificações</h2>
+            <h2>Certificações</h2>
         </header>
         <div>
             <article>
