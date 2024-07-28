@@ -1,5 +1,9 @@
 @extends('site.master')
 
+@section('custom_css')
+    <link rel="preload" fetchpriority="high" as="image" href="{{ asset('/img/cyber.webp') }}" type="image/webp">
+@endsection
+
 @section('content')
     <article class="home_featured">
         <div class="home_featured_content">

@@ -35,6 +35,7 @@ Good journey!
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/site/style-v2.css') }}" />
     @metas
+    @yield('custom_css')
 </head>
 
 <body>
