@@ -4,8 +4,8 @@
             <source media="(max-width: 512px)" srcset="{{ url('storage/' . $base . '/min/' . $item->cover) }}" />
             <source media="(max-width: 762px)" srcset="{{ url('storage/' . $base . '/medium/' . $item->cover) }}" />
             <source media="(min-width: 763px)" srcset="{{ url('storage/' . $base . '/' . $item->cover) }}" />
-            <img src="{{ url('storage/' . $base . '/' . $post->cover) }}" title="{{ $item->title }}" width="860"
-                height="487" alt="{{ $item->title }}"/>
+            <img src="{{ url('storage/' . $base . '/' . $post->cover) }}" title="{{ $item->title }}" width="358"
+                height="204" alt="{{ $item->title }}"/>
         </picture>
     </a>
     <header>
