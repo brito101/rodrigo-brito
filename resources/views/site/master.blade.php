@@ -33,7 +33,7 @@ Good journey!
     @laravelPWA
     <link rel="icon" type="image/png" href="{{ asset('img/logo.svg') }}" />
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/site/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/site/style-v1.css') }}" />
     @metas
 </head>
 

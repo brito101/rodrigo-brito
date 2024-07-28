@@ -54,6 +54,35 @@
         @endif
 
     </article>
+
+    <section class="home_certifications">
+        <header>
+            <h2>Ceritificações</h2>
+        </header>
+        <div>
+            <article>
+                <h3>DCPT</h3>
+                <p>Desec Certified Penetration Tester</p>
+                <div>
+                    <img src="{{ asset('img/dcpt.webp') }}" alt="DCPT" title="DCPT" width="300" height="130" />
+                </div>
+            </article>
+            <article>
+                <h3>CNSP</h3>
+                <p>Certified Network Security Practitioner</p>
+                <div>
+                    <img src="{{ asset('img/cnsp.webp') }}" alt="CNSP" title="CNSP" width="300" height="300" />
+                </div>
+            </article>
+            <article>
+                <h3>SYCP</h3>
+                <p>Solyd Certified Pentester</p>
+                <div>
+                    <img src="{{ asset('img/sycp.webp') }}" alt="SYCP" title="SYCP" width="300" height="300" />
+                </div>
+            </article>
+        </div>
+    </section>
 @endsection
 
 @section('custom_js')
