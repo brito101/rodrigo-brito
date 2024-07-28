@@ -122,9 +122,17 @@
         img {
             max-width: 90%;
             height: auto;
-            border: 20px solid rgba(0, 0, 0, 0);
-            @include box-shadow(0 0 0 5px $color-theme);
-            @include border-radius(50%);
+
+            &:first-child {
+                border: 20px solid rgba(0, 0, 0, 0);
+                @include box-shadow(0 0 0 5px $color-theme);
+                @include border-radius(50%);
+            }
+
+            &:last-child {
+                display: block;
+                margin: 20px auto 0 auto;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
     "/css/site/style.css": "/css/site/style.css",
     "/img/avatar.webp": "/img/avatar.webp",
     "/img/bengal-tiger.svg": "/img/bengal-tiger.svg",
+    "/img/breve.webp": "/img/breve.webp",
     "/img/cyber.png": "/img/cyber.png",
     "/img/cyber.webp": "/img/cyber.webp",
     "/img/favicon.svg": "/img/favicon.svg",
@@ -29,6 +30,6 @@
     "/js/site/script.js": "/js/site/script.js",
     "/js/site/home.js": "/js/site/home.js",
     "/js/site/post.js": "/js/site/post.js",
-    "/js/site/about.js": "/js/site/about.js",
+    "/js/site/slide.js": "/js/site/slide.js",
     "/js/site/google-tag-manager.js": "/js/site/google-tag-manager.js"
 }

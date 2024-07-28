@@ -6,8 +6,8 @@
             <canvas class="snow"></canvas>
             <canvas class="snow"></canvas>
             <header>
-                <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Desenvolvedor Web</h2>
-                <p class="headline">FullStack PHP | Web Designer</p>
+                <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Desenvolvedor Web / AppSec</h2>
+                <p class="headline">FullStack PHP | Web Designer | DCPT | CNSP | SYCP</p>
                 <p data-anime="1200" class="fadeInDown">
                     <button data-go=".home_opt_in">
                         Conheça meu Portfólio</button>
@@ -18,6 +18,8 @@
         <div class="home_featured_app">
             <img data-anime="2000" class="fadeInUp" src="{{ asset('img/avatar.webp') }}" alt="Rodrigo Brito"
                 title="Rodrigo Brito" width="300" height="300" />
+            <img data-anime="2000" class="fadeInUp" src="{{ asset('img/breve.webp') }}" alt="Rodrigo Brito"
+                title="Rodrigo Brito" width="350" height="100" />
         </div>
     </article>
 

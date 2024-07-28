@@ -41,7 +41,7 @@ mix.js("resources/js/app.js", "public/js")
         "public/js/site/home.js"
     )
     .scripts(["resources/js/site/post/post.js"], "public/js/site/post.js")
-    .scripts(["resources/js/site/about/slide.js"], "public/js/site/about.js")
+    .scripts(["resources/js/site/about/slide.js"], "public/js/site/slide.js")
     .scripts(["resources/js/site/google-tag-manager.js"], "public/js/site/google-tag-manager.js")
     .options({
         processCssUrls: false,
