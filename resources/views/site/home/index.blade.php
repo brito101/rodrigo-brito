@@ -59,7 +59,7 @@
         <header>
             <h2>Certificações</h2>
         </header>
-        <div>
+        <div class="fadeInScrool">
             <article>
                 <h3>DCPT</h3>
                 <p>Desec Certified Penetration Tester</p>
