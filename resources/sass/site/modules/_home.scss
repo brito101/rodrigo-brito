@@ -238,16 +238,15 @@
         article {
             padding: 20px;
 
+            @media(max-width: 1130px) {
+                margin-top: 40px;
+            }
+
             h3 {
                 margin-bottom: 0px;
-                color:$color-theme-support;
+                color:$color-theme-support;             
             }
-
-            p {
-                margin: 0px auto 20px auto;
-                color: $color-theme-hover;
-            }
-
+            
             div {
                 display: flex;
                 align-content: center;
@@ -255,6 +254,15 @@
 
                 img {
                     margin: auto;
+                }
+            }
+
+            p {
+                margin: 0px auto;
+                color: $color-theme-hover;
+
+                @media(max-width: 1130px) {
+                    margin-top: -10px;
                 }
             }
         }

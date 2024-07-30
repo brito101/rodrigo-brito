@@ -22,8 +22,8 @@
         <div class="home_featured_app">
             <img data-anime="2000" class="fadeInUp" src="{{ asset('img/avatar.webp') }}" alt="Rodrigo Brito"
                 title="Rodrigo Brito" width="300" height="300" />
-            <img data-anime="2000" class="fadeInUp" src="{{ asset('img/breve.webp') }}" alt="Rodrigo Brito"
-                title="Rodrigo Brito" width="350" height="100" />
+            <img data-anime="2000" class="fadeInUp" src="{{ asset('img/breve.webp') }}" alt="Brevê Guerra Cibernética"
+                title="Brevê Guerra Cibernética" width="350" height="100" />
         </div>
     </article>
 
@@ -65,25 +65,25 @@
         </header>
         <div class="fadeInScrool">
             <article>
-                <h3>DCPT</h3>
-                <p>Desec Certified Penetration Tester</p>
+                <h3>DCPT</h3>                
                 <div>
                     <img src="{{ asset('img/dcpt.webp') }}" alt="DCPT" title="DCPT" width="300" height="130" />
                 </div>
+                <p>Desec Certified Penetration Tester</p>
             </article>
             <article>
-                <h3>CNSP</h3>
-                <p>Certified Network Security Practitioner</p>
+                <h3>CNSP</h3>                
                 <div>
                     <img src="{{ asset('img/cnsp.webp') }}" alt="CNSP" title="CNSP" width="300" height="300" />
                 </div>
+                <p>Certified Network Security Practitioner</p>
             </article>
             <article>
-                <h3>SYCP</h3>
-                <p>Solyd Certified Pentester</p>
+                <h3>SYCP</h3>                
                 <div>
                     <img src="{{ asset('img/sycp.webp') }}" alt="SYCP" title="SYCP" width="300" height="300" />
                 </div>
+                <p>Solyd Certified Pentester</p>
             </article>
         </div>
     </section>
