@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Models\User;
 use App\Models\Views\User as ViewsUser;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
 use Image;
-use DataTables;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -41,7 +41,8 @@ class UserController extends Controller
             return Datatables::of($users)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="users/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="users/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste usuário?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="users/'.$row->id.'/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>'.'<form method="POST" action="users/'.$row->id.'" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="'.$token.'"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste usuário?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -65,6 +66,7 @@ class UserController extends Controller
         } else {
             $roles = Role::where('name', '!=', 'Programador')->get(['id', 'name']);
         }
+
         return view('admin.users.create', compact('roles'));
     }
 
@@ -82,15 +84,15 @@ class UserController extends Controller
         $data['password'] = bcrypt($request->password);
 
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $name = Str::slug(mb_substr($data['name'], 0, 100)) . time();
+            $name = Str::slug(mb_substr($data['name'], 0, 100)).time();
             $extension = $request->photo->extension();
             $nameFile = "{$name}.{$extension}";
 
             $data['photo'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/users';
+            $destinationPath = storage_path().'/app/public/users';
 
-            if (!file_exists($destinationPath)) {
+            if (! file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
@@ -98,9 +100,9 @@ class UserController extends Controller
             $img->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(100, 100)->save($destinationPath . '/' . $nameFile);
+            })->crop(100, 100)->save($destinationPath.'/'.$nameFile);
 
-            if (!$img) {
+            if (! $img) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -111,10 +113,11 @@ class UserController extends Controller
         $user = User::create($data);
 
         if ($user->save()) {
-            if (!empty($request->role)) {
+            if (! empty($request->role)) {
                 $user->syncRoles($request->role);
                 $user->save();
             }
+
             return redirect()
                 ->route('admin.users.index')
                 ->with('success', 'Cadastro realizado!');
@@ -142,7 +145,7 @@ class UserController extends Controller
         }
 
         $user = User::find($id);
-        if (!$user) {
+        if (! $user) {
             abort(403, 'Acesso não autorizado');
         }
 
@@ -177,19 +180,19 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(403, 'Acesso não autorizado');
         }
 
-        if (!empty($data['password'])) {
+        if (! empty($data['password'])) {
             $data['password'] = bcrypt($request->password);
         } else {
             $data['password'] = $user->password;
         }
 
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $name = Str::slug(mb_substr($data['name'], 0, 200)) . "-" . time();
-            $imagePath = storage_path() . '/app/public/users/' . $user->photo;
+            $name = Str::slug(mb_substr($data['name'], 0, 200)).'-'.time();
+            $imagePath = storage_path().'/app/public/users/'.$user->photo;
 
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
@@ -200,9 +203,9 @@ class UserController extends Controller
 
             $data['photo'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/users';
+            $destinationPath = storage_path().'/app/public/users';
 
-            if (!file_exists($destinationPath)) {
+            if (! file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
@@ -210,17 +213,18 @@ class UserController extends Controller
                 ->resize(null, 100, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                })->crop(100, 100)->save($destinationPath . '/' . $nameFile);
+                })->crop(100, 100)->save($destinationPath.'/'.$nameFile);
 
-            if (!$img)
+            if (! $img) {
                 return redirect()
                     ->back()
                     ->withInput()
                     ->with('error', 'Falha ao fazer o upload da imagem');
+            }
         }
 
         if ($user->update($data)) {
-            if (!empty($request->role)) {
+            if (! empty($request->role)) {
                 $user->syncRoles($request->role);
                 $user->save();
             }
@@ -241,6 +245,7 @@ class UserController extends Controller
                 ->with('error', 'Erro ao atualizar!');
         }
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -253,11 +258,11 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(403, 'Acesso não autorizado');
         }
 
-        $imagePath = storage_path() . '/app/public/users/' . $user->photo;
+        $imagePath = storage_path().'/app/public/users/'.$user->photo;
         if ($user->delete()) {
             if (File::isFile($imagePath)) {
                 unlink($imagePath);

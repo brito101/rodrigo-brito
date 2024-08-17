@@ -20,6 +20,7 @@ class CookieController extends Controller
         }
 
         $json['cookie'] = true;
+
         return \response()->json($json);
     }
 }

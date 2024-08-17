@@ -1,25 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\{
-    AdminController,
-    UserController,
-    ACL\PermissionController,
-    ACL\RoleController,
-    BlogCategoryController,
-    BlogController,
-    CertificateController,
-    ChangelogController,
-    PortfolioCategoryController,
-    PortfolioController,
-};
-use App\Http\Controllers\Site\{
-    AboutController,
-    BlogController as SiteBlogController,
-    CookieController,
-    HomeController,
-    PortfolioController as SitePortfolioController,
-    TermsController,
-};
+use App\Http\Controllers\Admin\ACL\PermissionController;
+use App\Http\Controllers\Admin\ACL\RoleController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Admin\ChangelogController;
+use App\Http\Controllers\Admin\PortfolioCategoryController;
+use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Site\AboutController;
+use App\Http\Controllers\Site\BlogController as SiteBlogController;
+use App\Http\Controllers\Site\CookieController;
+use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\PortfolioController as SitePortfolioController;
+use App\Http\Controllers\Site\TermsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('users', UserController::class)->except('show');
 
         /** Certificates */
-        Route::resource('certificates', CertificateController::class)->except('show');;
+        Route::resource('certificates', CertificateController::class)->except('show');
 
         /** Blog */
         Route::resource('blog', BlogController::class)->except('show');
@@ -94,7 +90,7 @@ Route::group(['middleware' => ['log']], function () {
         Route::get('/portfolio/em/{category}', [SitePortfolioController::class, 'category'])->name('portfolio.category');
 
         /** Cookie */
-        Route::post("/cookie-consent", [CookieController::class, 'index'])->name('cookie.consent');
+        Route::post('/cookie-consent', [CookieController::class, 'index'])->name('cookie.consent');
     });
 });
 

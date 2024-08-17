@@ -48,7 +48,7 @@ class BlogController extends Controller
 
         if ($post) {
 
-            $title = 'Rodrigo Brito - ' . $post->title;
+            $title = 'Rodrigo Brito - '.$post->title;
             $route = route('site.blog.post', ['uri' => $uri]);
             $description = $post->subtitle;
 
@@ -61,7 +61,7 @@ class BlogController extends Controller
             Meta::set('og:url', $route);
             Meta::set('twitter:url', $route);
             Meta::set('robots', 'index,follow');
-            Meta::set('image', url('storage/blog/min/' . $post->cover));
+            Meta::set('image', url('storage/blog/min/'.$post->cover));
             Meta::set('canonical', $route);
 
             $categories = [];
@@ -69,7 +69,7 @@ class BlogController extends Controller
                 $categories[] .= $category->blog_category_id;
             }
 
-            if (!Auth::user()) {
+            if (! Auth::user()) {
                 $post->views++;
                 $post->update();
             }
@@ -90,7 +90,7 @@ class BlogController extends Controller
 
         $title = 'Rodrigo Brito - Blog';
         $route = route('site.blog.search', ['s' => $search]);
-        $description = 'Pesquisa por: ' . $search;
+        $description = 'Pesquisa por: '.$search;
         /** Meta */
         Meta::title($title);
         Meta::set('description', $description);
@@ -111,7 +111,6 @@ class BlogController extends Controller
         return \view('site.blog.index', \compact('title', 'posts', 'search', 'description'));
     }
 
-
     public function category(Request $request)
     {
         $category = filter_var($request->category, 513);
@@ -120,9 +119,9 @@ class BlogController extends Controller
 
         if ($category) {
 
-            $title = 'Rodrigo Brito - Artigos em: ' . $category->title;
+            $title = 'Rodrigo Brito - Artigos em: '.$category->title;
             $route = route('site.blog.category', ['category' => $category->uri]);
-            $description = 'Artigos em: ' . $category->title;
+            $description = 'Artigos em: '.$category->title;
             /** Meta */
             Meta::title($title);
             Meta::set('description', $description);
@@ -132,7 +131,7 @@ class BlogController extends Controller
             Meta::set('og:url', $route);
             Meta::set('twitter:url', $route);
             Meta::set('robots', 'index,follow');
-            Meta::set('image', url('storage/blog-categories/min/' . $category->cover));
+            Meta::set('image', url('storage/blog-categories/min/'.$category->cover));
             Meta::set('canonical', $route);
 
             $blogCategories = BlogCategoriesPivot::where('blog_category_id', $category->id)->pluck('blog_id');

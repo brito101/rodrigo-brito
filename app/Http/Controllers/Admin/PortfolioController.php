@@ -8,11 +8,11 @@ use App\Http\Requests\Admin\PortfolioRequest;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategoriesPivot;
 use App\Models\PortfolioCategory;
+use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Image;
-use DataTables;
-use Illuminate\Support\Facades\File;
 
 class PortfolioController extends Controller
 {
@@ -31,11 +31,12 @@ class PortfolioController extends Controller
             return Datatables::of($portfolios)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" target="_blank" href="' . route('site.portfolio.post', ['uri' => $row->uri])  . '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' . '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="portfolio/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="portfolio/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste projeto?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                    $btn = '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" target="_blank" href="'.route('site.portfolio.post', ['uri' => $row->uri]).'"><i class="fa fa-lg fa-fw fa-eye"></i></a>'.'<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="portfolio/'.$row->id.'/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>'.'<form method="POST" action="portfolio/'.$row->id.'" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="'.$token.'"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste projeto?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/portfolio/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="360" height="207" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src='.url('storage/portfolio/min/'.$row->cover).' class="img-thumbnail d-block" width="360" height="207" alt="'.$row->title.'" title="'.$row->title.'"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -53,6 +54,7 @@ class PortfolioController extends Controller
     {
         CheckPermission::checkAuth('Criar Portfólio');
         $categories = PortfolioCategory::orderBy('title')->get();
+
         return view('admin.portfolio.create', \compact('categories'));
     }
 
@@ -68,49 +70,49 @@ class PortfolioController extends Controller
 
         $data = $request->all();
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
+            $name = Str::slug(mb_substr($data['title'], 0, 100)).time();
             $extension = $request->cover->extension();
             $nameFile = "{$name}.{$extension}";
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/portfolio';
-            $destinationPathMedium = storage_path() . '/app/public/portfolio/medium';
-            $destinationPathMin = storage_path() . '/app/public/portfolio/min';
-            $destinationPathContent = storage_path() . '/app/public/portfolio/content';
+            $destinationPath = storage_path().'/app/public/portfolio';
+            $destinationPathMedium = storage_path().'/app/public/portfolio/medium';
+            $destinationPathMin = storage_path().'/app/public/portfolio/min';
+            $destinationPathContent = storage_path().'/app/public/portfolio/content';
 
-            if (!file_exists($destinationPath)) {
+            if (! file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
-            if (!file_exists($destinationPathMedium)) {
+            if (! file_exists($destinationPathMedium)) {
                 mkdir($destinationPathMedium, 755, true);
             }
 
-            if (!file_exists($destinationPathMin)) {
+            if (! file_exists($destinationPathMin)) {
                 mkdir($destinationPathMin, 755, true);
             }
 
-            if (!file_exists($destinationPathContent)) {
+            if (! file_exists($destinationPathContent)) {
                 mkdir($destinationPathContent, 755, true);
             }
 
             $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+            })->crop(860, 490)->save($destinationPath.'/'.$nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(675, 385)->save($destinationPathMedium.'/'.$nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(360, 207)->save($destinationPathMin.'/'.$nameFile);
 
-            if (!$img && !$imgMedium && !$imgMin) {
+            if (! $img && ! $imgMedium && ! $imgMin) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -120,7 +122,7 @@ class PortfolioController extends Controller
 
         if ($request->content) {
             $content = $request->content;
-            $dom = new \DOMDocument();
+            $dom = new \DOMDocument;
             $dom->encoding = 'utf-8';
             $dom->loadHTML(utf8_decode($content), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING);
             $imageFile = $dom->getElementsByTagName('img');
@@ -128,16 +130,16 @@ class PortfolioController extends Controller
             foreach ($imageFile as $item => $image) {
                 $img = $image->getAttribute('src');
                 if (filter_var($img, FILTER_VALIDATE_URL) == false) {
-                    list($type, $img) = explode(';', $img);
-                    list(, $img) = explode(',', $img);
+                    [$type, $img] = explode(';', $img);
+                    [, $img] = explode(',', $img);
                     $imageData = base64_decode($img);
-                    $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
-                    $path = storage_path() . '/app/public/portfolio/content/' . $image_name;
+                    $image_name = Str::slug($request->title).'-'.time().$item.'.png';
+                    $path = storage_path().'/app/public/portfolio/content/'.$image_name;
                     file_put_contents($path, $imageData);
                     $image->removeAttribute('src');
                     $image->removeAttribute('data-filename');
                     $image->setAttribute('alt', $request->title);
-                    $image->setAttribute('src', url('storage/portfolio/content/' . $image_name));
+                    $image->setAttribute('src', url('storage/portfolio/content/'.$image_name));
                 }
             }
 
@@ -154,10 +156,10 @@ class PortfolioController extends Controller
             if ($categories && count($categories) > 0) {
                 $categories = PortfolioCategory::whereIn('id', $categories)->pluck('id');
                 foreach ($categories as $category) {
-                    $pivot = new PortfolioCategoriesPivot();
+                    $pivot = new PortfolioCategoriesPivot;
                     $pivot->create([
                         'portfolio_id' => $portfolio->id,
-                        'portfolio_category_id' => $category
+                        'portfolio_category_id' => $category,
                     ]);
                 }
             }
@@ -184,11 +186,12 @@ class PortfolioController extends Controller
         CheckPermission::checkAuth('Editar Portfólio');
 
         $portfolio = Portfolio::find($id);
-        if (!$portfolio) {
+        if (! $portfolio) {
             abort(403, 'Acesso não autorizado');
         }
 
         $categories = PortfolioCategory::orderBy('title')->get();
+
         return view('admin.portfolio.edit', compact('portfolio', 'categories'));
     }
 
@@ -205,17 +208,17 @@ class PortfolioController extends Controller
 
         $portfolio = Portfolio::find($id);
 
-        if (!$portfolio) {
+        if (! $portfolio) {
             abort(403, 'Acesso não autorizado');
         }
 
         $data = $request->all();
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
-            $imagePath = storage_path() . '/app/public/portfolio/' . $portfolio->cover;
-            $imagePathMedium = storage_path() . '/app/public/portfolio/medium/' . $portfolio->cover;
-            $imagePathMin = storage_path() . '/app/public/portfolio/min/' . $portfolio->cover;
+            $name = Str::slug(mb_substr($data['title'], 0, 100)).time();
+            $imagePath = storage_path().'/app/public/portfolio/'.$portfolio->cover;
+            $imagePathMedium = storage_path().'/app/public/portfolio/medium/'.$portfolio->cover;
+            $imagePathMin = storage_path().'/app/public/portfolio/min/'.$portfolio->cover;
 
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
@@ -234,43 +237,43 @@ class PortfolioController extends Controller
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/portfolio';
-            $destinationPathMedium = storage_path() . '/app/public/portfolio/medium';
-            $destinationPathMin = storage_path() . '/app/public/portfolio/min';
-            $destinationPathContent = storage_path() . '/app/public/portfolio/content';
+            $destinationPath = storage_path().'/app/public/portfolio';
+            $destinationPathMedium = storage_path().'/app/public/portfolio/medium';
+            $destinationPathMin = storage_path().'/app/public/portfolio/min';
+            $destinationPathContent = storage_path().'/app/public/portfolio/content';
 
-            if (!file_exists($destinationPath)) {
+            if (! file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
-            if (!file_exists($destinationPathMedium)) {
+            if (! file_exists($destinationPathMedium)) {
                 mkdir($destinationPathMedium, 755, true);
             }
 
-            if (!file_exists($destinationPathMin)) {
+            if (! file_exists($destinationPathMin)) {
                 mkdir($destinationPathMin, 755, true);
             }
 
-            if (!file_exists($destinationPathContent)) {
+            if (! file_exists($destinationPathContent)) {
                 mkdir($destinationPathContent, 755, true);
             }
 
             $img = Image::make($request->cover)->resize(null, 490, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(860, 490)->save($destinationPath . '/' . $nameFile);
+            })->crop(860, 490)->save($destinationPath.'/'.$nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 385, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(675, 385)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(675, 385)->save($destinationPathMedium.'/'.$nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 207, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(360, 207)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(360, 207)->save($destinationPathMin.'/'.$nameFile);
 
-            if (!$img && !$imgMedium && !$imgMin) {
+            if (! $img && ! $imgMedium && ! $imgMin) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -280,7 +283,7 @@ class PortfolioController extends Controller
 
         if ($request->content) {
             $content = $request->content;
-            $dom = new \DOMDocument();
+            $dom = new \DOMDocument;
             $dom->encoding = 'utf-8';
             $dom->loadHTML(utf8_decode($content), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING);
             $imageFile = $dom->getElementsByTagName('img');
@@ -288,16 +291,16 @@ class PortfolioController extends Controller
             foreach ($imageFile as $item => $image) {
                 $img = $image->getAttribute('src');
                 if (filter_var($img, FILTER_VALIDATE_URL) == false) {
-                    list($type, $img) = explode(';', $img);
-                    list(, $img) = explode(',', $img);
+                    [$type, $img] = explode(';', $img);
+                    [, $img] = explode(',', $img);
                     $imageData = base64_decode($img);
-                    $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
-                    $path = storage_path() . '/app/public/portfolio/content/' . $image_name;
+                    $image_name = Str::slug($request->title).'-'.time().$item.'.png';
+                    $path = storage_path().'/app/public/portfolio/content/'.$image_name;
                     file_put_contents($path, $imageData);
                     $image->removeAttribute('src');
                     $image->removeAttribute('data-filename');
                     $image->setAttribute('alt', $request->title);
-                    $image->setAttribute('src', url('storage/portfolio/content/' . $image_name));
+                    $image->setAttribute('src', url('storage/portfolio/content/'.$image_name));
                 }
             }
 
@@ -309,18 +312,18 @@ class PortfolioController extends Controller
 
         if ($portfolio->update($data)) {
             PortfolioCategoriesPivot::where('portfolio_id', $portfolio->id)->delete();
-            
+
             $categories = $request->categories;
             if ($categories && count($categories) > 0) {
                 $categories = PortfolioCategory::whereIn('id', $categories)->pluck('id');
                 foreach ($categories as $category) {
-                    $pivot = new PortfolioCategoriesPivot();
+                    $pivot = new PortfolioCategoriesPivot;
                     $pivot->firstOrCreate([
                         'portfolio_id' => $portfolio->id,
-                        'portfolio_category_id' => $category
+                        'portfolio_category_id' => $category,
                     ]);
                 }
-            } 
+            }
 
             return redirect()
                 ->route('admin.portfolio.index')
@@ -345,13 +348,13 @@ class PortfolioController extends Controller
 
         $portfolio = Portfolio::find($id);
 
-        if (!$portfolio) {
+        if (! $portfolio) {
             abort(403, 'Acesso não autorizado');
         }
 
-        $imagePath = storage_path() . '/app/public/portfolio/' . $portfolio->cover;
-        $imagePathMedium = storage_path() . '/app/public/portfolio/medium/' . $portfolio->cover;
-        $imagePathMin = storage_path() . '/app/public/portfolio/min/' . $portfolio->cover;
+        $imagePath = storage_path().'/app/public/portfolio/'.$portfolio->cover;
+        $imagePathMedium = storage_path().'/app/public/portfolio/medium/'.$portfolio->cover;
+        $imagePathMin = storage_path().'/app/public/portfolio/min/'.$portfolio->cover;
 
         if ($portfolio->delete()) {
             if (File::isFile($imagePath)) {

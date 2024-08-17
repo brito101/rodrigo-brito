@@ -6,11 +6,11 @@ use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CertificateRequest;
 use App\Models\Certificate;
+use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Image;
-use DataTables;
-use Illuminate\Support\Facades\File;
 
 class CertificateController extends Controller
 {
@@ -31,11 +31,12 @@ class CertificateController extends Controller
             return Datatables::of($certificates)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="certificates/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' . '<form method="POST" action="certificates/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste certificado?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="certificates/'.$row->id.'/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>'.'<form method="POST" action="certificates/'.$row->id.'" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="'.$token.'"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão deste certificado?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+
                     return $btn;
                 })
                 ->addColumn('cover', function ($row) {
-                    return '<div class="d-flex justify-content-center align-items-center"><img src=' . url('storage/certificates/min/' . $row->cover) .  ' class="img-thumbnail d-block" width="287" height="215" alt="' . $row->title . '" title="' . $row->title . '"/></div>';
+                    return '<div class="d-flex justify-content-center align-items-center"><img src='.url('storage/certificates/min/'.$row->cover).' class="img-thumbnail d-block" width="287" height="215" alt="'.$row->title.'" title="'.$row->title.'"/></div>';
                 })
                 ->rawColumns(['action', 'cover'])
                 ->make(true);
@@ -52,6 +53,7 @@ class CertificateController extends Controller
     public function create()
     {
         CheckPermission::checkAuth('Criar Certificados');
+
         return view('admin.certificates.create');
     }
 
@@ -68,44 +70,44 @@ class CertificateController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
+            $name = Str::slug(mb_substr($data['title'], 0, 100)).time();
             $extension = $request->cover->extension();
             $nameFile = "{$name}.{$extension}";
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/certificates';
-            $destinationPathMedium = storage_path() . '/app/public/certificates/medium';
-            $destinationPathMin = storage_path() . '/app/public/certificates/min';
+            $destinationPath = storage_path().'/app/public/certificates';
+            $destinationPathMedium = storage_path().'/app/public/certificates/medium';
+            $destinationPathMin = storage_path().'/app/public/certificates/min';
 
-            if (!file_exists($destinationPath)) {
+            if (! file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
-            if (!file_exists($destinationPathMedium)) {
+            if (! file_exists($destinationPathMedium)) {
                 mkdir($destinationPathMedium, 755, true);
             }
 
-            if (!file_exists($destinationPathMin)) {
+            if (! file_exists($destinationPathMin)) {
                 mkdir($destinationPathMin, 755, true);
             }
 
             $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+            })->crop(800, 565)->save($destinationPath.'/'.$nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(574, 410)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(574, 410)->save($destinationPathMedium.'/'.$nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(287, 205)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(287, 205)->save($destinationPathMin.'/'.$nameFile);
 
-            if (!$img && !$imgMedium && !$imgMin) {
+            if (! $img && ! $imgMedium && ! $imgMin) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -138,7 +140,7 @@ class CertificateController extends Controller
         CheckPermission::checkAuth('Editar Certificados');
 
         $certificate = Certificate::find($id);
-        if (!$certificate) {
+        if (! $certificate) {
             abort(403, 'Acesso não autorizado');
         }
 
@@ -158,17 +160,17 @@ class CertificateController extends Controller
 
         $certificate = Certificate::find($id);
 
-        if (!$certificate) {
+        if (! $certificate) {
             abort(403, 'Acesso não autorizado');
         }
 
         $data = $request->all();
 
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-            $name = Str::slug(mb_substr($data['title'], 0, 100)) . time();
-            $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
-            $imagePathMedium = storage_path() . '/app/public/certificates/medium/' . $certificate->cover;
-            $imagePathMin = storage_path() . '/app/public/certificates/min/' . $certificate->cover;
+            $name = Str::slug(mb_substr($data['title'], 0, 100)).time();
+            $imagePath = storage_path().'/app/public/certificates/'.$certificate->cover;
+            $imagePathMedium = storage_path().'/app/public/certificates/medium/'.$certificate->cover;
+            $imagePathMin = storage_path().'/app/public/certificates/min/'.$certificate->cover;
 
             if (File::isFile($imagePath)) {
                 unlink($imagePath);
@@ -187,38 +189,38 @@ class CertificateController extends Controller
 
             $data['cover'] = $nameFile;
 
-            $destinationPath = storage_path() . '/app/public/certificates';
-            $destinationPathMedium = storage_path() . '/app/public/certificates/medium';
-            $destinationPathMin = storage_path() . '/app/public/certificates/min';
+            $destinationPath = storage_path().'/app/public/certificates';
+            $destinationPathMedium = storage_path().'/app/public/certificates/medium';
+            $destinationPathMin = storage_path().'/app/public/certificates/min';
 
-            if (!file_exists($destinationPath)) {
+            if (! file_exists($destinationPath)) {
                 mkdir($destinationPath, 755, true);
             }
 
-            if (!file_exists($destinationPathMedium)) {
+            if (! file_exists($destinationPathMedium)) {
                 mkdir($destinationPathMedium, 755, true);
             }
 
-            if (!file_exists($destinationPathMin)) {
+            if (! file_exists($destinationPathMin)) {
                 mkdir($destinationPathMin, 755, true);
             }
 
             $img = Image::make($request->cover)->resize(null, 565, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(800, 565)->save($destinationPath . '/' . $nameFile);
+            })->crop(800, 565)->save($destinationPath.'/'.$nameFile);
 
             $imgMedium = Image::make($request->cover)->resize(null, 410, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(574, 410)->save($destinationPathMedium  . '/' .  $nameFile);
+            })->crop(574, 410)->save($destinationPathMedium.'/'.$nameFile);
 
             $imgMin = Image::make($request->cover)->resize(null, 205, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
-            })->crop(287, 205)->save($destinationPathMin  . '/' .  $nameFile);
+            })->crop(287, 205)->save($destinationPathMin.'/'.$nameFile);
 
-            if (!$img && !$imgMedium && !$imgMin) {
+            if (! $img && ! $imgMedium && ! $imgMin) {
                 return redirect()
                     ->back()
                     ->withInput()
@@ -250,13 +252,13 @@ class CertificateController extends Controller
 
         $certificate = Certificate::find($id);
 
-        if (!$certificate) {
+        if (! $certificate) {
             abort(403, 'Acesso não autorizado');
         }
 
-        $imagePath = storage_path() . '/app/public/certificates/' . $certificate->cover;
-        $imagePathMedium = storage_path() . '/app/public/certificates/medium/' . $certificate->cover;
-        $imagePathMin = storage_path() . '/app/public/certificates/min/' . $certificate->cover;
+        $imagePath = storage_path().'/app/public/certificates/'.$certificate->cover;
+        $imagePathMedium = storage_path().'/app/public/certificates/medium/'.$certificate->cover;
+        $imagePathMin = storage_path().'/app/public/certificates/min/'.$certificate->cover;
 
         if ($certificate->delete()) {
             if (File::isFile($imagePath)) {

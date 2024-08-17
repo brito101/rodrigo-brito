@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Certificate;
-use Illuminate\Http\Request;
 use Meta;
 
 class AboutController extends Controller

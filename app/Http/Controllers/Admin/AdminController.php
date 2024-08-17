@@ -10,10 +10,10 @@ use App\Models\User;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
 use App\Models\Views\VisitYesterday;
-use Illuminate\Http\Request;
 use DataTables;
-use Shetabit\Visitor\Models\Visit as ModelsVisit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Shetabit\Visitor\Models\Visit as ModelsVisit;
 
 class AdminController extends Controller
 {
@@ -49,12 +49,11 @@ class AdminController extends Controller
             ->where('url', 'NOT LIKE', '%.png%')
             ->get();
 
-
         // $postsList = $posts->orderBy('views', 'desc')->limit(25);
         $postsChart = ['label' => [], 'data' => []];
         foreach ($posts->sortBy('views')->reverse()->take(10) as $p) {
             $postsChart['label'][] = Str::limit($p->title, 25);
-            $postsChart['data'][] = (int)$p->views;
+            $postsChart['data'][] = (int) $p->views;
         }
 
         // $projectsList = $projects->orderBy('views', 'desc')->limit(25);
@@ -62,7 +61,7 @@ class AdminController extends Controller
         $projectsChart = ['label' => [], 'data' => []];
         foreach ($projects->sortBy('views')->reverse()->take(10) as $p) {
             $projectsChart['label'][] = Str::limit($p->title, 25);
-            $projectsChart['data'][] = (int)$p->views;
+            $projectsChart['data'][] = (int) $p->views;
         }
 
         if ($request->ajax()) {
@@ -110,7 +109,7 @@ class AdminController extends Controller
             'onlineUsers' => $onlineUsers,
             'access' => $access,
             'percent' => $percent,
-            'chart' => $chart
+            'chart' => $chart,
         ]);
     }
 
@@ -143,7 +142,7 @@ class AdminController extends Controller
 
         $percent = 0;
         if ($accessYesterday > 0 && $totalDaily > 0) {
-            $percent = number_format((($totalDaily - $accessYesterday) / $totalDaily * 100), 2, ",", ".");
+            $percent = number_format((($totalDaily - $accessYesterday) / $totalDaily * 100), 2, ',', '.');
         }
 
         /** Visitor Chart */
@@ -153,18 +152,18 @@ class AdminController extends Controller
 
         $dataList = [];
         foreach ($data as $key => $value) {
-            $dataList[$key . 'H'] = count($value);
+            $dataList[$key.'H'] = count($value);
         }
 
-        $chart = new \stdClass();
+        $chart = new \stdClass;
         $chart->labels = (array_keys($dataList));
         $chart->dataset = (array_values($dataList));
 
-        return array(
+        return [
             'onlineUsers' => $onlineUsers,
             'access' => $totalDaily,
             'percent' => $percent,
-            'chart' => $chart
-        );
+            'chart' => $chart,
+        ];
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
-use Illuminate\Http\Request;
 use Meta;
 
 class HomeController extends Controller

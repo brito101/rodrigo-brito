@@ -43,7 +43,7 @@ class PortfolioController extends Controller
 
         if ($post) {
 
-            $title = 'Rodrigo Brito - ' . $post->title;
+            $title = 'Rodrigo Brito - '.$post->title;
             $route = route('site.portfolio.post', ['uri' => $uri]);
             $description = $post->subtitle;
 
@@ -56,7 +56,7 @@ class PortfolioController extends Controller
             Meta::set('og:url', $route);
             Meta::set('twitter:url', $route);
             Meta::set('robots', 'index,follow');
-            Meta::set('image', url('storage/portfolio/min/' . $post->cover));
+            Meta::set('image', url('storage/portfolio/min/'.$post->cover));
             Meta::set('canonical', $route);
 
             $categories = [];
@@ -64,7 +64,7 @@ class PortfolioController extends Controller
                 $categories[] .= $category->portfolio_category_id;
             }
 
-            if (!Auth::user()) {
+            if (! Auth::user()) {
                 $post->views++;
                 $post->update();
             }
@@ -85,7 +85,7 @@ class PortfolioController extends Controller
 
         $title = 'Rodrigo Brito - Portfolio';
         $route = route('site.portfolio.search', ['s' => $search]);
-        $description = 'Pesquisa por: ' . $search;
+        $description = 'Pesquisa por: '.$search;
         /** Meta */
         Meta::title($title);
         Meta::set('description', $description);
@@ -106,7 +106,6 @@ class PortfolioController extends Controller
         return \view('site.portfolio.index', \compact('title', 'posts', 'search', 'description'));
     }
 
-
     public function category(Request $request)
     {
         $category = filter_var($request->category, 513);
@@ -115,9 +114,9 @@ class PortfolioController extends Controller
 
         if ($category) {
 
-            $title = 'Rodrigo Brito - Projetos em: ' . $category->title;
+            $title = 'Rodrigo Brito - Projetos em: '.$category->title;
             $route = route('site.portfolio.category', ['category' => $category->uri]);
-            $description = 'Projetos em: ' . $category->title;
+            $description = 'Projetos em: '.$category->title;
             /** Meta */
             Meta::title($title);
             Meta::set('description', $description);
@@ -127,7 +126,7 @@ class PortfolioController extends Controller
             Meta::set('og:url', $route);
             Meta::set('twitter:url', $route);
             Meta::set('robots', 'index,follow');
-            Meta::set('image', url('storage/portfolio-categories/min/' . $category->cover));
+            Meta::set('image', url('storage/portfolio-categories/min/'.$category->cover));
             Meta::set('canonical', $route);
 
             $portfolioCategories = PortfolioCategoriesPivot::where('portfolio_category_id', $category->id)->pluck('portfolio_id');
