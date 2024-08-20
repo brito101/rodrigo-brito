@@ -72,6 +72,13 @@
                 <p>Desec Certified Penetration Tester</p>
             </article>
             <article>
+                <h3>CAP</h3>                
+                <div>
+                    <img src="{{ asset('img/cap.webp') }}" alt="CAP" title="CAP" width="300" height="300" />
+                </div>
+                <p>Certified AppSec Practitioner</p>
+            </article>
+            <article>
                 <h3>CNSP</h3>                
                 <div>
                     <img src="{{ asset('img/cnsp.webp') }}" alt="CNSP" title="CNSP" width="300" height="300" />
