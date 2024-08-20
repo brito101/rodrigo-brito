@@ -11,7 +11,7 @@
             <canvas class="snow"></canvas>
             <header>
                 <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Desenvolvedor Web / AppSec</h2>
-                <p class="headline">FullStack PHP | Web Designer | DCPT | CNSP | CAP | SYCP</p>
+                <p class="headline">FullStack PHP | Web Designer | DCPT | CAP | CNSP | SYCP</p>
                 <p data-anime="1200" class="fadeInDown">
                     <button data-go=".home_opt_in">
                         Conheça meu Portfólio</button>
