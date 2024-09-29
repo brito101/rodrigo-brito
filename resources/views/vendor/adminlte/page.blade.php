@@ -2,7 +2,7 @@
 
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 
-@section('adminlte_css')
+@section('adminlte_css_pre')
     @stack('css')
     @yield('css')
     <style>
@@ -11,7 +11,7 @@
         }
 
         div.dt-button-collection {
-            background-color: #454d55;
+            background-color: #454d55 !important;
         }
     </style>
 @stop
