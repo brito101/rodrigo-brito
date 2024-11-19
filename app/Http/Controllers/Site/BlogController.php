@@ -76,7 +76,7 @@ class BlogController extends Controller
 
             $related = Blog::whereHas('categories', function ($query) use ($categories) {
                 $query->whereIn('blog_category_id', $categories);
-            })->where('id', '!=', $post->id)->inRandomOrder()->limit(3)->get();
+            })->where('id', '!=', $post->id)->where('status', 'post')->inRandomOrder()->limit(3)->get();
 
             return \view('site.blog.post', \compact('title', 'post', 'related', 'title'));
         } else {

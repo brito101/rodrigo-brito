@@ -71,7 +71,7 @@ class PortfolioController extends Controller
 
             $related = Portfolio::whereHas('categories', function ($query) use ($categories) {
                 $query->whereIn('portfolio_category_id', $categories);
-            })->where('id', '!=', $post->id)->inRandomOrder()->limit(3)->get();
+            })->where('id', '!=', $post->id)->where('status', 'post')->inRandomOrder()->limit(3)->get();
 
             return \view('site.portfolio.post', \compact('title', 'post', 'related', 'title'));
         } else {
