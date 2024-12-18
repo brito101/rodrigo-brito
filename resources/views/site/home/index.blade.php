@@ -11,7 +11,7 @@
             <canvas class="snow"></canvas>
             <header>
                 <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Desenvolvedor Web / AppSec</h2>
-                <p class="headline">FullStack PHP | Web Designer | DCPT | CAP | CNSP | SYCP</p>
+                <p class="headline">FullStack PHP | Web Designer | DCPT | SYCP | CRTA | CAP | CNSP</p>
                 <p data-anime="1200" class="fadeInDown">
                     <button data-go=".home_opt_in">
                         Conheça meu Portfólio</button>
@@ -72,6 +72,20 @@
                 <p>Desec Certified Penetration Tester</p>
             </article>
             <article>
+                <h3>SYCP</h3>                
+                <div>
+                    <img src="{{ asset('img/sycp.webp') }}" alt="SYCP" title="SYCP" width="300" height="300" />
+                </div>
+                <p>Solyd Certified Pentester</p>
+            </article>
+            <article>
+                <h3>CRTA</h3>                
+                <div>
+                    <img src="{{ asset('img/crta.webp') }}" alt="CRTA" title="CRTA" width="300" height="300" />
+                </div>
+                <p>Certified Red Team Analyst</p>
+            </article>
+            <article>
                 <h3>CAP</h3>                
                 <div>
                     <img src="{{ asset('img/cap.webp') }}" alt="CAP" title="CAP" width="300" height="300" />
@@ -84,13 +98,6 @@
                     <img src="{{ asset('img/cnsp.webp') }}" alt="CNSP" title="CNSP" width="300" height="300" />
                 </div>
                 <p>Certified Network Security Practitioner</p>
-            </article>
-            <article>
-                <h3>SYCP</h3>                
-                <div>
-                    <img src="{{ asset('img/sycp.webp') }}" alt="SYCP" title="SYCP" width="300" height="300" />
-                </div>
-                <p>Solyd Certified Pentester</p>
             </article>
         </div>
     </section>
