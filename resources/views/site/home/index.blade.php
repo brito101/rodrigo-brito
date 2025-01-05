@@ -11,7 +11,7 @@
             <canvas class="snow"></canvas>
             <header>
                 <h2 data-anime="400" class="fadeInDown">Rodrigo Brito <br>Desenvolvedor Web / AppSec</h2>
-                <p class="headline">FullStack PHP | Web Designer | DCPT | SYCP | CRTA | CAP | CNSP</p>
+                <p class="headline">FullStack PHP | Red Team | GREM | DCPT | SYCP | CRTA | CAP | CNSP</p>
                 <p data-anime="1200" class="fadeInDown">
                     <button data-go=".home_opt_in">
                         Conheça meu Portfólio</button>
@@ -64,6 +64,13 @@
             <h2>Certificações</h2>
         </header>
         <div class="fadeInScrool">
+            <article>
+                <h3>GREM</h3>                
+                <div>
+                    <img src="{{ asset('img/grem.webp') }}" alt="GREM" title="GREM" width="300" height="300" />
+                </div>
+                <p>GIAC Reverse Engineering Malware</p>
+            </article>
             <article>
                 <h3>DCPT</h3>                
                 <div>
