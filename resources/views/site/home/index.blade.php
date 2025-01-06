@@ -112,5 +112,5 @@
 @endsection
 
 @section('custom_js')
-    <script src="{{ asset('js/site/home.js') }}"></script>
+    <script src="{{ asset('js/site/home-v1.js') }}"></script>
 @endsection

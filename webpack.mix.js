@@ -39,7 +39,7 @@ mix.js("resources/js/app.js", "public/js")
             "resources/js/site/home/typewrite.js",
             "resources/js/site/home/particles.js",
         ],
-        "public/js/site/home.js"
+        "public/js/site/home-v1.js"
     )
     .scripts(["resources/js/site/post/post.js"], "public/js/site/post.js")
     .scripts(["resources/js/site/about/slide.js"], "public/js/site/slide.js")
