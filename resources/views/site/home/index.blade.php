@@ -65,48 +65,49 @@
         </header>
         <div class="fadeInScrool">
             <article>
-                <h3>GREM</h3>                
+                <h3>GREM</h3>
                 <div>
                     <img src="{{ asset('img/grem.webp') }}" alt="GREM" title="GREM" width="300" height="300" />
                 </div>
                 <p>GIAC Reverse Engineering Malware</p>
             </article>
             <article>
-                <h3>DCPT</h3>                
+                <h3>DCPT</h3>
                 <div>
                     <img src="{{ asset('img/dcpt.webp') }}" alt="DCPT" title="DCPT" width="300" height="130" />
                 </div>
                 <p>Desec Certified Penetration Tester</p>
             </article>
             <article>
-                <h3>SYCP</h3>                
+                <h3>SYCP</h3>
                 <div>
                     <img src="{{ asset('img/sycp.webp') }}" alt="SYCP" title="SYCP" width="300" height="300" />
                 </div>
                 <p>Solyd Certified Pentester</p>
             </article>
             <article>
-                <h3>CRTA</h3>                
+                <h3>CRTA</h3>
                 <div>
                     <img src="{{ asset('img/crta.webp') }}" alt="CRTA" title="CRTA" width="300" height="300" />
                 </div>
                 <p>Certified Red Team Analyst</p>
             </article>
             <article>
-                <h3>CAP</h3>                
+                <h3>CAP</h3>
                 <div>
                     <img src="{{ asset('img/cap.webp') }}" alt="CAP" title="CAP" width="300" height="300" />
                 </div>
                 <p>Certified AppSec Practitioner</p>
             </article>
             <article>
-                <h3>CNSP</h3>                
+                <h3>CNSP</h3>
                 <div>
                     <img src="{{ asset('img/cnsp.webp') }}" alt="CNSP" title="CNSP" width="300" height="300" />
                 </div>
                 <p>Certified Network Security Practitioner</p>
             </article>
         </div>
+        <div id="particles-container"></div>
     </section>
 @endsection
 

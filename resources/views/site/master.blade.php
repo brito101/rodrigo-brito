@@ -33,7 +33,7 @@ T1G3R - Cyber warrior 438
     @laravelPWA
     <link rel="icon" type="image/png" href="{{ asset('img/logo.svg') }}" />
     <link rel="stylesheet" href="{{ asset('site/fonts/styles.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/site/style-v5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/site/style-v6.css') }}" />
     @metas
     @yield('custom_css')
 </head>

@@ -20,7 +20,7 @@ mix.js("resources/js/app.js", "public/js")
     .scripts(["resources/js/address.js"], "public/js/address.js")
     .scripts(["resources/js/phone.js"], "public/js/phone.js")
     /** Site */
-    .sass("resources/sass/site/style.scss", "public/css/site/style-v5.css")
+    .sass("resources/sass/site/style.scss", "public/css/site/style-v6.css")
     .copy("resources/fonts", "public/site/fonts")
     .scripts(
         [
@@ -37,6 +37,7 @@ mix.js("resources/js/app.js", "public/js")
             "resources/js/site/home/goto.js",
             "resources/js/site/home/snow.js",
             "resources/js/site/home/typewrite.js",
+            "resources/js/site/home/particles.js",
         ],
         "public/js/site/home.js"
     )
